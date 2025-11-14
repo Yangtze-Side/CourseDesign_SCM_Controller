@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick</IncludePath>
+              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick;.\Control</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -636,6 +636,21 @@
               <FileName>Pages.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Display\Pages\Pages.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Control</GroupName>
+          <Files>
+            <File>
+              <FileName>control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Control\control.c</FilePath>
+            </File>
+            <File>
+              <FileName>control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Control\control.h</FilePath>
             </File>
           </Files>
         </Group>

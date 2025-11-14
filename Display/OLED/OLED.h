@@ -23,7 +23,7 @@
 #define OLED_ADDR                               ((u8)0x78)
 
 // OLED I2C sending operation.
-#define OLED_I2C_Write(cmd, pdat, size)         User_IIC_MemWrite(OLED_ADDR, cmd, pdat, size)
+#define OLED_I2C_Write(cmd, pdat, size)         Soft_IIC_MemWrite(OLED_ADDR, cmd, pdat, size)
 
 // Delay Operation
 #define OLED_msDelay(_ms)                       Sys_Delay(_ms)

@@ -2,6 +2,7 @@
 #include "task.h"
 #include "imu_app.h"
 #include "system.h"
+#include "communication.h"
 
 void led_task(void);
 
@@ -14,12 +15,13 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      3
+#define TASK_TOTAL      4
 
 Task_t Task[TASK_TOTAL] =
 {
     { 5/5, 0, IMU_Update },
     { 5/5, 0, sys_uart_recv_task_5ms },
+    { 60/5, 0, Comm_SendTask },
     { 500/5, 0, led_task },
 };
 

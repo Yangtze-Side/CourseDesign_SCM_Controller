@@ -88,7 +88,7 @@ static void IIC_SendAck(u8 ackbit)
 	SDA_High();
 }
 
-void User_IIC_MemWrite(u8 DevAddr, u8 MemAddr, const u8 *pData, u16 Len)
+void Soft_IIC_MemWrite(u8 DevAddr, u8 MemAddr, const u8 *pData, u16 Len)
 {
     u16 i = 0;
 

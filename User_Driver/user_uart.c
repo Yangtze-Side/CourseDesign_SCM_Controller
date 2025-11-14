@@ -5,14 +5,27 @@ static UART_RecvCB_t uart_recv_cb = NULL;
 
 /**
  * @brief Starts the uart sending process.
+ * @note  串口发送完一个数组需要一定时间，但是这个函数是非阻塞的，发送过程会在中断里自动完成；
+ * 		  但是如果需要紧接着调用两次这个函数，需要在第二次以上调用时保证第一次已发送完成。请
+ * 		  这么写：
+ * 			  UART_Send_Start(tx, pdat1, size1);
+ * 			  while (UART_Send_Start(tx, pdat2, size2) == FALSE);
+ * 			  while (UART_Send_Start(tx, pdat3, size3) == FALSE);
  * 
  * @param send 		The uart handle
+ * @param pDat 		Data array address or NULL.
+ * 					Giving NULL is indicates that data is already at send->Buf.
  * @param txSize 	size in byte to be sent
+ * @return BOOL 	If sending requiement is approved
  */
-void UART_Send_Start(UART_Send_t *send, u8 txSize)
+BOOL UART_Send_Start(UART_Send_t *send, u8 *pDat, u8 txSize)
 {
-	if (send->Busy == TRUE) return;
+	u8 actual_send_length;
+	if (send->Busy == TRUE) return FALSE;
+	if (txSize == 0) return TRUE;
 	send->Busy = TRUE;
+	actual_send_length = min(txSize, send->BufSize);
+	if (pDat != NULL) memcpy(send->Buf, pDat, actual_send_length);
 	switch (send->Index)
 	{
 		case UART1: SBUF  = *(send->Buf); break;
@@ -22,7 +35,8 @@ void UART_Send_Start(UART_Send_t *send, u8 txSize)
 		default: break;
 	}
 	send->Cnt = 0;
-	send->Size = txSize;
+	send->TxSize = actual_send_length;
+	return TRUE;
 }
 
 /**
@@ -33,7 +47,7 @@ void UART_Send_Start(UART_Send_t *send, u8 txSize)
 void UART_Send_ITHandler(UART_Send_t *send)
 {
 	++send->Cnt;
-	if (send->Cnt >= send->Size)
+	if (send->Cnt >= send->TxSize)
 	{
 		send->Busy = FALSE;
 		// Sending completes.
@@ -65,7 +79,7 @@ void UART_Recv_ITHandler(UART_Recv_t *recv)
 	}
 	++recv->Cnt;
 	recv->Timeout = 0;
-	if (recv->Cnt <= recv->Size)
+	if (recv->Cnt <= recv->BufSize)
 	{
 		switch (recv->Index)
 		{
