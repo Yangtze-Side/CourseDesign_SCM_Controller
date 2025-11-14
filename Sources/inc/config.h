@@ -41,6 +41,7 @@
 
 #include "timer.h"
 #include "uart.h"
+#include "adc.h"
 
 void SYS_Init(void);
 void delay_us(uint16_t us);

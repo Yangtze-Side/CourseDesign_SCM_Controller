@@ -65,9 +65,9 @@
 	<PORT1>
 		<PeriEnable>0</PeriEnable>
 		<IntPriority>0</IntPriority>
-		<PortMD_0>0</PortMD_0>
+		<PortMD_0>2</PortMD_0>
 		<PortLevel_0>1</PortLevel_0>
-		<PortMD_1>0</PortMD_1>
+		<PortMD_1>2</PortMD_1>
 		<PortLevel_1>1</PortLevel_1>
 		<PortMD_2>0</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
@@ -376,8 +376,8 @@
 		<IntPriority>0</IntPriority>
 	</EXTI4>
 	<ADC>
-		<PeriEnable>0</PeriEnable>
-		<ADCChannels>0</ADCChannels>
+		<PeriEnable>1</PeriEnable>
+		<ADCChannels>3</ADCChannels>
 		<ClockDivider>0</ClockDivider>
 		<ResultAlign>1</ResultAlign>
 		<IntPriority>0</IntPriority>
@@ -483,6 +483,8 @@
 	</EPWM>
 	<PINMAP>
 		<PinCount>256</PinCount>
+		<Pin09Map>1</Pin09Map>
+		<Pin10Map>1</Pin10Map>
 		<Pin16Map>2</Pin16Map>
 		<Pin17Map>2</Pin17Map>
 		<Pin19Map>-1</Pin19Map>

@@ -7,4 +7,10 @@
 // 并把结果存放在一个结构体中。这个结果暂时不需要转换成速度数据，因为你可以在 control.c
 // 中转换它，这里只是编写底层转换过程。你可以每 50 ms 执行一次这个任务。
 
+typedef struct {
+    uint16_t adc_ch0;   // ADC 通道 0 的原始采样值
+    uint16_t adc_ch1;   // ADC 通道 1 的原始采样值
+} ADC_Data_t;
+
+
 #endif // !__JOYSTICK_H

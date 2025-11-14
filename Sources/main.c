@@ -87,6 +87,7 @@ void SYS_Init(void)
     TIMER0_Init();                      //定时器0初始化
     TIMER2_Init();                      //定时器2初始化
     UART1_Init();                       //串口1初始化
+    ADC_Init();                         //ADC初始化
 
     //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
     // 在此添加用户初始化代码  
