@@ -10,7 +10,10 @@
 typedef struct {
     uint16_t adc_ch0;   // ADC 通道 0 的原始采样值
     uint16_t adc_ch1;   // ADC 通道 1 的原始采样值
-} ADC_Data_t;
+} ADC_CH_Data;
 
+extern ADC_CH_Data adc_data;
+
+void ADC_Task(void);
 
 #endif // !__JOYSTICK_H

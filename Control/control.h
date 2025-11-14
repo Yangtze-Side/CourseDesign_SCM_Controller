@@ -13,4 +13,48 @@
 //             按下右边按键 vw = -30；
 // 2. 重力遥控：俯仰角和横滚决定 vy 和 vx，偏航角决定 target_yaw。
 
+
+//对重力的敏感度
+#define GRAVITY_SENSITY      2.0f
+
+
+
+//控制模式
+typedef enum {
+    Ctrl_Mode_JoyStick = 0,   // 摇杆模式
+    Ctrl_Mode_Gravity         // 重力遥控模式
+} ControlMode;
+
+//摇杆数据
+typedef struct {
+    float vx;        // 摇杆 x → 速度 x
+    float vy;        // 摇杆 y → 速度 y
+    float vw;        // 旋转速度（由按键控制）
+    uint8_t btn_left;  // 左转按键
+    uint8_t btn_right; // 右转按键
+} ControlJoystick;
+
+//重力遥控数据
+typedef struct {
+    float roll;       // 横滚 → vx
+    float pitch;      // 俯仰 → vy
+    float yaw;        // 偏航 → 更新 target_yaw
+    float vx;
+    float vy;
+} ControlGravity;
+
+typedef struct {
+    ControlMode mode;         // 当前控制模式
+    ControlJoystick joystick;       // 摇杆模式数据
+    ControlGravity gravity;        // 重力遥控数据
+    float out_vx;             // 输出给电机控制的 vx
+    float out_vy;             // 输出给电机控制的 vy
+    float out_vw;             // 输出给电机控制的 vw
+} ControlCar;
+
+extern ControlCar ctrl_car;
+
+
+void Control_Update(void);
+
 #endif // !__CONTROL_H
