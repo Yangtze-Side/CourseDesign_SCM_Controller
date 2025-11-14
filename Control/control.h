@@ -15,8 +15,8 @@
 
 
 //对重力的敏感度
-#define GRAVITY_SENSITY      2.0f
-
+#define GRAVITY_SENSITY       2.0f
+#define SPEED_LIMIT         100.0f
 
 
 //控制模式

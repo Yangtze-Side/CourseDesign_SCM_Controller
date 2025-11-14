@@ -54,9 +54,16 @@ void Control_Update(void)
             ctrl_car.out_vw = ctrl_car.gravity.yaw * GRAVITY_SENSITY;
 
             break;
+
+        default:
+            ctrl_car.out_vx = 0.0f;
+            ctrl_car.out_vy = 0.0f;
+            ctrl_car.out_vw = 0.0f;
+            
+            break;    
     }
 
     // 这里限制最大速度
-    Speed_Limit(&ctrl_car.out_vx, -200.0f, 200.0f);
-    Speed_Limit(&ctrl_car.out_vy, -200.0f, 200.0f);
+    Speed_Limit(&ctrl_car.out_vx, -(SPEED_LIMIT), SPEED_LIMIT);
+    Speed_Limit(&ctrl_car.out_vy, -(SPEED_LIMIT), SPEED_LIMIT);
 }

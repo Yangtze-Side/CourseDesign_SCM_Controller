@@ -64,30 +64,30 @@ void Comm_SendTask(void)
 
     switch (ctrl_car.mode)
     {
-    case Ctrl_Mode_JoyStick:
-        // 前三个字节是帧头和命令
-        dat[0] = COMM_BYTE0;
-        dat[1] = COMM_BYTE1;
-        dat[2] = COMM_CMD_JoysMode;
+        case Ctrl_Mode_JoyStick:
+            // 前三个字节是帧头和命令
+            dat[0] = COMM_BYTE0;
+            dat[1] = COMM_BYTE1;
+            dat[2] = COMM_CMD_JoysMode;
 
-        *(float*)(dat + 3) = ctrl_car.out_vx;       // dat[3 ~ 6] 存放 vx
-        *(float*)(dat + 7) = ctrl_car.out_vy;       // dat[7 ~ 10] 存放 vy
-        *(float*)(dat + 11) = ctrl_car.out_vw;      // dat[11 ~ 13] 存放 vw
-        break;
-    
-    case Ctrl_Mode_Gravity:
-        // 前三个字节是帧头和命令
-        dat[0] = COMM_BYTE0;
-        dat[1] = COMM_BYTE1;
-        dat[2] = COMM_CMD_JoysMode;
+            *(float*)(dat + 3) = ctrl_car.out_vx;       // dat[3 ~ 6] 存放 vx
+            *(float*)(dat + 7) = ctrl_car.out_vy;       // dat[7 ~ 10] 存放 vy
+            *(float*)(dat + 11) = ctrl_car.out_vw;      // dat[11 ~ 13] 存放 vw
+            break;
+        
+        case Ctrl_Mode_Gravity:
+            // 前三个字节是帧头和命令
+            dat[0] = COMM_BYTE0;
+            dat[1] = COMM_BYTE1;
+            dat[2] = COMM_CMD_GravMode;
 
-        *(float*)(dat + 3) = ctrl_car.out_vx;       // dat[3 ~ 6] 存放 vx
-        *(float*)(dat + 7) = ctrl_car.out_vy;       // dat[7 ~ 10] 存放 vy
-        *(float*)(dat + 11) = ctrl_car.out_vw;      // dat[11 ~ 13] 存放 vw
-        break;
+            *(float*)(dat + 3) = ctrl_car.out_vx;       // dat[3 ~ 6] 存放 vx
+            *(float*)(dat + 7) = ctrl_car.out_vy;       // dat[7 ~ 10] 存放 vy
+            *(float*)(dat + 11) = ctrl_car.out_vw;      // dat[11 ~ 13] 存放 vw
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 
     UART_Send_Start(&uart1_tx, dat, 14);
