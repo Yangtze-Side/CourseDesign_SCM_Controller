@@ -30,8 +30,6 @@ typedef struct {
     float vx;        // 摇杆 x → 速度 x
     float vy;        // 摇杆 y → 速度 y
     float vw;        // 旋转速度（由按键控制）
-    uint8_t btn_left;  // 左转按键
-    uint8_t btn_right; // 右转按键
 } ControlJoystick;
 
 //重力遥控数据

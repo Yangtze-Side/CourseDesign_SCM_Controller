@@ -556,6 +556,18 @@
         </Group>
         <Group>
           <GroupName>Joystick</GroupName>
+          <Files>
+            <File>
+              <FileName>Joystick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Joystick\Joystick.c</FilePath>
+            </File>
+            <File>
+              <FileName>Joystick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Joystick\Joystick.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Display</GroupName>

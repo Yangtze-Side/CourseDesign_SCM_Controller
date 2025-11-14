@@ -1,5 +1,8 @@
 
 #include "control.h"
+#include "key_ud.h"
+#include "Joystick.h"
+#include "imu_app.h"
 
 
 ControlCar ctrl_car;
@@ -19,9 +22,30 @@ void Speed_Limit(float *val, float min, float max)
         *val = min;
 }
 
+float MapAngleTo100(float angle)
+{
+    if (angle < 0) angle = 0;       // 限制范围
+    if (angle > 30) angle = 30;
+
+    return (angle * (100.0f / 30.0f));
+}
+
+
+void Control_Data_Update(void)
+{
+    ctrl_car.joystick.vx = (adc_data.adc_ch0 - 2048.0f) / 2048.0f * 100.0f;
+    ctrl_car.joystick.vy = (adc_data.adc_ch1 - 2048.0f) / 2048.0f * 100.0f;
+
+    ctrl_car.gravity.roll  = MapAngleTo100(EulerAngle.roll);
+    ctrl_car.gravity.pitch = MapAngleTo100(EulerAngle.pitch);
+    ctrl_car.gravity.yaw   = MapAngleTo100(EulerAngle.yaw);
+}
 
 void Control_Update(void)
 {
+
+    Control_Data_Update();
+
     switch (ctrl_car.mode)
     {
         case Ctrl_Mode_JoyStick:
@@ -31,10 +55,10 @@ void Control_Update(void)
 
             // vw 由按键按下而改变
             // vm 目前只有前进和后退，而不是在原有的 vm数值 基础上改动
-            if (ctrl_car.joystick.btn_left) {
+            if (KeyUD_Is_Pressed(Key_UD_Left)) {
                 ctrl_car.joystick.vw = 30;
             }
-            else if (ctrl_car.joystick.btn_right) {
+            else if (KeyUD_Is_Pressed(Key_UD_Right)) {
                 ctrl_car.joystick.vw = -30;
             }
             else {
@@ -66,4 +90,5 @@ void Control_Update(void)
     // 这里限制最大速度
     Speed_Limit(&ctrl_car.out_vx, -(SPEED_LIMIT), SPEED_LIMIT);
     Speed_Limit(&ctrl_car.out_vy, -(SPEED_LIMIT), SPEED_LIMIT);
+    Speed_Limit(&ctrl_car.out_vw, -(SPEED_LIMIT), SPEED_LIMIT);
 }
