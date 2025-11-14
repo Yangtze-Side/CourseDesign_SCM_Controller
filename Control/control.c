@@ -6,7 +6,9 @@
 #include "user_lib.h"
 
 
+u8 vw_set;
 ControlCar_t ctrl_car;
+
 
 #define Angle_Limit             LimAbsAsgn
 #define Speed_Limit             LimAbsAsgn
@@ -21,9 +23,9 @@ void Control_Data_Update(void)
     ctrl_car.joystick.vx = (adc_data.adc_ch0 - 2048.0f) / 2048.0f * 100.0f;
     ctrl_car.joystick.vy = (adc_data.adc_ch1 - 2048.0f) / 2048.0f * 100.0f;
 
-    ctrl_car.gravity.roll  = MapAngleTo100(EulerAngle.roll);
-    ctrl_car.gravity.pitch = MapAngleTo100(EulerAngle.pitch);
-    ctrl_car.gravity.yaw   = MapAngleTo100(Angle_Limit(EulerAngle.yaw, YAW_ANGLE_USE));
+    ctrl_car.gravity.roll  = MapAngleTo100(EulerAngle.roll, ROLL_ANGLE_USE);
+    ctrl_car.gravity.pitch = MapAngleTo100(EulerAngle.pitch, PITCH_ANGLE_USE);
+    ctrl_car.gravity.yaw   = MapAngleTo100(EulerAngle.yaw, YAW_ANGLE_USE);
 }
 
 /**
@@ -45,10 +47,10 @@ void Control_Update(void)
             // vw 由按键按下而改变
             // vm 目前只有前进和后退，而不是在原有的 vm数值 基础上改动
             if (KeyUD_Is_Pressed(Key_UD_Left)) {
-                ctrl_car.joystick.vw = 30;
+                ctrl_car.joystick.vw = vw_set;
             }
             else if (KeyUD_Is_Pressed(Key_UD_Right)) {
-                ctrl_car.joystick.vw = -30;
+                ctrl_car.joystick.vw = -vw_set;
             }
             else {
                 ctrl_car.joystick.vw = 0;

@@ -15,18 +15,22 @@
 
 
 //对重力的敏感度
-#define GRAVITY_SENSITY       2.0f
-#define SPEED_LIMIT         100.0f
+#define GRAVITY_SENSITY         2.0f
+#define SPEED_LIMIT           100.0f
 //使用的角度范围
-#define YAW_ANGLE_USE            30.0f
+#define ROLL_ANGLE_USE         45.0f
+#define PITCH_ANGLE_USE        45.0f
+#define YAW_ANGLE_USE          30.0f
 
-#define MapAngleTo100(angle)   ((angle) / 180.0f * 100.0f)
+#define MapAngleTo100(angle, angle_limit)   ((angle) / (angle_limit) * 100.0f)
 
 
 //控制模式
 typedef enum {
     Ctrl_Mode_JoyStick = 0,   // 摇杆模式
-    Ctrl_Mode_Gravity         // 重力遥控模式
+    Ctrl_Mode_Gravity,         // 重力遥控模式
+    Ctrl_Mode_AutoCruise,       // 自动巡航模式
+    Ctrl_Mode_AutoFollow       // 自动跟随模式
 } ControlMode_t;
 
 //摇杆数据
@@ -52,6 +56,8 @@ typedef struct {
     float out_vw;             // 输出给电机控制的 vw
 } ControlCar_t;
 
+
+extern u8 vw_set;
 extern ControlCar_t ctrl_car;
 
 
