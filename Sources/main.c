@@ -17,6 +17,7 @@
 // 在此添加用户头文件包含  
 #include "task.h"
 #include "communication.h"
+#include "system.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -41,6 +42,7 @@ void main(void)
 
     //<<AICUBE_USER_MAIN_CODE_BEGIN>>
     // 在此添加主函数中运行一次的用户代码  
+    proj_init();
     //<<AICUBE_USER_MAIN_CODE_END>>
 
     while (1)
