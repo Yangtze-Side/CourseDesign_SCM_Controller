@@ -20,7 +20,7 @@
 	 * 已有汉字：
 	 *  欢迎，起终点，科目
 	 */
-	extern struct Cn16CharTypedef Cn16Char[Cn16Char_SUMMARY];
+	extern struct Cn16CharTypedef code Cn16Char[Cn16Char_SUMMARY];
 
 #endif
 
@@ -38,7 +38,7 @@
 	/**
 	 * 已有汉字：彭宇暄，岳子康，周玄凌
 	 */
-	extern struct Cn32CharTypedef Cn32Char[Cn32Char_SUMMARY];
+	extern struct Cn32CharTypedef code Cn32Char[Cn32Char_SUMMARY];
 
 #endif
 

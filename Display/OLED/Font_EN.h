@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-extern u8 ascii_1608[][16];
+extern u8 code ascii_1608[][16];
 
 #endif

@@ -21,10 +21,6 @@
 #define OLED_DISPLAY_ON                 (0xAF)
 #define OLED_DISPLAY_OFF                (0xAE)
 
-#define OLED_DISPGRAPH_SIZE             ((u16)(8*128))
-
-static u8 OLED_DispGraph[OLED_DISPGRAPH_SIZE];
-
 BOOL OLED_IsInit = FALSE;
 
 void OLED_Clear(void);
