@@ -21,6 +21,8 @@
 #define ROLL_ANGLE_USE         45.0f
 #define PITCH_ANGLE_USE        45.0f
 #define YAW_ANGLE_USE          30.0f
+// 默认旋转速度
+#define DEFAULT_VW             30.0f
 
 #define MapAngleTo100(angle, angle_limit)   ((angle) / (angle_limit) * 100.0f)
 
@@ -35,33 +37,31 @@ typedef enum {
 
 //摇杆数据
 typedef struct {
-    float vx;        // 摇杆 x → 速度 x
-    float vy;        // 摇杆 y → 速度 y
-    float vw;        // 旋转速度（由按键控制）
+    float vx;           // 摇杆 x → 速度 x
+    float vy;           // 摇杆 y → 速度 y
+    float vw;           // 旋转速度（由按键控制）
 } ControlJoystick_t;
 
 //重力遥控数据
 typedef struct {
-    float roll;       // 横滚 → vx
-    float pitch;      // 俯仰 → vy
-    float yaw;        // 偏航 → 更新 target_yaw
+    float vx;           // 横滚角 → 速度 vx
+    float vy;           // 俯仰角 → 速度 vy
+    float target_yaw;   // 偏航角 → 目标偏航角 target_yaw
 } ControlGravity_t;
 
 typedef struct {
     ControlMode_t mode;                 // 当前控制模式
-    ControlJoystick_t joystick;       // 摇杆模式数据
-    ControlGravity_t gravity;        // 重力遥控数据
-    float out_vx;             // 输出给电机控制的 vx
-    float out_vy;             // 输出给电机控制的 vy
-    float out_vw;             // 输出给电机控制的 vw
+    float vw_set;                       // 摇杆模式下的旋转速度大小
+    ControlJoystick_t joystick;         // 摇杆模式数据
+    ControlGravity_t  gravity;          // 重力遥控数据
 } ControlCar_t;
 
 
-extern u8 vw_set;
 extern ControlCar_t ctrl_car;
 
 
 void Control_Update(void);
 void Control_Set_Mode(ControlMode_t mode);
+void Control_SetVw(float vw);
 
 #endif // !__CONTROL_H
