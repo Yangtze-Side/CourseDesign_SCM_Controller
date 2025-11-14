@@ -3,39 +3,14 @@
 #include "key_ud.h"
 #include "Joystick.h"
 #include "imu_app.h"
+#include "user_lib.h"
 
 
 ControlCar_t ctrl_car;
 
+#define Angle_Limit             LimAbsAsgn
+#define Speed_Limit             LimAbsAsgn
 
-/**
- * @brief 限制速度在指定范围内
- * @param val   要限制的变量地址（如 &ctrl_car.out_vx）
- * @param min   最小值
- * @param max   最大值
- */
-void Speed_Limit(float *val, float min, float max)
-{
-    if (*val > max)
-        *val = max;
-    else if (*val < min)
-        *val = min;
-}
-
-/**
- * @brief 限制角度在指定范围内
- * @param angle     角度值
- * @param min_angle 最小角度
- * @param max_angle 最大角度
- * @return float    限制后的角度值
- */
-float Angle_Limit(float angle, float min_angle, float max_angle)
-{
-    if (angle < min_angle) angle = min_angle;       // 限制范围
-    if (angle > max_angle) angle = max_angle;
-
-    return angle;
-}
 
 /**
  * @brief 更新控制数据
@@ -48,7 +23,7 @@ void Control_Data_Update(void)
 
     ctrl_car.gravity.roll  = MapAngleTo100(EulerAngle.roll);
     ctrl_car.gravity.pitch = MapAngleTo100(EulerAngle.pitch);
-    ctrl_car.gravity.yaw   = MapAngleTo100(Angle_Limit(EulerAngle.yaw, -YAW_ANGLE_USE, YAW_ANGLE_USE));
+    ctrl_car.gravity.yaw   = MapAngleTo100(Angle_Limit(EulerAngle.yaw, YAW_ANGLE_USE));
 }
 
 /**
@@ -102,7 +77,7 @@ void Control_Update(void)
     }
 
     // 这里限制最大速度
-    Speed_Limit(&ctrl_car.out_vx, -(SPEED_LIMIT), SPEED_LIMIT);
-    Speed_Limit(&ctrl_car.out_vy, -(SPEED_LIMIT), SPEED_LIMIT);
-    Speed_Limit(&ctrl_car.out_vw, -(SPEED_LIMIT), SPEED_LIMIT);
+    Speed_Limit(ctrl_car.out_vx, SPEED_LIMIT);
+    Speed_Limit(ctrl_car.out_vy, SPEED_LIMIT);
+    Speed_Limit(ctrl_car.out_vw, SPEED_LIMIT);
 }

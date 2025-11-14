@@ -5,9 +5,9 @@ ADC_CH_Data_t adc_data;
 
 void ADC_Task(void)
 {
-    // 采样通道 0
-    adc_data.adc_ch0 = ADC_Convert(0);
-    // 采样通道 1
-    adc_data.adc_ch1 = ADC_Convert(1);
+    // 采样 x 轴的电压
+    adc_data.adc_ch0 = ADC_Convert(ADC_CHANNEL_X);
+    // 采样 y 轴的电压
+    adc_data.adc_ch1 = ADC_Convert(ADC_CHANNEL_Y);
 }
 
