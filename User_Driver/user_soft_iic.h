@@ -6,6 +6,6 @@
 #define SCL_Pin             P00
 #define SDA_Pin             P00
 
-void IIC_MemWrite(u8 DevAddr, u8 MemAddr, u8 *pData, u16 Len);
+void User_IIC_MemWrite(u8 DevAddr, u8 MemAddr, const u8 *pData, u16 Len);
 
 #endif // !__USER_SOFT_IIC_H

@@ -35,6 +35,7 @@
 
 //<<AICUBE_USER_INCLUDE_BEGIN>>
 // 在此添加用户头文件包含  
+#include "user_def.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
