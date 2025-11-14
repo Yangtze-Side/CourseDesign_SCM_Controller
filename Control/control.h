@@ -27,32 +27,32 @@
 typedef enum {
     Ctrl_Mode_JoyStick = 0,   // 摇杆模式
     Ctrl_Mode_Gravity         // 重力遥控模式
-} ControlMode;
+} ControlMode_t;
 
 //摇杆数据
 typedef struct {
     float vx;        // 摇杆 x → 速度 x
     float vy;        // 摇杆 y → 速度 y
     float vw;        // 旋转速度（由按键控制）
-} ControlJoystick;
+} ControlJoystick_t;
 
 //重力遥控数据
 typedef struct {
     float roll;       // 横滚 → vx
     float pitch;      // 俯仰 → vy
     float yaw;        // 偏航 → 更新 target_yaw
-} ControlGravity;
+} ControlGravity_t;
 
 typedef struct {
-    ControlMode mode;         // 当前控制模式
-    ControlJoystick joystick;       // 摇杆模式数据
-    ControlGravity gravity;        // 重力遥控数据
+    ControlMode_t mode;         // 当前控制模式
+    ControlJoystick_t joystick;       // 摇杆模式数据
+    ControlGravity_t gravity;        // 重力遥控数据
     float out_vx;             // 输出给电机控制的 vx
     float out_vy;             // 输出给电机控制的 vy
     float out_vw;             // 输出给电机控制的 vw
-} ControlCar;
+} ControlCar_t;
 
-extern ControlCar ctrl_car;
+extern ControlCar_t ctrl_car;
 
 
 void Control_Update(void);

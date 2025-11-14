@@ -1,7 +1,7 @@
 
 #include "Joystick.h"
 
-ADC_CH_Data adc_data;
+ADC_CH_Data_t adc_data;
 
 void ADC_Task(void)
 {

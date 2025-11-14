@@ -10,6 +10,9 @@
 static bit Comm_ParseFlag = FALSE;
 static u8  Comm_DatBuf[64];
 
+DHT11_Data_t DHT11_Data;
+US_Data_t US_Data;
+
 /**
  * @brief Start parse uart data
  * 
@@ -38,13 +41,18 @@ void Comm_ParseTask(void)
             {
                 case COMM_CMD_DHT11Data:
                 {
-                    // 这是小车回传的温湿度数据，创建一个结构体变量来接收它们，并在头文件里 extern 这个结构体变量
+                    DHT11_Data.temp_int = Comm_DatBuf[3];
+                    DHT11_Data.temp_deci = Comm_DatBuf[4];
+                    DHT11_Data.humi_int = Comm_DatBuf[5];
+                    DHT11_Data.humi_deci = Comm_DatBuf[6];
+                    US_Data.F = *(float*)(Comm_DatBuf + 7);
+                    US_Data.B = *(float*)(Comm_DatBuf + 11);
+                    US_Data.L = *(float*)(Comm_DatBuf + 15);
+                    US_Data.R = *(float*)(Comm_DatBuf + 19);
                 } break;
                 
-                case COMM_CMD_Distance:
-                {
-                    // 这是小车回传的距离数据，也是创建一个结构体变量来接收它们，并在头文件里 extern 这个结构体变量
-                } break;
+                default:
+                    break;
             }
         }
     }

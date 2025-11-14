@@ -14,8 +14,7 @@
 #define COMM_CMD_AFMode             ((u8)4)     // 帧头 + CMD
 
 // Commands send to controller
-#define COMM_CMD_DHT11Data          ((u8)51)    // 帧头 + CMD + 温度数据(float，摄氏度) + 湿度数据(float，%) + 
-#define COMM_CMD_Distance           ((u8)52)    // 帧头 + CMD + 前置超声波测得的距离 F (float, cm) + B + L + R
+#define COMM_CMD_DHT11Data          ((u8)51)    // 帧头 + CMD + 温度数据(float，摄氏度) + 湿度数据(float，%) + 前置超声波测得的距离 F (float, cm) + B + L + R
 
 // Helper macros
 #define COMM_IsFrameHeadCorrect(p)  (p[0] == COMM_BYTE0 && p[1] == COMM_BYTE1)

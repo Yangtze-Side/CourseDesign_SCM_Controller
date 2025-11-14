@@ -5,7 +5,7 @@
 #include "imu_app.h"
 
 
-ControlCar ctrl_car;
+ControlCar_t ctrl_car;
 
 
 /**
