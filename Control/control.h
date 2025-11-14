@@ -48,7 +48,7 @@ typedef struct {
 } ControlGravity_t;
 
 typedef struct {
-    ControlMode_t mode;         // 当前控制模式
+    ControlMode_t mode;                 // 当前控制模式
     ControlJoystick_t joystick;       // 摇杆模式数据
     ControlGravity_t gravity;        // 重力遥控数据
     float out_vx;             // 输出给电机控制的 vx
@@ -62,5 +62,6 @@ extern ControlCar_t ctrl_car;
 
 
 void Control_Update(void);
+void Control_Set_Mode(ControlMode_t mode);
 
 #endif // !__CONTROL_H

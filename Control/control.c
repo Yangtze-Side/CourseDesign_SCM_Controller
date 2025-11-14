@@ -14,6 +14,11 @@ ControlCar_t ctrl_car;
 #define Speed_Limit             LimAbsAsgn
 
 
+void Control_Set_Mode(ControlMode_t mode)
+{
+    ctrl_car.mode = mode;
+}
+
 /**
  * @brief 更新控制数据
  * 
