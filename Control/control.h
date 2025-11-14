@@ -39,8 +39,6 @@ typedef struct {
     float roll;       // 横滚 → vx
     float pitch;      // 俯仰 → vy
     float yaw;        // 偏航 → 更新 target_yaw
-    float vx;
-    float vy;
 } ControlGravity;
 
 typedef struct {
