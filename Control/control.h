@@ -17,6 +17,10 @@
 //对重力的敏感度
 #define GRAVITY_SENSITY       2.0f
 #define SPEED_LIMIT         100.0f
+//使用的角度范围
+#define YAW_ANGLE_USE            30.0f
+
+#define MapAngleTo100(angle)   ((angle) / 180.0f * 100.0f)
 
 
 //控制模式

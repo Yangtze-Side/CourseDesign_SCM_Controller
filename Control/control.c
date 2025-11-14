@@ -22,15 +22,25 @@ void Speed_Limit(float *val, float min, float max)
         *val = min;
 }
 
-float MapAngleTo100(float angle)
+/**
+ * @brief 限制角度在指定范围内
+ * @param angle     角度值
+ * @param min_angle 最小角度
+ * @param max_angle 最大角度
+ * @return float    限制后的角度值
+ */
+float Angle_Limit(float angle, float min_angle, float max_angle)
 {
-    if (angle < 0) angle = 0;       // 限制范围
-    if (angle > 30) angle = 30;
+    if (angle < min_angle) angle = min_angle;       // 限制范围
+    if (angle > max_angle) angle = max_angle;
 
-    return (angle * (100.0f / 30.0f));
+    return angle;
 }
 
-
+/**
+ * @brief 更新控制数据
+ * 
+ */
 void Control_Data_Update(void)
 {
     ctrl_car.joystick.vx = (adc_data.adc_ch0 - 2048.0f) / 2048.0f * 100.0f;
@@ -38,9 +48,13 @@ void Control_Data_Update(void)
 
     ctrl_car.gravity.roll  = MapAngleTo100(EulerAngle.roll);
     ctrl_car.gravity.pitch = MapAngleTo100(EulerAngle.pitch);
-    ctrl_car.gravity.yaw   = MapAngleTo100(EulerAngle.yaw);
+    ctrl_car.gravity.yaw   = MapAngleTo100(Angle_Limit(EulerAngle.yaw, -YAW_ANGLE_USE, YAW_ANGLE_USE));
 }
 
+/**
+ * @brief 更新控制总输出
+ * 
+ */
 void Control_Update(void)
 {
 
