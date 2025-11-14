@@ -58,16 +58,37 @@ void Comm_ParseTask(void)
  */
 void Comm_SendTask(void)
 {
-    // 示例：发送摇杆模式的控制信息
-    float joys_vx, joys_vy, joys_vw;        // 这些变量应该是从其他文件拿来的，比如 control.h
-    u8 dat[14] = { COMM_BYTE0, COMM_BYTE1, COMM_CMD_JoysMode }; // 前三个字节是帧头和命令
-    *(float*)(dat + 3) = joys_vx;       // dat[3 ~ 6] 存放 vx
-    *(float*)(dat + 7) = joys_vy;       // dat[7 ~ 10] 存放 vy
-    *(float*)(dat + 11) = joys_vw;      // dat[11 ~ 13] 存放 vw
-    UART_Send_Start(&uart1_tx, dat, 14);
+    u8 dat[14];
 
-    // 这个函数根据当前的遥控模式来发送对应的控制信息
-    // 可以用 switch - case 语句实现
+    Control_Update();
 
+    switch (ctrl_car.mode)
+    {
+    case Ctrl_Mode_JoyStick:
+        // 前三个字节是帧头和命令
+        dat[0] = COMM_BYTE0;
+        dat[1] = COMM_BYTE1;
+        dat[2] = COMM_CMD_JoysMode;
+
+        *(float*)(dat + 3) = ctrl_car.out_vx;       // dat[3 ~ 6] 存放 vx
+        *(float*)(dat + 7) = ctrl_car.out_vy;       // dat[7 ~ 10] 存放 vy
+        *(float*)(dat + 11) = ctrl_car.out_vw;      // dat[11 ~ 13] 存放 vw
+        break;
     
+    case Ctrl_Mode_Gravity:
+        // 前三个字节是帧头和命令
+        dat[0] = COMM_BYTE0;
+        dat[1] = COMM_BYTE1;
+        dat[2] = COMM_CMD_JoysMode;
+
+        *(float*)(dat + 3) = ctrl_car.out_vx;       // dat[3 ~ 6] 存放 vx
+        *(float*)(dat + 7) = ctrl_car.out_vy;       // dat[7 ~ 10] 存放 vy
+        *(float*)(dat + 11) = ctrl_car.out_vw;      // dat[11 ~ 13] 存放 vw
+        break;
+
+    default:
+        break;
+    }
+
+    UART_Send_Start(&uart1_tx, dat, 14);
 }
