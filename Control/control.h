@@ -14,24 +14,23 @@
 // 2. 重力遥控：俯仰角和横滚决定 vy 和 vx，偏航角决定 target_yaw。
 
 
-//对重力的敏感度
-#define GRAVITY_SENSITY         2.0f
+// 速度限制
 #define SPEED_LIMIT           100.0f
-//使用的角度范围
+// 使用的角度范围
 #define ROLL_ANGLE_USE         45.0f
 #define PITCH_ANGLE_USE        45.0f
 #define YAW_ANGLE_USE          30.0f
 // 默认旋转速度
 #define DEFAULT_VW             30.0f
 
-#define MapAngleTo100(angle, angle_limit)   ((angle) / (angle_limit) * 100.0f)
+#define MapAngleTo100(angle, angle_limit)   ((angle) / (angle_limit) * SPEED_LIMIT)
 
 
 //控制模式
 typedef enum {
-    Ctrl_Mode_JoyStick = 0,   // 摇杆模式
+    Ctrl_Mode_JoyStick = 0,    // 摇杆模式
     Ctrl_Mode_Gravity,         // 重力遥控模式
-    Ctrl_Mode_AutoCruise,       // 自动巡航模式
+    Ctrl_Mode_AutoCruise,      // 自动巡航模式
     Ctrl_Mode_AutoFollow       // 自动跟随模式
 } ControlMode_t;
 

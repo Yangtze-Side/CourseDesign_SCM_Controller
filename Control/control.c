@@ -78,7 +78,7 @@ void Control_Update(void)
             // pitch 决定 vy
             ctrl_car.gravity.vy = MapAngleTo100(EulerAngle.pitch, PITCH_ANGLE_USE);
             // yaw 决定 vw
-            ctrl_car.gravity.target_yaw = EulerAngle.yaw, YAW_ANGLE_USE;
+            ctrl_car.gravity.target_yaw = EulerAngle.yaw;
 
             // 这里限制最大速度
             Speed_Limit(ctrl_car.gravity.vx, SPEED_LIMIT);
