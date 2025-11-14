@@ -20,6 +20,13 @@
 # define FAILED                 ((u8)1)
 #endif
 
+#ifndef Bit_SET
+#define Bit_SET                 (1)
+#endif
+#ifndef Bit_RESET
+#define Bit_RESET               (0)
+#endif
+
 #define USER_UNUSED(x)          (void)(x)
 
 #endif

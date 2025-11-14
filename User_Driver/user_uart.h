@@ -12,26 +12,27 @@
 
 typedef struct UART_Send_t
 {
-	u8 Index;
-	u8 Busy;
-	u8 *Buf;
-	u8 Size;
-	u8 Cnt;
+	u8 Index;					// Index of 4 uart peripherals
+	u8 Busy;					// If it's in sending process
+	u8 *Buf;					// Sending buffer
+	const u8 BufSize;			// Buffer size
+	u8 TxSize;					// Length to send
+	u8 Cnt;						// Counter of sent bytes
 } UART_Send_t;
 
 typedef struct UART_Recv_t
 {
-	u8 Index;
-	u8 Start;
-	u8 *Buf;
-	const u8 Size;
-	u8 Cnt;
-	u8 Timeout;
+	u8 Index;					// Index of 4 uart peripherals
+	u8 Start;					// If it's in receiving process
+	u8 *Buf;					// Receiving buffer
+	const u8 BufSize;			// Buffer size
+	u8 Cnt;						// Counter of received bytes
+	u8 Timeout;					// Counter of timeout
 } UART_Recv_t;
 
 typedef void (*UART_RecvCB_t)(UART_Recv_t *recv);
 
-void UART_Send_Start(UART_Send_t *huart, u8 txSize);
+BOOL UART_Send_Start(UART_Send_t *send, u8 *pDat, u8 txSize);
 void UART_Send_ITHandler(UART_Send_t *huart);
 
 void UART_Recv_ITHandler(UART_Recv_t *recv);
