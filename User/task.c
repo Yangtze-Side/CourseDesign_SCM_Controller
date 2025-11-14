@@ -5,7 +5,7 @@
 
 void led_task(void);
 
-volatile u8 TaskExeFlag = 0;
+volatile BOOL TaskExeFlag = 0;
 
 typedef struct
 {

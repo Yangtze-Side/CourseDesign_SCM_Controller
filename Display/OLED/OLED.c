@@ -10,8 +10,6 @@
  * 
  */
 #include "OLED.h"
-#include "Font_EN.h"
-#include "Font_CN.h"
 
 
 /*---------------------------------------- Constants And Declarations -------------------------------------*/
@@ -127,7 +125,6 @@ void OLED_Clear(void)
  */
 void OLED_ShowChar(u8 row, u8 col, char ch)
 {
-	u8 i;
     if (--row > 3 || --col > 15 || ch < 32 || ch > 127) return;
     ch -= 32;
 
@@ -210,6 +207,7 @@ void OLED_ShowCnString16(u8 row, u8 col, char* CnString)
         }
 	}
 }
+#endif // Enable_Cn16Char
 
 /**
  * @brief Show 32*32 Icon.
@@ -230,10 +228,6 @@ void OLED_ShowIcon32(u8 row, u8 col, const u8 icon32[128])
     OLED_SetCursor(2 * row + 3, col * 8);
     OLED_I2C_Write(OLED_CONTROLBYTE_DATA, icon32 + 96, 32);
 }
-
-#else
-void OLED_ShowCnString16(u8 row, u8 col, char* CnString) {}
-#endif // Enable_Cn16Char
 
 #if Enable_Cn32Char
 /**
@@ -268,8 +262,6 @@ void OLED_ShowCnString32(u8 row, u8 col, char* CnString)
         }
 	}
 }
-#else
-void OLED_ShowCnString32(u8 row, u8 col, char* CnString) {}
 #endif // Enable_Cn32Char
 
 /**

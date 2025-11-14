@@ -28,7 +28,7 @@ void Page_Main_Subtrate(void)
     {
         case 0:
         {
-            OLED_ShowCn16String(1, 1, "欢迎");
+            OLED_ShowCnString16(1, 1, "欢迎");
             OLED_ShowChar(1, 5, '!');
         } break;
         

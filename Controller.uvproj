@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU</IncludePath>
+              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -538,6 +538,104 @@
               <FileName>user_uart.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User_Driver\user_uart.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Key</GroupName>
+          <Files>
+            <File>
+              <FileName>key_SL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Key\key_SL.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_SL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Key\key_SL.h</FilePath>
+            </File>
+            <File>
+              <FileName>key_ud.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Key\key_ud.c</FilePath>
+            </File>
+            <File>
+              <FileName>key_ud.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Key\key_ud.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Joystick</GroupName>
+        </Group>
+        <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>Display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Display.c</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Display.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display/OLED</GroupName>
+          <Files>
+            <File>
+              <FileName>Font_CN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\OLED\Font_CN.c</FilePath>
+            </File>
+            <File>
+              <FileName>Font_CN.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\OLED\Font_CN.h</FilePath>
+            </File>
+            <File>
+              <FileName>Font_EN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\OLED\Font_EN.c</FilePath>
+            </File>
+            <File>
+              <FileName>Font_EN.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\OLED\Font_EN.h</FilePath>
+            </File>
+            <File>
+              <FileName>OLED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\OLED\OLED.c</FilePath>
+            </File>
+            <File>
+              <FileName>OLED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\OLED\OLED.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display/Pages</GroupName>
+          <Files>
+            <File>
+              <FileName>Page_Main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Main.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Main.h</FilePath>
+            </File>
+            <File>
+              <FileName>Pages.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Pages.h</FilePath>
             </File>
           </Files>
         </Group>

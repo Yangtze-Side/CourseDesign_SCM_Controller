@@ -15,6 +15,8 @@
 #include "config.h"
 #include "user_soft_iic.h"
 #include "system.h"
+#include "Font_EN.h"
+#include "Font_CN.h"
 
 /*---------------------------------------------- User Determine -------------------------------------------*/
 
@@ -47,9 +49,14 @@ void OLED_ShowChar(u8 row, u8 col, char ch);
 void OLED_ShowString(u8 row, u8 col, const char* str);
 
 void OLED_ShowIcon16(u8 row, u8 col, const u8 icon16[32]);
-void OLED_ShowCnString16(u8 row, u8 col, char* CnString);
 void OLED_ShowIcon32(u8 row, u8 col, const u8 icon32[128]);
-void OLED_ShowCnString32(u8 row, u8 col, char* CnString);
 void OLED_ShowNum(u8 row, u8 col, s32 num, u8 len, fill_t fill);
+
+#if Enable_Cn16Char
+void OLED_ShowCnString16(u8 row, u8 col, char* CnString);
+#endif
+#if Enable_Cn32Char
+void OLED_ShowCnString32(u8 row, u8 col, char* CnString);
+#endif
 
 #endif // !__OLED_H

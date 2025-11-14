@@ -59,8 +59,6 @@ void Display_Task(void)
         
         case PAGE_Main: Page_Main_Task(); break;
     }
-
-    OLED_Refresh();
 }
 
 
