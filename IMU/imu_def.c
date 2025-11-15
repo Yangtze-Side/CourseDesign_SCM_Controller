@@ -2,7 +2,7 @@
 #include "imu_def.h"
 #include "user_lib.h"
 
-
+#if 0
 /**
  * @brief Add euler angle bias to the final result.
  * 
@@ -36,3 +36,4 @@ void EulerAngle_ClearPitch(EulerAngle_t *e)
 {
     e->pitch_bias = Lim_Ang_180(e->pitch_bias + e->pitch);
 }
+#endif

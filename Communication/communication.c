@@ -12,6 +12,8 @@ static u8  Comm_DatBuf[64];
 
 DHT11_Data_t DHT11_Data;
 US_Data_t US_Data;
+static BOOL Comm_Linked = FALSE;
+
 
 /**
  * @brief Start parse uart data
@@ -78,9 +80,9 @@ void Comm_SendTask(void)
             dat[1] = COMM_BYTE1;
             dat[2] = COMM_CMD_JoysMode;
 
-            *(float*)(dat + 3) = ctrl_car.joystick.vx;       // dat[3 ~ 6] 存放 vx
-            *(float*)(dat + 7) = ctrl_car.joystick.vy;       // dat[7 ~ 10] 存放 vy
-            *(float*)(dat + 11) = ctrl_car.joystick.vw;      // dat[11 ~ 13] 存放 vw
+            *(float*)(dat + 3) = ctrl_car.joystick->vx;       // dat[3 ~ 6] 存放 vx
+            *(float*)(dat + 7) = ctrl_car.joystick->vy;       // dat[7 ~ 10] 存放 vy
+            *(float*)(dat + 11) = ctrl_car.joystick->vw;      // dat[11 ~ 13] 存放 vw
 
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
         } break;
@@ -93,9 +95,9 @@ void Comm_SendTask(void)
             dat[1] = COMM_BYTE1;
             dat[2] = COMM_CMD_GravMode;
 
-            *(float*)(dat + 3) = ctrl_car.gravity.vx;       // dat[3 ~ 6] 存放 vx
-            *(float*)(dat + 7) = ctrl_car.gravity.vy;       // dat[7 ~ 10] 存放 vy
-            *(float*)(dat + 11) = ctrl_car.gravity.target_yaw;      // dat[11 ~ 13] 存放 target_angle
+            *(float*)(dat + 3) = ctrl_car.gravity->vx;       // dat[3 ~ 6] 存放 vx
+            *(float*)(dat + 7) = ctrl_car.gravity->vy;       // dat[7 ~ 10] 存放 vy
+            *(float*)(dat + 11) = ctrl_car.gravity->target_yaw;      // dat[11 ~ 13] 存放 target_angle
 
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
         } break;
@@ -124,5 +126,26 @@ void Comm_SendTask(void)
 
         default: break;
     }
+}
 
+
+/**
+ * @brief Change BT link status when the LINKED pin level changes.
+ * 
+ * @param status new satus (TRUE/FALSE)
+ */
+void Comm_SetLinkStatus(BOOL status)
+{
+    Comm_Linked = status;
+}
+
+
+/**
+ * @brief Get BT link status.
+ * 
+ * @return BOOL status (TRUE for linked and FALSE vice versa).
+ */
+BOOL Comm_GetLinkStatus(void)
+{
+    return Comm_Linked;
 }

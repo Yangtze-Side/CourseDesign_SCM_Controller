@@ -84,9 +84,16 @@ void SYS_Init(void)
     P6M0 = 0x00; P6M1 = 0x00;           //初始化P6口为准双向口模式
     P7M0 = 0x00; P7M1 = 0x00;           //初始化P7口为准双向口模式
 
+    PORT0_Init();                       //P0口初始化
+    PORT1_Init();                       //P1口初始化
+    PORT2_Init();                       //P2口初始化
+    PORT3_Init();                       //P3口初始化
+    PORT4_Init();                       //P4口初始化
+    PORT5_Init();                       //P5口初始化
     TIMER0_Init();                      //定时器0初始化
     TIMER2_Init();                      //定时器2初始化
     UART1_Init();                       //串口1初始化
+    EXTI0_Init();                       //INT0初始化
     ADC_Init();                         //ADC初始化
 
     //<<AICUBE_USER_INITIAL_CODE_BEGIN>>

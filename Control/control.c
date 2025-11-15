@@ -7,13 +7,18 @@
 
 #define Speed_Limit             LimAbsAsgn
 
+// 把结构体中的结构体成员换成指针，减少结构体传参大小和内存对齐浪费空间大小
+static ControlEulerOut_t ControlEuler = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+static ControlJoystick_t ControlJoystick = { 0.0f, 0.0f, 0.0f };
+static ControlGravity_t  ControlGravity  = { 0.0f, 0.0f, 0.0f };
 
 ControlCar_t ctrl_car =
 {
     Ctrl_Mode_JoyStick,
     DEFAULT_VW,
-    { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }
+    &ControlEuler,
+    &ControlJoystick,
+    &ControlGravity
 };
 
 
@@ -48,43 +53,69 @@ void Control_Update(void)
         case Ctrl_Mode_JoyStick:
         {
             // 速度直接来自摇杆
-            ctrl_car.joystick.vx = (adc_data.adc_ch0 - 2048.0f) / 2048.0f * 100.0f;
-            ctrl_car.joystick.vy = (adc_data.adc_ch1 - 2048.0f) / 2048.0f * 100.0f;
+            ctrl_car.joystick->vx = (adc_data.adc_ch0 - 2048.0f) / 2048.0f * 100.0f;
+            ctrl_car.joystick->vy = (adc_data.adc_ch1 - 2048.0f) / 2048.0f * 100.0f;
 
             // vw 由按键按下而改变
             // vw 目前只有前进和后退，而不是在原有的 vm 数值 基础上改动
             if (KeyUD_Is_Pressed(Key_UD_Left)) {
-                ctrl_car.joystick.vw = ctrl_car.vw_set;
+                ctrl_car.joystick->vw = ctrl_car.vw_set;
             }
             else if (KeyUD_Is_Pressed(Key_UD_Right)) {
-                ctrl_car.joystick.vw = -ctrl_car.vw_set;
+                ctrl_car.joystick->vw = -ctrl_car.vw_set;
             }
             else {
-                ctrl_car.joystick.vw = 0;
+                ctrl_car.joystick->vw = 0;
             }
 
             // 这里限制最大速度
-            Speed_Limit(ctrl_car.joystick.vx, SPEED_LIMIT);
-            Speed_Limit(ctrl_car.joystick.vy, SPEED_LIMIT);
-            Speed_Limit(ctrl_car.joystick.vw, SPEED_LIMIT);
+            Speed_Limit(ctrl_car.joystick->vx, SPEED_LIMIT);
+            Speed_Limit(ctrl_car.joystick->vy, SPEED_LIMIT);
+            Speed_Limit(ctrl_car.joystick->vw, SPEED_LIMIT);
         } break;
 
         // 本意是想让 Yaw 角度用cos和sin获得vx和vy, 这样更符合直觉, 但是没有对应的函数
         // 使用 Pitch 来决定 vm 会更符合直觉
         case Ctrl_Mode_Gravity:
         {
+            // 加上偏移量
+            ctrl_car.euler->roll = EulerAngle.roll;
+            ctrl_car.euler->pitch = Lim_Ang_180(EulerAngle.pitch + ctrl_car.euler->pitch_bias);
+            ctrl_car.euler->yaw = Lim_Ang_180(EulerAngle.yaw + ctrl_car.euler->yaw_bias);
+
             // roll 决定 vx
-            ctrl_car.gravity.vx = MapAngleTo100(EulerAngle.roll, ROLL_ANGLE_USE);
+            ctrl_car.gravity->vx = MapAngleTo100(ctrl_car.euler->roll, ROLL_ANGLE_USE);
             // pitch 决定 vy
-            ctrl_car.gravity.vy = MapAngleTo100(EulerAngle.pitch, PITCH_ANGLE_USE);
+            ctrl_car.gravity->vy = MapAngleTo100(ctrl_car.euler->pitch, PITCH_ANGLE_USE);
             // yaw 决定 vw
-            ctrl_car.gravity.target_yaw = EulerAngle.yaw;
+            ctrl_car.gravity->target_yaw = ctrl_car.euler->yaw;
 
             // 这里限制最大速度
-            Speed_Limit(ctrl_car.gravity.vx, SPEED_LIMIT);
-            Speed_Limit(ctrl_car.gravity.vy, SPEED_LIMIT);
+            Speed_Limit(ctrl_car.gravity->vx, SPEED_LIMIT);
+            Speed_Limit(ctrl_car.gravity->vy, SPEED_LIMIT);
         } break;
 
         default: break;
     }
+}
+
+/**
+ * @brief 把偏航角的偏差补上。
+ * 
+ * @param yaw_origin    车和遥控器静止时对应的角度。
+ * @param yaw_correct   遥控器转到和车一致时的角度。
+ */
+void Control_CalcYawBias(float yaw_origin, float yaw_correct)
+{
+    ctrl_car.euler->yaw_bias = Lim_Ang_180(ctrl_car.euler->yaw_bias + yaw_origin - yaw_correct);
+}
+
+/**
+ * @brief 将此时的俯仰角设置为零点。
+ * 
+ * @param pitch_current 此时的俯仰角。
+ */
+void Control_CalcPitchBias(float pitch_current)
+{
+    ctrl_car.euler->pitch_bias = Lim_Ang_180(ctrl_car.euler->pitch_bias - pitch_current);
 }

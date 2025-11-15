@@ -3,6 +3,9 @@
 
 #include "config.h"
 
+#define Comm_LinkStatus_PIN             P32
+#define Comm_GetLinkStatusPinLevel()    (Comm_LinkStatus_PIN)
+
 typedef struct{
     u8 humi_int;
 	u8 humi_deci;
@@ -26,5 +29,8 @@ void Comm_StartParse(u8 DatBuf[64], u8 len);
 void Comm_ParseTask(void);
 
 void Comm_SendTask(void);
+
+void Comm_SetLinkStatus(BOOL status);
+BOOL Comm_GetLinkStatus(void);
 
 #endif // !__COMMUNICATION_H

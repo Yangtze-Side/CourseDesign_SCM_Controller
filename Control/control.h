@@ -19,7 +19,6 @@
 // 使用的角度范围
 #define ROLL_ANGLE_USE         45.0f
 #define PITCH_ANGLE_USE        45.0f
-#define YAW_ANGLE_USE          30.0f
 // 默认旋转速度
 #define DEFAULT_VW             30.0f
 
@@ -48,19 +47,30 @@ typedef struct {
     float target_yaw;   // 偏航角 → 目标偏航角 target_yaw
 } ControlGravity_t;
 
+typedef struct ControlEulerOut_t
+{
+    float pitch;
+    float roll;
+    float yaw;
+    float pitch_bias;
+    float yaw_bias;
+} ControlEulerOut_t;
+
+
 typedef struct {
     ControlMode_t mode;                 // 当前控制模式
     float vw_set;                       // 摇杆模式下的旋转速度大小
-    ControlJoystick_t joystick;         // 摇杆模式数据
-    ControlGravity_t  gravity;          // 重力遥控数据
+    ControlEulerOut_t *euler;           // 欧拉角需要加上偏移量
+    ControlJoystick_t *joystick;        // 摇杆模式数据
+    ControlGravity_t  *gravity;         // 重力遥控数据
 } ControlCar_t;
 
-
 extern ControlCar_t ctrl_car;
-
 
 void Control_Update(void);
 void Control_Set_Mode(ControlMode_t mode);
 void Control_SetVw(float vw);
+void Control_CalcYawBias(float yaw_origin, float yaw_correct);
+void Control_CalcPitchBias(float pitch_current);
 
 #endif // !__CONTROL_H

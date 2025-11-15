@@ -21,13 +21,15 @@ typedef struct EulerAngle_t
     float roll;
     float yaw;
 
-    float pitch_bias;
-    float yaw_bias;
+    // float pitch_bias;
+    // float yaw_bias;
 } EulerAngle_t;
 
 
+#if 0
 void EulerAngle_AddBias(EulerAngle_t *e);
 void EulerAngle_ClearYaw(EulerAngle_t *e);
 void EulerAngle_ClearPitch(EulerAngle_t *e);
+#endif
 
 #endif // !__IMU_DEF_H

@@ -39,8 +39,10 @@
 //<<AICUBE_USER_INCLUDE_END>>
 
 
+#include "port.h"
 #include "timer.h"
 #include "uart.h"
+#include "exti.h"
 #include "adc.h"
 
 void SYS_Init(void);
