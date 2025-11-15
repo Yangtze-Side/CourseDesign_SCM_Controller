@@ -51,6 +51,7 @@ static u8 imu_spi_read(u8 reg, u8 *buf, u16 len)
  */
 u8 IMU_Init(void)
 {
+#if USE_MPU6500
     u8 retry = 10;
     u8 ret = SUCCESS;
 
@@ -73,6 +74,9 @@ u8 IMU_Init(void)
     }
     
     return ret;
+#else
+    return FALSE;
+#endif
 }
 
 
@@ -84,6 +88,7 @@ u8 IMU_Init(void)
  */
 void IMU_Update(void)
 {
+#if USE_MPU6500
     if (MPU6500_IsInitialized())
     {
         if (MPU6500_IsDriftSampled())
@@ -97,4 +102,5 @@ void IMU_Update(void)
             MPU6500_SampleDrift();      // Sample drift upon initialization.
         }
     }
+#endif
 }
