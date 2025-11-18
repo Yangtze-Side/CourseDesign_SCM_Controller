@@ -3,5 +3,7 @@
 
 #include "user_pwm.h"
 #include "user_uart.h"
+#include "user_spi.h"
+#include "user_soft_iic.h"
 
 #endif // !__USER_DRIVER_H

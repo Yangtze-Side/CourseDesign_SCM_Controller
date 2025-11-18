@@ -41,4 +41,14 @@ void TaskExe(void)
             }
         }
     }
+
+    // Pretend to call the task functions
+    if (i > TASK_TOTAL)
+    {
+        IMU_Update();
+        ADC_Task();
+        sys_uart_recv_task_5ms();
+        Comm_SendTask();
+        led_task();
+    }
 }

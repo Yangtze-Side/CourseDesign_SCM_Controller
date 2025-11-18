@@ -15,7 +15,7 @@ EulerAngle_t EulerAngle = { 0.0f, 0.0f, 0.0f };
  * @param dat Data byte to send
  * @return u8 FAILED or SUCCESS
  */
-static u8 imu_spi_write(u8 reg, u8 dat)
+u8 imu_spi_write(u8 reg, u8 dat)
 {
     MPU6500_SPI_NSS_Low();      // Chip select
     if (User_SPI_Write(reg, 5) == User_SPI_TIMEOUT) return FAILED;
@@ -33,7 +33,7 @@ static u8 imu_spi_write(u8 reg, u8 dat)
  * @param len Length to read
  * @return u8 FAILED or SUCCESS
  */
-static u8 imu_spi_read(u8 reg, u8 *buf, u16 len)
+u8 imu_spi_read(u8 reg, u8 *buf, u16 len)
 {
     MPU6500_SPI_NSS_Low();
     if (User_SPI_Write(reg, 5) == User_SPI_TIMEOUT) return FAILED;
@@ -55,13 +55,8 @@ u8 IMU_Init(void)
     u8 retry = 10;
     u8 ret = SUCCESS;
 
-    MPU6500_Func_t sfunc =
-    {
-        imu_spi_write,
-        imu_spi_read
-    };
 
-    while (MPU6500_Init(&sfunc) == FAILED)
+    while (MPU6500_Init() == FAILED)
     {
         if (--retry == 0)
         {
@@ -95,7 +90,7 @@ void IMU_Update(void)
         {
             MPU6500_ReadData();                                     // Load data to 'MPU6500_Data'
             EulerAngleUpdate_Quat(&EulerAngle, &MPU6500_Data);      // Work out euler angle.
-            // EulerAngle_AddBias(&EulerAngle);                        // No need to add bias value.
+            /* EulerAngle_AddBias(&EulerAngle);                        // No need to add bias value. */
         }
         else
         {

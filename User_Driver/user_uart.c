@@ -1,7 +1,11 @@
 
 #include "user_uart.h"
+#include "system.h"				// 没办法，函数指针不让用，只能把外人拉进屋说话了
 
-static UART_RecvCB_t uart_recv_cb = NULL;
+#define UART_RecvCallback(recv)			uart_recv_handler(recv)
+
+static BOOL UART_RecvOverFlag = FALSE;
+
 
 /**
  * @brief Starts the uart sending process.
@@ -94,7 +98,7 @@ void UART_Recv_ITHandler(UART_Recv_t *recv)
 	{
 		recv->Start = FALSE;
 		// Receiving completes for the buffer is full.
-		if (uart_recv_cb) uart_recv_cb(recv);
+		UART_RecvOverFlag = TRUE;
 	}
 }
 
@@ -105,6 +109,12 @@ void UART_Recv_ITHandler(UART_Recv_t *recv)
  */
 void UART_Recv_Task_5ms(UART_Recv_t *recv)
 {
+	if (UART_RecvOverFlag)
+	{
+		UART_RecvOverFlag = FALSE;
+		UART_RecvCallback(recv);
+	}
+
 	if (recv->Start == TRUE)
 	{
 		if (++recv->Timeout >= UART_RecvTimeout)
@@ -112,17 +122,7 @@ void UART_Recv_Task_5ms(UART_Recv_t *recv)
 			recv->Start = FALSE;
 			recv->Timeout = 0;
 			// Receiving completes for time's up.
-			if (uart_recv_cb) uart_recv_cb(recv);
+			UART_RecvCallback(recv);
 		}
 	}
-}
-
-/**
- * @brief Set UART receiving call back function.
- * 
- * @param cb the call back function name
- */
-void UART_Recv_SetCB(UART_RecvCB_t cb)
-{
-	uart_recv_cb = cb;
 }

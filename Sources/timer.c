@@ -15,6 +15,8 @@
 
 //<<AICUBE_USER_INCLUDE_BEGIN>>
 // 在此添加用户头文件包含  
+#include "task.h"
+#include "system.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -80,6 +82,17 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
 {
     //<<AICUBE_USER_TIMER0_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
+    
+    static u8 t0_cnt = 0;
+    if (++t0_cnt >= 5)
+    {
+        t0_cnt = 0;
+        // 5ms TODO
+        SET_TaskExeFlag();
+    }
+    // 1ms TODO
+    Sys_IncTick();
+
     //<<AICUBE_USER_TIMER0_ISR_CODE1_END>>
 }
 

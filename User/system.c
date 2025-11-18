@@ -15,8 +15,6 @@ u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
 UART_Send_t uart1_tx = { UART1, FALSE, UART1_SendBuf, UART1_SendBuf_SIZE, 0, 0 };
 UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 };
 
-static void uart_recv_handler(UART_Recv_t *recv);
-
 /*---------------------------------------- User Determine --------------------------------------*/
 
 /**
@@ -25,7 +23,6 @@ static void uart_recv_handler(UART_Recv_t *recv);
  */
 void proj_init(void)
 {
-	UART_Recv_SetCB(uart_recv_handler);
 	IMU_Init();
 }
 
@@ -34,7 +31,7 @@ void proj_init(void)
  * 
  * @param recv the handle
  */
-static void uart_recv_handler(UART_Recv_t *recv)
+void uart_recv_handler(UART_Recv_t *recv)
 {
 	if (recv->Index == UART1)
 	{

@@ -45,6 +45,7 @@
 #include "uart.h"
 #include "exti.h"
 #include "adc.h"
+#include "spi.h"
 
 void SYS_Init(void);
 void delay_us(uint16_t us);

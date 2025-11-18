@@ -95,6 +95,7 @@ void SYS_Init(void)
     UART1_Init();                       //串口1初始化
     EXTI0_Init();                       //INT0初始化
     ADC_Init();                         //ADC初始化
+    SPI_Init();                         //SPI初始化
 
     //<<AICUBE_USER_INITIAL_CODE_BEGIN>>
     // 在此添加用户初始化代码  

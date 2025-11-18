@@ -15,6 +15,8 @@
 
 //<<AICUBE_USER_INCLUDE_BEGIN>>
 // 在此添加用户头文件包含  
+#include "user_driver.h"
+#include "system.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -58,11 +60,13 @@ void UART1_ISR(void) interrupt UART1_VECTOR
     if (UART1_CheckTxFlag())            //判断串口发送中断
     {
         UART1_ClearTxFlag();            //清除串口发送中断标志
+        UART_Send_ITHandler(&uart1_tx);
     }
 
     if (UART1_CheckRxFlag())            //判断串口接收中断
     {
         UART1_ClearRxFlag();            //清除串口接收中断标志
+        UART_Recv_ITHandler(&uart1_rx);
     }
     //<<AICUBE_USER_UART1_ISR_CODE1_END>>
 }

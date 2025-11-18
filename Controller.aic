@@ -227,16 +227,16 @@
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
-		<TimerClock>0</TimerClock>
+		<TimerClock>24000000</TimerClock>
 		<Clock12T>0</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
 		<TimerInterval>100</TimerInterval>
 		<TimerUnit>0</TimerUnit>
-		<TimerReload>1</TimerReload>
+		<TimerReload>200</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
-		<CLKOPort>-1</CLKOPort>
+		<CLKOPort>0</CLKOPort>
 		<EnableInt>0</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER1>
@@ -265,16 +265,16 @@
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
-		<TimerClock>0</TimerClock>
+		<TimerClock>24000000</TimerClock>
 		<Clock12T>0</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
 		<TimerInterval>100</TimerInterval>
 		<TimerUnit>0</TimerUnit>
-		<TimerReload>1</TimerReload>
+		<TimerReload>200</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
-		<CLKOPort>-1</CLKOPort>
+		<CLKOPort>0</CLKOPort>
 		<EnableInt>0</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER3>
@@ -284,16 +284,16 @@
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
 		<ClockSource>0</ClockSource>
-		<TimerClock>0</TimerClock>
+		<TimerClock>24000000</TimerClock>
 		<Clock12T>0</Clock12T>
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
 		<TimerInterval>100</TimerInterval>
 		<TimerUnit>0</TimerUnit>
-		<TimerReload>1</TimerReload>
+		<TimerReload>200</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
-		<CLKOPort>-1</CLKOPort>
+		<CLKOPort>0</CLKOPort>
 		<EnableInt>0</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER4>
@@ -397,13 +397,13 @@
 		<EnableAnalogFilter>0</EnableAnalogFilter>
 	</CMP>
 	<SPI>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<EnableInt>0</EnableInt>
-		<SPIPort>-1</SPIPort>
+		<SPIPort>0</SPIPort>
 		<SPIMode>0</SPIMode>
 		<BitOrder>0</BitOrder>
-		<SPIClockMode>0</SPIClockMode>
-		<SPIClockDivider>1</SPIClockDivider>
+		<SPIClockMode>3</SPIClockMode>
+		<SPIClockDivider>3</SPIClockDivider>
 		<IntPriority>0</IntPriority>
 	</SPI>
 	<PCA>
@@ -483,13 +483,20 @@
 	</EPWM>
 	<PINMAP>
 		<PinCount>256</PinCount>
+		<Pin03Map>1</Pin03Map>
 		<Pin09Map>1</Pin09Map>
 		<Pin10Map>1</Pin10Map>
+		<Pin12Map>2</Pin12Map>
+		<Pin13Map>2</Pin13Map>
+		<Pin14Map>2</Pin14Map>
+		<Pin15Map>2</Pin15Map>
 		<Pin16Map>2</Pin16Map>
 		<Pin17Map>2</Pin17Map>
 		<Pin19Map>-1</Pin19Map>
 		<Pin21Map>-1</Pin21Map>
 		<Pin29Map>1</Pin29Map>
+		<Pin31Map>2</Pin31Map>
+		<Pin63Map>1</Pin63Map>
 	</PINMAP>
 	<PINALIAS></PINALIAS>
 </Project>

@@ -30,13 +30,11 @@ typedef struct UART_Recv_t
 	u8 Timeout;					// Counter of timeout
 } UART_Recv_t;
 
-typedef void (*UART_RecvCB_t)(UART_Recv_t *recv);
 
 BOOL UART_Send_Start(UART_Send_t *send, u8 *pDat, u8 txSize);
 void UART_Send_ITHandler(UART_Send_t *huart);
 
 void UART_Recv_ITHandler(UART_Recv_t *recv);
 void UART_Recv_Task_5ms(UART_Recv_t *recv);
-void UART_Recv_SetCB(UART_RecvCB_t cb);
 
 #endif
