@@ -46,7 +46,7 @@ typedef enum MPU6500_GyroFsr
 extern u8 MPU6500_State;
 extern IMU_Data_t MPU6500_Data;
 
-u8   MPU6500_Init(void);
+BOOL MPU6500_Init(void);
 void MPU6500_ReadData(void);
 void MPU6500_SampleDrift(void);
 

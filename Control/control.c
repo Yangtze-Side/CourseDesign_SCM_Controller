@@ -96,8 +96,8 @@ void Control_Update(void)
         case Ctrl_Mode_JoyStick:
         {
             // 速度直接来自摇杆
-            ctrl_car.joystick->vx = (adc_data.adc_ch0 - 2048.0f) / 2048.0f * 100.0f;
-            ctrl_car.joystick->vy = (adc_data.adc_ch1 - 2048.0f) / 2048.0f * 100.0f;
+            ctrl_car.joystick->vx = ((s16)ADC_ZERO - (s16)adc_data.adc_ch0) / (float)ADC_ZERO * 100.0f;
+            ctrl_car.joystick->vy = ((s16)ADC_ZERO - (s16)adc_data.adc_ch1) / (float)ADC_ZERO * 100.0f;
 
             // vw 由按键按下而改变
             // vw 目前只有前进和后退，而不是在原有的 vm 数值 基础上改动

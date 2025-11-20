@@ -17,10 +17,10 @@
 
 /*------------------------------------------- User Determine -------------------------------------------*/
 
-#define GET_KEY_NOW()               (P00)     // 当前按键的值
+#define GET_KEY_NOW()               (P06)     // 当前按键的值
 
-#define Key_IsPressed(__key__)      ((__key__) == Bit_SET)
-#define Key_IsReleased(__key__)     ((__key__) == Bit_RESET)
+#define Key_IsPressed(__key__)      ((__key__) == Bit_RESET)
+#define Key_IsReleased(__key__)     ((__key__) == Bit_SET)
 
 #define Key_TaskPeriod              (20)    // KeyTask 20 ms 执行一次
 #define Key_LP_THRES                (600 / Key_TaskPeriod)      // 长按阈值

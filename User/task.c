@@ -5,6 +5,9 @@
 #include "communication.h"
 #include "Joystick.h"
 #include "Display.h"
+#include "key_ud.h"
+#include "key_SL.h"
+#include "Control/control.h"
 
 void led_task(void);
 
@@ -17,18 +20,20 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      6
+#define TASK_TOTAL      7
 
 Task_t Task[TASK_TOTAL] =
 {
     { 5/5, 0, IMU_Update },
     { 50/5, 0, ADC_Task },
 
+    { 20/5, 0, Key_UD_Task },
+    { 20/5, 0, KeySL_Task },
     { 5/5, 0, sys_uart_recv_task_5ms },
     { 60/5, 0, Comm_SendTask },
 
     { 100/5, 0, Display_Task },
-    { 500/5, 0, led_task },
+    // { 500/5, 0, led_task },
 };
 
 void TaskExe(void)
@@ -55,5 +60,8 @@ void TaskExe(void)
         Comm_SendTask();
         led_task();
         Display_Task();
+        Key_UD_Task();
+        KeySL_Task();
+        Control_Update();
     }
 }

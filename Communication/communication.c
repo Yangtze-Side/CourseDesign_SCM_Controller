@@ -10,8 +10,8 @@
 static bit Comm_ParseFlag = FALSE;
 static u8  Comm_DatBuf[64];
 
-DHT11_Data_t DHT11_Data;
-US_Data_t US_Data;
+DHT11_Data_t DHT11_Data = { 0 };
+US_Data_t US_Data = { 0 };
 static BOOL Comm_Linked = FALSE;
 
 
@@ -68,13 +68,15 @@ void Comm_ParseTask(void)
  */
 void Comm_SendTask(void)
 {
+    if (Comm_Linked == FALSE) return;
+
     Control_Update();
 
     switch (ctrl_car.mode)
     {
         case Ctrl_Mode_JoyStick:
         {
-            u8 dat[14];
+            u8 dat[15];
             // 前三个字节是帧头和命令
             dat[0] = COMM_BYTE0;
             dat[1] = COMM_BYTE1;
@@ -82,14 +84,14 @@ void Comm_SendTask(void)
 
             *(float*)(dat + 3) = ctrl_car.joystick->vx;       // dat[3 ~ 6] 存放 vx
             *(float*)(dat + 7) = ctrl_car.joystick->vy;       // dat[7 ~ 10] 存放 vy
-            *(float*)(dat + 11) = ctrl_car.joystick->vw;      // dat[11 ~ 13] 存放 vw
+            *(float*)(dat + 11) = ctrl_car.joystick->vw;      // dat[11 ~ 14] 存放 vw
 
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
         } break;
         
         case Ctrl_Mode_Gravity:
         {
-            u8 dat[14];
+            u8 dat[15];
             // 前三个字节是帧头和命令
             dat[0] = COMM_BYTE0;
             dat[1] = COMM_BYTE1;
@@ -97,7 +99,7 @@ void Comm_SendTask(void)
 
             *(float*)(dat + 3) = ctrl_car.gravity->vx;       // dat[3 ~ 6] 存放 vx
             *(float*)(dat + 7) = ctrl_car.gravity->vy;       // dat[7 ~ 10] 存放 vy
-            *(float*)(dat + 11) = ctrl_car.gravity->target_yaw;      // dat[11 ~ 13] 存放 target_angle
+            *(float*)(dat + 11) = ctrl_car.gravity->target_yaw;      // dat[11 ~ 14] 存放 target_angle
 
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
         } break;

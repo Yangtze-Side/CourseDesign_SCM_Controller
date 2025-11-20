@@ -18,6 +18,9 @@
 #include "task.h"
 #include "communication.h"
 #include "system.h"
+#include "imu_app.h"
+#include "Control/control.h"
+#include "Joystick.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -139,7 +142,10 @@ void delay_ms(uint16_t ms)
 // 在此添加用户函数实现代码   
 void led_task(void)
 {
-    P00 ^= 1;
+    // P13 ^= 1;
+    // user_printf("Pitch: %f, Roll: %f, Yaw: %f\r\n", EulerAngle.pitch, EulerAngle.roll, EulerAngle.yaw);
+    // user_printf("Vx: %f, Vy: %f, Vw: %f\r\n", ctrl_car.joystick->vx, ctrl_car.joystick->vy, ctrl_car.joystick->vw);
+    // user_printf("x: %d, y: %d\r\n", adc_data.adc_ch0, adc_data.adc_ch1);
 }
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
 

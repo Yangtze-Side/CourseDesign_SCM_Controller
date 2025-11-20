@@ -35,10 +35,10 @@ void Page_Control_Task(void)
 
     switch (Control_GetMode())
     {
-        case Ctrl_Mode_JoyStick:    OLED_ShowString(1, 5, "JS"); break;
-        case Ctrl_Mode_Gravity:     OLED_ShowString(1, 5, "GR"); break;
-        case Ctrl_Mode_AutoCruise:  OLED_ShowString(1, 5, "AC"); break;
-        case Ctrl_Mode_AutoFollow:  OLED_ShowString(1, 5, "AF"); break;
+        case Ctrl_Mode_Gravity:     OLED_ShowString(1, 7, "GR"); break;
+        case Ctrl_Mode_JoyStick:    OLED_ShowString(1, 7, "JS"); break;
+        case Ctrl_Mode_AutoCruise:  OLED_ShowString(1, 7, "AC"); break;
+        case Ctrl_Mode_AutoFollow:  OLED_ShowString(1, 7, "AF"); break;
     }
 
     OLED_ShowNum(1, 13, Control_GetVw(), 3, FILL_BY_SPACE);
@@ -57,24 +57,24 @@ void Page_Control_Task(void)
     {
         case Page_Control_State_PLAY:
         {
-            OLED_ShowChar(1, 4, ' ');
-            OLED_ShowChar(1, 7, ' ');
+            OLED_ShowChar(1, 6, ' ');
+            OLED_ShowChar(1, 9, ' ');
             OLED_ShowChar(1, 12, ' ');
             OLED_ShowChar(1, 16, ' ');
         } break;
         
         case Page_Control_State_SETMODE:
         {
-            OLED_ShowChar(1, 4, '[');
-            OLED_ShowChar(1, 7, ']');
+            OLED_ShowChar(1, 6, '[');
+            OLED_ShowChar(1, 9, ']');
             OLED_ShowChar(1, 12, ' ');
             OLED_ShowChar(1, 16, ' ');
         } break;
         
         case Page_Control_State_SETVW:
         {
-            OLED_ShowChar(1, 4, ' ');
-            OLED_ShowChar(1, 7, ' ');
+            OLED_ShowChar(1, 6, ' ');
+            OLED_ShowChar(1, 9, ' ');
             OLED_ShowChar(1, 12, '[');
             OLED_ShowChar(1, 16, ']');
         } break;

@@ -5,15 +5,15 @@
 #include "MPU6500_SPI.h"
 #include "imu_solution_quat.h"
 
-#define MPU6500_SPI_NSS_High()              (P00 = 1)
-#define MPU6500_SPI_NSS_Low()               (P00 = 0)
+#define MPU6500_SPI_NSS_High()              (NSS_PIN = 1)
+#define MPU6500_SPI_NSS_Low()               (NSS_PIN = 0)
 
 extern EulerAngle_t EulerAngle;
 
 u8 imu_spi_write(u8 reg, u8 dat);
 u8 imu_spi_read(u8 reg, u8 *buf, u16 len);
 
-u8   IMU_Init(void);
+void IMU_Init(void);
 void IMU_Update(void);
 
 #endif // !__IMU_APP_H

@@ -125,7 +125,7 @@
             <Oh166RecLen>16</Oh166RecLen>
           </OPTHX>
           <Simulator>
-            <UseSimulator>1</UseSimulator>
+            <UseSimulator>0</UseSimulator>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
             <RunToMain>1</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
@@ -137,9 +137,9 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
-            <UseTarget>0</UseTarget>
+            <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>0</RunToMain>
+            <RunToMain>1</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
@@ -149,7 +149,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>-1</TargetSelection>
+          <TargetSelection>12</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -163,7 +163,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver></Driver>
+            <Driver>BIN\STCMON51.DLL</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -649,6 +649,56 @@
               <FileType>5</FileType>
               <FilePath>.\Display\Pages\Pages.h</FilePath>
             </File>
+            <File>
+              <FileName>Page_About.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_About.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_About.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_About.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Control.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Control.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Example.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Example.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Example.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Example.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Music.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Music.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Music.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Music.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Settings.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Settings.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -675,6 +725,11 @@
               <FilePath>.\Sources\main.c</FilePath>
             </File>
             <File>
+              <FileName>port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\port.c</FilePath>
+            </File>
+            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Sources\timer.c</FilePath>
@@ -685,9 +740,19 @@
               <FilePath>.\Sources\uart.c</FilePath>
             </File>
             <File>
+              <FileName>exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\exti.c</FilePath>
+            </File>
+            <File>
               <FileName>adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Sources\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Sources\spi.c</FilePath>
             </File>
           </Files>
         </Group>

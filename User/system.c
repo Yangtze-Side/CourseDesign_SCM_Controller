@@ -24,8 +24,8 @@ UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 }
  */
 void proj_init(void)
 {
-	Display_Init();
 	IMU_Init();
+	Display_Init();
 }
 
 /**

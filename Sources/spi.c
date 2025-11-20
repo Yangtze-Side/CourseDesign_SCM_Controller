@@ -31,7 +31,7 @@
 ////////////////////////////////////////
 void SPI_Init(void)
 {
-    SPI_SwitchP1n();                    //选择SPI数据口: SS(P1.2), MOSI(P1.3), MISO(P1.4), SCLK(P1.5)
+    SPI_SwitchP2n();                    //选择SPI数据口: SS(P2.4), MOSI(P2.3), MISO(P2.2), SCLK(P2.1)
 
     SPI_MasterMode();                   //设置SPI为主机模式
     SPI_IgnoreSS();                     //忽略SS脚

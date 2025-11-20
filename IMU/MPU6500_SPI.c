@@ -183,7 +183,7 @@ static u8 mpu_set_dlpf(u16 lpf)
  * 
  * @param sFunc MPU6500_Func_t structure.
  */
-u8 MPU6500_Init(void)
+BOOL MPU6500_Init(void)
 {
     u8 res;
 

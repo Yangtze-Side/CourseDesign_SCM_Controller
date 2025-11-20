@@ -18,7 +18,7 @@ EulerAngle_t EulerAngle = { 0.0f, 0.0f, 0.0f };
 u8 imu_spi_write(u8 reg, u8 dat)
 {
     MPU6500_SPI_NSS_Low();      // Chip select
-    if (User_SPI_Write(reg, 5) == User_SPI_TIMEOUT) return FAILED;
+    if (User_SPI_Write(reg & ~BIT7, 5) == User_SPI_TIMEOUT) return FAILED;
     if (User_SPI_Write(dat, 5) == User_SPI_TIMEOUT) return FAILED;
     MPU6500_SPI_NSS_High();     // Chip deselect
 
@@ -36,7 +36,7 @@ u8 imu_spi_write(u8 reg, u8 dat)
 u8 imu_spi_read(u8 reg, u8 *buf, u16 len)
 {
     MPU6500_SPI_NSS_Low();
-    if (User_SPI_Write(reg, 5) == User_SPI_TIMEOUT) return FAILED;
+    if (User_SPI_Write(reg | BIT7, 5) == User_SPI_TIMEOUT) return FAILED;
     if (User_SPI_Read(buf, len, 10) == User_SPI_TIMEOUT) return FAILED;
     MPU6500_SPI_NSS_High();
 
@@ -49,12 +49,12 @@ u8 imu_spi_read(u8 reg, u8 *buf, u16 len)
  * 
  * @return u8 FAILED or SUCCESS
  */
-u8 IMU_Init(void)
+void IMU_Init(void)
 {
 #if USE_MPU6500
+
     u8 retry = 10;
     u8 ret = SUCCESS;
-
 
     while (MPU6500_Init() == FAILED)
     {
@@ -68,9 +68,8 @@ u8 IMU_Init(void)
         // HAL_IWDG_Refresh(&hiwdg);       // Clear the watch dog counter
     }
     
-    return ret;
 #else
-    return FALSE;
+    return;
 #endif
 }
 

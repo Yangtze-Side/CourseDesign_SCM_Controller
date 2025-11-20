@@ -70,12 +70,14 @@ typedef struct {
 extern ControlCar_t ctrl_car;
 
 void Control_Update(void);
+
 void Control_ModeInc(void);
 void Control_ModeDec(void);
 u8   Control_GetMode(void);
 void Control_VWInc(void);
 void Control_VWDec(void);
 s32  Control_GetVw(void);
+
 void Control_CalcYawBias(float yaw_origin, float yaw_correct);
 void Control_CalcPitchBias(float pitch_current);
 

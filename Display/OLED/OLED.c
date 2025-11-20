@@ -67,14 +67,14 @@ void OLED_Init(void)
         0x00, // 给指针指回去
         0x10, // 给指针指回去（不知道为什么需要将偏移值设置为 56，也就是画面整体向下移一页才是正确的）
 
-        // 0x20, // 设置内存地址模式
-        // 0x00, // 设置水平寻址模式
+        0x20, // 设置内存地址模式
+        0x02, // 设置页寻址模式
 
         OLED_DISPLAY_ON,    // 显示开启
     };
 
-    OLED_Clear();
     OLED_I2C_Write(OLED_CONTROLBYTE_CMD_STREAM, init, sizeof(init));
+    OLED_Clear();
 }
 
 
@@ -107,7 +107,7 @@ void OLED_Clear(void)
     // memset(dat, 0x00, 128);
     for (; i <= 7; i++)
     {
-        OLED_SetCursor(0, i);
+        OLED_SetCursor(i, 0);
         OLED_I2C_Write(OLED_CONTROLBYTE_DATA, dat, 128);
     }
 }

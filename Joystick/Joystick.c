@@ -10,4 +10,3 @@ void ADC_Task(void)
     // 采样 y 轴的电压
     adc_data.adc_ch1 = ADC_Convert(ADC_CHANNEL_Y);
 }
-

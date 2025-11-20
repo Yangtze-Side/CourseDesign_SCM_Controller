@@ -40,6 +40,14 @@
 //<<AICUBE_USER_INCLUDE_END>>
 
 
+#define KEY_MODE                P06
+#define OLED_SCL                P54
+#define OLED_SDA                P55
+#define NSS_PIN                 P24
+#define KEY_LEFT                P00
+#define KEY_RIGHY               P03
+
+
 #include "port.h"
 #include "timer.h"
 #include "uart.h"

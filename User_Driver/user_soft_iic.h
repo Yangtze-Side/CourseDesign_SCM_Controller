@@ -3,8 +3,8 @@
 
 #include "config.h"
 
-#define SCL_Pin             P00
-#define SDA_Pin             P00
+#define SCL_Pin             OLED_SCL
+#define SDA_Pin             OLED_SDA
 
 void Soft_IIC_MemWrite(u8 DevAddr, u8 MemAddr, const u8 *pData, u16 Len);
 

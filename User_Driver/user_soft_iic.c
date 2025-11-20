@@ -6,11 +6,10 @@
 #define SDA_High()              (SDA_Pin = 1)
 #define SDA_Low()               (SDA_Pin = 0)
 
-#define DELAY_TIME	10
-
 static void IIC_Delay(void)
 {
-    NOP(1);
+    NOP(40);
+    NOP(30);
 }
 
 static void IIC_Start(void)
@@ -20,7 +19,7 @@ static void IIC_Start(void)
 	IIC_Delay();
     SDA_Low();
 	IIC_Delay();
-    SCL_Low();    
+    SCL_Low();
 }
 
 static void IIC_Stop(void)
@@ -54,7 +53,7 @@ static u8 IIC_ReceiveByte(void)
 	u8 byte;
 	u8 i = 0;
 	for(; i < 8; i++)
-    {   
+    {
 		SCL_High();
 		IIC_Delay();
 		byte <<= 1;
@@ -62,29 +61,29 @@ static u8 IIC_ReceiveByte(void)
 		SCL_Low();
 		IIC_Delay();
 	}
-	return byte;    
+	return byte;
 }
 
-static u8 IIC_WaitAck(void)
+static BOOL IIC_WaitAck(void)
 {
-	u8 ackbit;
-	
+	BOOL ackbit;
+
     SCL_High();
 	IIC_Delay();
-    ackbit = SDA_Pin; 
+    ackbit = SDA_Pin;
     SCL_Low();
-	
+
 	return ackbit;
 }
 
-static void IIC_SendAck(u8 ackbit)
+static void IIC_SendAck(BOOL ackbit)
 {
     SCL_Low();
-    SDA_Pin = ackbit; 
+    SDA_Pin = ackbit;
 	IIC_Delay();
     SCL_High();
 	IIC_Delay();
-    SCL_Low(); 
+    SCL_Low();
 	SDA_High();
 }
 
