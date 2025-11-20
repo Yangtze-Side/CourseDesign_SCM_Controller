@@ -26,6 +26,7 @@ void proj_init(void)
 {
 	IMU_Init();
 	Display_Init();
+	Comm_Init();
 }
 
 /**

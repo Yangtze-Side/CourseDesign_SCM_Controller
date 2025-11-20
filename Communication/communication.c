@@ -15,6 +15,11 @@ US_Data_t US_Data = { 0 };
 static BOOL Comm_Linked = FALSE;
 
 
+void Comm_Init(void)
+{
+    Comm_Linked = Comm_GetLinkStatusPinLevel();
+}
+
 /**
  * @brief Start parse uart data
  * 
