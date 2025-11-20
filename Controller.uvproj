@@ -649,6 +649,56 @@
               <FileType>5</FileType>
               <FilePath>.\Display\Pages\Pages.h</FilePath>
             </File>
+            <File>
+              <FileName>Page_About.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_About.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_About.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_About.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Control.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Control.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Example.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Example.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Example.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Example.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Music.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Music.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Music.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Music.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Settings.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Settings.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -16,8 +16,9 @@ void Page_Main_Task(void);
 
 /*---------------------------------------------- User Determine -------------------------------------------*/
 
-void Page_Main_Key_ShortPress(void);
-void Page_Main_Key_LongPress(void);
-void Page_Main_Key_DoublePress(void);
+void Page_Main_Key_Left(void);
+void Page_Main_Key_Right(void);
+void Page_Main_Key_Mode_ShortPress(void);
+void Page_Main_Key_Mode_LongPress(void);
 
 #endif // !__PAGE_MAIN_H

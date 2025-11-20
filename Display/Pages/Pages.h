@@ -12,5 +12,6 @@
 #define __PAGES_H
 
 #include "Page_Main.h"
+#include "Page_Control.h"
 
 #endif // !__PAGES_H

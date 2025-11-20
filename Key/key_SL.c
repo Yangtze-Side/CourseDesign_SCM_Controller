@@ -30,7 +30,8 @@ static void Key_ShortPress(void)
 {
     switch (ShowState)
     {
-        case PAGE_Main: break;
+        case PAGE_Main: Page_Main_Key_Mode_ShortPress(); break;
+        case PAGE_Control: Page_Control_Key_Mode_ShortPress(); break;
 
         default: break;
     }
@@ -41,7 +42,8 @@ static void Key_LongPress(void)
 {
     switch (ShowState)
     {
-        case PAGE_Main: break;
+        case PAGE_Main: Page_Main_Key_Mode_LongPress(); break;
+        case PAGE_Control: Page_Control_Key_Mode_LongPress(); break;
 
         default: break;
     }

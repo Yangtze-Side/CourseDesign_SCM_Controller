@@ -43,6 +43,7 @@ void Display_Subtrate(void)
         default: break;
         
         case PAGE_Main: Page_Main_Subtrate(); break;
+        case PAGE_Control: Page_Control_Subtrate(); break;
     }
 }
 
@@ -58,6 +59,7 @@ void Display_Task(void)
         default: break;
         
         case PAGE_Main: Page_Main_Task(); break;
+        case PAGE_Control: Page_Control_Task(); break;
     }
 }
 

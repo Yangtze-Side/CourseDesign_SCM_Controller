@@ -9,6 +9,7 @@
  * 
  */
 #include "Page_Main.h"
+#include "communication.h"
 
 
 // 主页面中的功能选择指针。0 - 当前显示封面。
@@ -30,6 +31,7 @@ void Page_Main_Subtrate(void)
         {
             OLED_ShowCnString16(1, 1, "欢迎");
             OLED_ShowChar(1, 5, '!');
+            OLED_ShowString(2, 1, "--------");
         } break;
         
         case 1:
@@ -37,10 +39,10 @@ void Page_Main_Subtrate(void)
         case 3:
         case 4:
         {
-            OLED_ShowString(1, 1, "1.");
-            OLED_ShowString(2, 1, "2.");
-            OLED_ShowString(3, 1, "3.");
-            OLED_ShowString(4, 1, "4.");
+            OLED_ShowString(1, 1, "1."); OLED_ShowCnString16(1, 3, "纵横决荡");
+            OLED_ShowString(2, 1, "2."); OLED_ShowCnString16(2, 3, "鼓瑟吹萧");
+            OLED_ShowString(3, 1, "3."); OLED_ShowCnString16(3, 3, "约法三章");
+            OLED_ShowString(4, 1, "4."); OLED_ShowCnString16(4, 3, "问所从来");
         } break;
     }
 }
@@ -54,38 +56,56 @@ void Page_Main_Task(void)
 {
     if (Page_Main_Ptr == 0)
     {
-        ;
+        if (Comm_GetLinkStatus())
+        {
+            OLED_ShowCnString16(4, 1, "连上了");
+            OLED_ShowChar(4, 7, ',');
+            OLED_ShowCnString16(4, 8, "玩去吧");
+        }
+        else
+        {
+            OLED_ShowCnString16(4, 1, "蓝牙未连接");
+            OLED_ShowString(4, 11, "   ");
+        }
     }
     else
     {
-        OLED_ShowNum(1, 15, Page_Main_Ptr, 2, FILL_BY_0);
+        OLED_ShowNum(1, 16, Page_Main_Ptr, 1, FILL_BY_SPACE);
     }
 }
 
 
-/**
- * @brief 主页面下按键短按的反应。
- * 
- */
-void Page_Main_Key_ShortPress(void)
+void Page_Main_Key_Left(void)
 {
-    ;
+    if (Page_Main_Ptr-- == 0)
+    {
+        Page_Main_Ptr = PageMain_Ptr_MAX;
+    }
+    Display_Subtrate();
 }
 
-/**
- * @brief 主页面下按键长按的反应。
- * 
- */
-void Page_Main_Key_LongPress(void)
+void Page_Main_Key_Right(void)
 {
-    ;
+    if (++Page_Main_Ptr > PageMain_Ptr_MAX)
+    {
+        Page_Main_Ptr = 0;
+    }
+    Display_Subtrate();
 }
 
-/**
- * @brief 主页面下按键双击的反应。
- * 
- */
-void Page_Main_Key_DoublePress(void)
+
+void Page_Main_Key_Mode_ShortPress(void)
 {
-    ;
+    if (Page_Main_Ptr > 0)
+    {
+        ShowState = (Page_enum)Page_Main_Ptr;
+        Display_Subtrate();
+    }
+}
+
+void Page_Main_Key_Mode_LongPress(void)
+{
+    Page_Main_Ptr = 0;
+    OLED_Clear();
+    Page_Main_Subtrate();
 }

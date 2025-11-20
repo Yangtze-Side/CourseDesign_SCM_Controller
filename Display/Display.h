@@ -38,7 +38,7 @@ typedef enum __page_enum
 {
     PAGE_Main = 0,
 
-    
+    PAGE_Control,
 
     PAGE_TOTAL          // 注意这个 PAGE_TOTAL 是算上主页面之后的页面总数
 } Page_enum;

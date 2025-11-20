@@ -9,7 +9,8 @@ static void Key_L_Pressed(void)
 {
     switch (ShowState)
     {
-        case PAGE_Main: break;
+        case PAGE_Main: Page_Main_Key_Left(); break;
+        case PAGE_Control: Page_Control_Key_Left(); break;
 
         default: break;
     }
@@ -19,7 +20,8 @@ static void Key_R_Pressed(void)
 {
     switch (ShowState)
     {
-        case PAGE_Main: break;
+        case PAGE_Main: Page_Main_Key_Right(); break;
+        case PAGE_Control: Page_Control_Key_Right(); break;
 
         default: break;
     }

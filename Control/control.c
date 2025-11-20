@@ -21,17 +21,39 @@ ControlCar_t ctrl_car =
     &ControlGravity
 };
 
-
+#if 0
 /**
  * @brief 设置小车模式
  * 
  * @param mode 模式
  */
-void Control_Set_Mode(ControlMode_t mode)
+void Control_SetMode(ControlMode_t mode)
 {
     ctrl_car.mode = mode;
 }
+#endif
 
+void Control_ModeInc(void)
+{
+    ++ctrl_car.mode >= Ctrl_Mode_TOTAL ? ctrl_car.mode = 0 : (void)0;
+}
+
+void Control_ModeDec(void)
+{
+    ctrl_car.mode == 0 ? ctrl_car.mode = (Ctrl_Mode_TOTAL - 1) : ctrl_car.mode--;
+}
+
+/**
+ * @brief 读取当前控制模式。
+ * 
+ * @return ControlMode_t 当前模式
+ */
+u8 Control_GetMode(void)
+{
+    return (u8)ctrl_car.mode;
+}
+
+#if 0
 /**
  * @brief 设置小车摇杆模式下的旋转速度
  * 
@@ -40,6 +62,27 @@ void Control_Set_Mode(ControlMode_t mode)
 void Control_SetVw(float vw)
 {
     ctrl_car.vw_set = vw;
+}
+#endif
+
+void Control_VWInc(void)
+{
+    ctrl_car.vw_set < 100 ? ctrl_car.vw_set += 10 : (void)0;
+}
+
+void Control_VWDec(void)
+{
+    ctrl_car.vw_set > 10 ? ctrl_car.vw_set -= 10 : (void)0;
+}
+
+/**
+ * @brief 读取小车当前转向速度。
+ * 
+ * @return s32 转向速度
+ */
+s32  Control_GetVw(void)
+{
+    return (s32)ctrl_car.vw_set;
 }
 
 /**
@@ -59,10 +102,10 @@ void Control_Update(void)
             // vw 由按键按下而改变
             // vw 目前只有前进和后退，而不是在原有的 vm 数值 基础上改动
             if (KeyUD_Is_Pressed(Key_UD_Left)) {
-                ctrl_car.joystick->vw = ctrl_car.vw_set;
+                ctrl_car.joystick->vw = (float)ctrl_car.vw_set;
             }
             else if (KeyUD_Is_Pressed(Key_UD_Right)) {
-                ctrl_car.joystick->vw = -ctrl_car.vw_set;
+                ctrl_car.joystick->vw = -(float)ctrl_car.vw_set;
             }
             else {
                 ctrl_car.joystick->vw = 0;

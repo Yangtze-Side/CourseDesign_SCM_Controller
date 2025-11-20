@@ -27,10 +27,12 @@
 
 //控制模式
 typedef enum {
-    Ctrl_Mode_JoyStick = 0,    // 摇杆模式
-    Ctrl_Mode_Gravity,         // 重力遥控模式
-    Ctrl_Mode_AutoCruise,      // 自动巡航模式
-    Ctrl_Mode_AutoFollow       // 自动跟随模式
+    Ctrl_Mode_JoyStick = 0,     // 摇杆模式
+    Ctrl_Mode_Gravity,          // 重力遥控模式
+    Ctrl_Mode_AutoCruise,       // 自动巡航模式
+    Ctrl_Mode_AutoFollow,       // 自动跟随模式
+
+    Ctrl_Mode_TOTAL             // 模式数量
 } ControlMode_t;
 
 //摇杆数据
@@ -58,8 +60,8 @@ typedef struct ControlEulerOut_t
 
 
 typedef struct {
-    ControlMode_t mode;                 // 当前控制模式
-    float vw_set;                       // 摇杆模式下的旋转速度大小
+    u8 mode;                            // 当前控制模式
+    u8 vw_set;                          // 摇杆模式下的旋转速度大小 (0 ~ 100)
     ControlEulerOut_t *euler;           // 欧拉角需要加上偏移量
     ControlJoystick_t *joystick;        // 摇杆模式数据
     ControlGravity_t  *gravity;         // 重力遥控数据
@@ -68,8 +70,12 @@ typedef struct {
 extern ControlCar_t ctrl_car;
 
 void Control_Update(void);
-void Control_Set_Mode(ControlMode_t mode);
-void Control_SetVw(float vw);
+void Control_ModeInc(void);
+void Control_ModeDec(void);
+u8   Control_GetMode(void);
+void Control_VWInc(void);
+void Control_VWDec(void);
+s32  Control_GetVw(void);
 void Control_CalcYawBias(float yaw_origin, float yaw_correct);
 void Control_CalcPitchBias(float pitch_current);
 

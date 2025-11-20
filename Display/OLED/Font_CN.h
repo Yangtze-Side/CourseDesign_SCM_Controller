@@ -9,7 +9,7 @@
 /*------------------------------------- 16*16 汉字 -----------------------------------*/
 #if Enable_Cn16Char
 
-	#define Cn16Char_SUMMARY 7
+	#define Cn16Char_SUMMARY 28
 
 	struct Cn16CharTypedef {
 		char Index[3];
@@ -18,7 +18,7 @@
 
 	/**
 	 * 已有汉字：
-	 *  欢迎，起终点，科目
+	 *  欢迎蓝牙未连接上了玩去吧纵横决荡鼓瑟吹萧约法三章问所从来
 	 */
 	extern struct Cn16CharTypedef code Cn16Char[Cn16Char_SUMMARY];
 
