@@ -4,12 +4,12 @@
 #include "config.h"
 
 #define Enable_Cn16Char		1		// 是否启用 16*16 汉字，若启用，oled.c 中对应的显示函数也将启用
-#define Enable_Cn32Char		0		// 是否启用 32*32 汉字，若启用，oled.c 中对应的显示函数也将启用
+#define Enable_Cn32Char		1		// 是否启用 32*32 汉字，若启用，oled.c 中对应的显示函数也将启用
 
 /*------------------------------------- 16*16 汉字 -----------------------------------*/
 #if Enable_Cn16Char
 
-	#define Cn16Char_SUMMARY 28
+	#define Cn16Char_SUMMARY 24
 
 	struct Cn16CharTypedef {
 		char Index[3];
@@ -27,7 +27,7 @@
 /*------------------------------------- 32*32 汉字 -----------------------------------*/
 #if Enable_Cn32Char
 
-	#define Cn32Char_SUMMARY 9
+	#define Cn32Char_SUMMARY 10
 
 	struct Cn32CharTypedef
 	{
@@ -36,7 +36,7 @@
 	};
 
 	/**
-	 * 已有汉字：彭宇暄，岳子康，周玄凌
+	 * 已有汉字：岳子康，周玄凌，纵鼓约问
 	 */
 	extern struct Cn32CharTypedef code Cn32Char[Cn32Char_SUMMARY];
 

@@ -35,14 +35,31 @@ void Page_Main_Subtrate(void)
         } break;
         
         case 1:
+        {
+            OLED_ShowCnString32(2, 4, "纵");
+            OLED_ShowCnString16(3, 8, "横决荡");
+            OLED_ShowString(2, 12, "01");
+        } break;
+
         case 2:
+        {
+            OLED_ShowCnString32(2, 4, "鼓");
+            OLED_ShowCnString16(3, 8, "瑟吹萧");
+            OLED_ShowString(2, 12, "02");
+        } break;
+
         case 3:
+        {
+            OLED_ShowCnString32(2, 4, "约");
+            OLED_ShowCnString16(3, 8, "法三章");
+            OLED_ShowString(2, 12, "03");
+        } break;
+
         case 4:
         {
-            OLED_ShowString(1, 1, "1."); OLED_ShowCnString16(1, 3, "纵横决荡");
-            OLED_ShowString(2, 1, "2."); OLED_ShowCnString16(2, 3, "鼓瑟吹萧");
-            OLED_ShowString(3, 1, "3."); OLED_ShowCnString16(3, 3, "约法三章");
-            OLED_ShowString(4, 1, "4."); OLED_ShowCnString16(4, 3, "问所从来");
+            OLED_ShowCnString32(2, 4, "问");
+            OLED_ShowCnString16(3, 8, "所从来");
+            OLED_ShowString(2, 12, "04");
         } break;
     }
 }
@@ -67,10 +84,6 @@ void Page_Main_Task(void)
             OLED_ShowCnString16(4, 1, "蓝牙未连接");
             OLED_ShowString(4, 11, "   ");
         }
-    }
-    else
-    {
-        OLED_ShowNum(1, 16, Page_Main_Ptr, 1, FILL_BY_SPACE);
     }
 }
 
