@@ -39,7 +39,7 @@ void UART1_Init(void)
 
     UART1_EnableRx();                   //使能串口1接收数据
     UART1_Mode1();                      //设置串口1为模式1 (8位数据可变波特率)
-    UART1_SetIntPriority(0);            //设置中断为低优先级
+    UART1_SetIntPriority(1);            //设置中断为高优先级
     UART1_EnableInt();                  //使能串口1中断
 
     //<<AICUBE_USER_UART1_INITIAL_BEGIN>>

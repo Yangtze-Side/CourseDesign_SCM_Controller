@@ -284,15 +284,17 @@ void OLED_ShowNum(u8 row, u8 col, s32 num, u8 len, fill_t fill)
         len--;
     }
 
-    while (len--)
+    while (len)
     {
+		len--;
         OLED_ShowChar(row, (u8)(col + len), (char)(num % 10 + '0'));
         num /= 10;
         if (num == 0) break;
     }
 
-    while (len--)
+    while (len)
     {
+		len--;
         OLED_ShowChar(row, (u8)(col + len), (char)fill);
     }
 }

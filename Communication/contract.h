@@ -4,8 +4,11 @@
 #include "user_def.h"
 
 // Head of a frame
-#define COMM_BYTE0                  0xCC
-#define COMM_BYTE1                  0x33
+#define COMM_HEAD_BYTE0             0xCC
+#define COMM_HEAD_BYTE1             0x33
+// Tail of a frame
+#define COMM_TAIL_BYTE0             0x99
+#define COMM_TAIL_BYTE1             0x66
 
 // Commands send to smart car
 #define COMM_CMD_JoysMode           ((u8)1)     // 帧头 + CMD + vx(float) + vy(float) + vw(float)
@@ -15,9 +18,11 @@
 #define COMM_CMD_MusicStart         ((u8)5)     // 帧头 + CMD + 音乐序号(byte)
 
 // Commands send to controller
-#define COMM_CMD_DHT11Data          ((u8)51)    // 帧头 + CMD + 温度数据(float，摄氏度) + 湿度数据(float，%) + 前置超声波测得的距离 F (float, cm) + B + L + R
+#define COMM_CMD_DHT11Data          ((u8)51)    // 帧头 + CMD + 温度数据(float，摄氏度) + 湿度数据(float，%) + 前置超声波测得的距离 F (float, cm) + B + L + R + 帧尾
+#define COMM_CMD_DHT11Data_LEN      ((u8)25)    // COMM_CMD_DHT11Data 命令 一帧的数据总长度
 
 // Helper macros
-#define COMM_IsFrameHeadCorrect(p)  (p[0] == COMM_BYTE0 && p[1] == COMM_BYTE1)
+#define COMM_IsFrameHeadCorrect(p)  ((p)[0] == COMM_HEAD_BYTE0 && (p)[1] == COMM_HEAD_BYTE1)
+#define COMM_IsFrameTailCorrect(p)  ((p)[0] == COMM_TAIL_BYTE0 && (p)[1] == COMM_TAIL_BYTE1)
 
 #endif // !__CONTRACT_H

@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include "imu_app.h"
 #include "communication.h"
+#include "contract.h"
 #include "Display.h"
 
 /*---------------------------------------- System Variables --------------------------------------*/
@@ -11,10 +12,11 @@ static volatile u32 sys_tick;          	// System tick variable, increases in Sy
                                     	// And the increase frequency is 1 KHz.
 
 u8 xdata UART1_SendBuf[UART1_SendBuf_SIZE];
-u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
+UART_Send_t uart1_tx;
 
-UART_Send_t uart1_tx = { UART1, FALSE, UART1_SendBuf, UART1_SendBuf_SIZE, 0, 0 };
-UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 };
+static u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
+static User_FIFO_TypeDef UART1_FIFO;
+UART_Recv_t uart1_rx;
 
 /*---------------------------------------- User Determine --------------------------------------*/
 
@@ -24,28 +26,71 @@ UART_Recv_t uart1_rx = { UART1, FALSE, UART1_RecvBuf, UART1_RecvBuf_SIZE, 0, 0 }
  */
 void proj_init(void)
 {
+	UART_Send_Init(UART1, &uart1_tx, UART1_SendBuf, UART1_SendBuf_SIZE);
+	UART_Recv_Init(UART1, &uart1_rx, &UART1_FIFO, UART1_RecvBuf, UART1_RecvBuf_SIZE, UART1_RX_SIZEOFPROC);
 	IMU_Init();
 	Display_Init();
 	Comm_Init();
 }
 
 /**
- * @brief UART receive handler, when a frame of data has received.
+ * @brief UART receive handler, when an amount of data has been received.
+ * @note  此函数在中断中调用，当某串口的 FIFO 每接收到一定数量的数据字节后会在中断中调用此函数。
+ * 		  数据处理的时候注意不要调用其他地方也会调用到的函数。
  * 
  * @param recv the handle
  */
-void uart_recv_handler(UART_Recv_t *recv)
+void uart_recv_dataproc(UART_Recv_t *recv)
 {
 	if (recv->Index == UART1)
 	{
-		Comm_StartParse(UART1_RecvBuf, recv->Cnt);
+		/**
+		 * 从所有 FIFO 数据中找到包头，如果没找到，就删除所有数据；
+		 * 如果找到了（包头的第一个字节），删除包头（第一个字节）之前（索引小于它）的数据，
+		 * 如果剩余数据长度大于一帧长度，那就处理，否则不处理。
+		 * 
+		 */
+		// 找包头的 BYTE0
+		u16 index = User_FIFO_FindByte(recv->FIFO, COMM_HEAD_BYTE0);
+		if (index == User_FIFO_BYTENOTFOUND)
+		{
+			// 没找到，删除所有数据
+			User_FIFO_Clear(recv->FIFO, recv->FIFO->MaxSize);
+		}
+		else
+		{
+			// 找到了，删除 BYTE0 以前的数据
+			u8 byte1 = 0;
+			User_FIFO_Clear(recv->FIFO, index);
+			// 查看下一个字节是不是包头的 BYTE1
+			if (User_FIFO_GetByte(recv->FIFO, 1, &byte1))
+			{
+				if (byte1 == COMM_HEAD_BYTE1)
+				{
+					// 如果是 BYTE1
+					if (User_FIFO_GetUsedLength(recv->FIFO) >= COMM_CMD_DHT11Data_LEN)
+					{
+						// 如果剩余数据长度大于一帧长度，那么读取并解析数据，否则无操作
+						u8 dht11_dat[COMM_CMD_DHT11Data_LEN];
+						User_FIFO_Read(recv->FIFO, dht11_dat, COMM_CMD_DHT11Data_LEN, USER_FIFO_READ_AND_CLEAN);
+						// Process the data
+						Comm_Parse(dht11_dat);
+					}
+				}
+				else
+				{
+					// 把前面那个假 BYTE0 删了
+					User_FIFO_Clear(recv->FIFO, 1);
+				}
+			}
+			else
+			{
+				// 如果不能查，那么一定是 FIFO 长度小于 2，那就不管了
+			}
+		}
 	}
 }
 
-void sys_uart_recv_task_5ms(void)
-{
-	UART_Recv_Task_5ms(&uart1_rx);
-}
 
 /*---------------------------------------- System Functions --------------------------------------*/
 

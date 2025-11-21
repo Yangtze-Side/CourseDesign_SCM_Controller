@@ -11,6 +11,7 @@
 #include "Page_Control.h"
 #include "communication.h"
 #include "Control/control.h"
+#include "user_math.h"
 
 #define Page_Control_State_PLAY             0
 #define Page_Control_State_SETMODE          1
@@ -48,10 +49,10 @@ void Page_Control_Task(void)
     OLED_ShowNum(3, 12, DHT11_Data.humi_int, 2, FILL_BY_SPACE);
     OLED_ShowNum(3, 15, DHT11_Data.humi_deci, 1, FILL_BY_SPACE);
 
-    OLED_ShowNum(4, 1,  US_Data.F, 3, FILL_BY_0);
-    OLED_ShowNum(4, 5,  US_Data.B, 3, FILL_BY_0);
-    OLED_ShowNum(4, 10, US_Data.L, 3, FILL_BY_0);
-    OLED_ShowNum(4, 14, US_Data.R, 3, FILL_BY_0);
+    OLED_ShowNum(4, 1,  (US_Data.F), 3, FILL_BY_0);
+    OLED_ShowNum(4, 5,  (US_Data.B), 3, FILL_BY_0);
+    OLED_ShowNum(4, 10, (US_Data.L), 3, FILL_BY_0);
+    OLED_ShowNum(4, 14, (US_Data.R), 3, FILL_BY_0);
 
     switch (Page_Control_State)
     {

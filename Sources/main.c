@@ -59,8 +59,6 @@ void main(void)
             TaskExe();
         }
 
-        Comm_ParseTask();
-        
         //<<AICUBE_USER_MAIN_LOOP_END>>
     }
 }
@@ -146,6 +144,7 @@ void led_task(void)
     // user_printf("Pitch: %f, Roll: %f, Yaw: %f\r\n", EulerAngle.pitch, EulerAngle.roll, EulerAngle.yaw);
     // user_printf("Vx: %f, Vy: %f, Vw: %f\r\n", ctrl_car.joystick->vx, ctrl_car.joystick->vy, ctrl_car.joystick->vw);
     // user_printf("x: %d, y: %d\r\n", adc_data.adc_ch0, adc_data.adc_ch1);
+    // user_printf("F: %f, B: %f, L: %f, R: %f\r\n", US_Data.F, US_Data.B, US_Data.L, US_Data.R);
 }
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
 

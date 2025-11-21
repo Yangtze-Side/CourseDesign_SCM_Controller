@@ -219,7 +219,7 @@
 		<UartBaudrate>9600</UartBaudrate>
 		<CLKOPort>-1</CLKOPort>
 		<EnableInt>1</EnableInt>
-		<IntPriority>1</IntPriority>
+		<IntPriority>0</IntPriority>
 	</TIMER0>
 	<TIMER1>
 		<PeriEnable>0</PeriEnable>
@@ -307,7 +307,7 @@
 		<UartBit>0</UartBit>
 		<UartBaudrate>115200</UartBaudrate>
 		<UartPort>2</UartPort>
-		<IntPriority>0</IntPriority>
+		<IntPriority>1</IntPriority>
 	</UART1>
 	<UART2>
 		<PeriEnable>0</PeriEnable>

@@ -40,7 +40,7 @@ void TIMER0_Init(void)
     TIMER0_12TMode();                   //设置定时器0为12T模式
     TIMER0_Mode0();                     //设置定时器0为模式0 (16位自动重载模式)
     TIMER0_DisableGateINT0();           //禁止定时器0门控
-    TIMER0_SetIntPriority(1);           //设置中断为高优先级
+    TIMER0_SetIntPriority(0);           //设置中断为低优先级
     TIMER0_EnableInt();                 //使能定时器0中断
     TIMER0_SetReload16(T0_RELOAD);      //设置定时器0的16位重载值
     TIMER0_Run();                       //定时器0开始运行

@@ -3,5 +3,6 @@
 
 #include "user_def.h"
 #include "user_math.h"
+#include "user_fifo.h"
 
 #endif // !__USER_LIB_H

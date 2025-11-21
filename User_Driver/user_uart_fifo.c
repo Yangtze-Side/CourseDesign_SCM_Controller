@@ -1,10 +1,28 @@
 
-#include "user_uart.h"
-#include "system.h"				// 没办法，函数指针不让用，只能把外人拉进屋说话了
+#include "user_uart_fifo.h"
+#include "system.h"
 
-#define UART_RecvCallback(recv)			uart_recv_handler(recv)
 
-static BOOL UART_RecvOverFlag = FALSE;
+#define RecvDataProc(recv)				uart_recv_dataproc(recv)
+
+
+/**
+ * @brief Init uart send handle.
+ * 
+ * @param UARTx Index of uart (for C51 only)
+ * @param send  The uart send handle
+ * @param buf 	The data buffer
+ * @param bufSize Size of the data buffer
+ */
+void UART_Send_Init(u8 UARTx, UART_Send_t *send, u8 *buf, u8 bufSize)
+{
+	send->Index = UARTx;
+	send->Buf = buf;
+	send->BufSize = bufSize;
+	send->TxSize = 0;
+	send->Busy = FALSE;
+	send->Cnt = 0;
+}
 
 
 /**
@@ -43,6 +61,7 @@ BOOL UART_Send_Start(UART_Send_t *send, u8 *pDat, u8 txSize)
 	return TRUE;
 }
 
+
 /**
  * @brief UART sending interrupt handler.
  * 
@@ -69,6 +88,34 @@ void UART_Send_ITHandler(UART_Send_t *send)
 	}
 }
 
+
+/**
+ * @brief Init uart receive handle.
+ * 
+ * @param UARTx Index of uart (for C51 only)
+ * @param recv  The uart receive handle
+ * @param fifo  The fifo instance
+ * @param buf 	Buffer for fifo
+ * @param maxSize Max size of the buffer
+ * @param sizeOfProc When data bytes length is more than this value, process program will start
+ */
+void UART_Recv_Init (
+	u8 UARTx,
+	UART_Recv_t *recv,
+	User_FIFO_TypeDef *fifo,
+	u8 *buf,
+	u16 maxSize,
+	u16 sizeOfProc
+)
+{
+	recv->Index = UARTx;
+	recv->Cnt = 0;
+	recv->FIFO = fifo;
+	recv->SizeOfProc = sizeOfProc;
+	User_FIFO_Init(fifo, buf, maxSize);
+}
+
+
 /**
  * @brief UART receiving it handler.
  * 
@@ -76,53 +123,19 @@ void UART_Send_ITHandler(UART_Send_t *send)
  */
 void UART_Recv_ITHandler(UART_Recv_t *recv)
 {
-	if (recv->Start == FALSE)
+	u8 datatmp;
+	switch (recv->Index)
 	{
-		recv->Start = TRUE;
+		case UART1: datatmp = SBUF;  break;
+		case UART2: datatmp = S2BUF; break;
+		case UART3: datatmp = S3BUF; break;
+		case UART4: datatmp = S4BUF; break;
+		default: break;
+	}
+	User_FIFO_WriteByte(recv->FIFO, datatmp);
+	if (++recv->Cnt >= recv->SizeOfProc)
+	{
 		recv->Cnt = 0;
-	}
-	++recv->Cnt;
-	recv->Timeout = 0;
-	if (recv->Cnt <= recv->BufSize)
-	{
-		switch (recv->Index)
-		{
-			case UART1: recv->Buf[recv->Cnt - 1] = SBUF; break;
-			case UART2: recv->Buf[recv->Cnt - 1] = S2BUF; break;
-			case UART3: recv->Buf[recv->Cnt - 1] = S3BUF; break;
-			case UART4: recv->Buf[recv->Cnt - 1] = S4BUF; break;
-			default: break;
-		}
-	}
-	else
-	{
-		recv->Start = FALSE;
-		// Receiving completes for the buffer is full.
-		UART_RecvOverFlag = TRUE;
-	}
-}
-
-/**
- * @brief Periodicly executed function that is used to check receiving timeout.
- * 
- * @param recv The handle
- */
-void UART_Recv_Task_5ms(UART_Recv_t *recv)
-{
-	if (UART_RecvOverFlag)
-	{
-		UART_RecvOverFlag = FALSE;
-		UART_RecvCallback(recv);
-	}
-
-	if (recv->Start == TRUE)
-	{
-		if (++recv->Timeout >= UART_RecvTimeout)
-		{
-			recv->Start = FALSE;
-			recv->Timeout = 0;
-			// Receiving completes for time's up.
-			UART_RecvCallback(recv);
-		}
+		RecvDataProc(recv);
 	}
 }

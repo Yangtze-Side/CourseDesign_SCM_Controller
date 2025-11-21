@@ -2,6 +2,7 @@
 #define __COMMUNICATION_H
 
 #include "config.h"
+#include "contract.h"
 
 #define Comm_LinkStatus_PIN             P32
 #define Comm_GetLinkStatusPinLevel()    (Comm_LinkStatus_PIN)
@@ -27,8 +28,7 @@ extern US_Data_t US_Data;
 
 void Comm_Init(void);
 
-void Comm_StartParse(u8 DatBuf[64], u8 len);
-void Comm_ParseTask(void);
+void Comm_Parse(u8 *dat);
 
 void Comm_SendTask(void);
 
