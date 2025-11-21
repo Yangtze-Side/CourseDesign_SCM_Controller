@@ -13,5 +13,6 @@
 
 #include "Page_Main.h"
 #include "Page_Control.h"
+#include "Page_Music.h"
 
 #endif // !__PAGES_H

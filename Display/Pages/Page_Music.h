@@ -16,8 +16,9 @@
 void Page_Music_Subtrate(void);
 void Page_Music_Task(void);
 
-void Page_Music_Key_ShortPress(void);
-void Page_Music_Key_LongPress(void);
-void Page_Music_Key_DoublePress(void);
+void Page_Music_Key_Left(void);
+void Page_Music_Key_Right(void);
+void Page_Music_Key_Mode_ShortPress(void);
+void Page_Music_Key_Mode_LongPress(void);
 
 #endif // !__PAGE_Music_H

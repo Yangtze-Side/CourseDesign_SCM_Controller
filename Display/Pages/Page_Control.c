@@ -25,7 +25,7 @@ void Page_Control_Subtrate(void)
     OLED_ShowString(3, 7, "`C");
     OLED_ShowChar(3, 14, '.');
     OLED_ShowString(3, 10, "H:");
-    OLED_ShowString(3, 16, "%%");
+    OLED_ShowString(3, 16, "%");
 }
 
 void Page_Control_Task(void)

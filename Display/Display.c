@@ -44,6 +44,7 @@ void Display_Subtrate(void)
         
         case PAGE_Main: Page_Main_Subtrate(); break;
         case PAGE_Control: Page_Control_Subtrate(); break;
+        case PAGE_Music: Page_Music_Subtrate(); break;
     }
 }
 
@@ -60,6 +61,7 @@ void Display_Task(void)
         
         case PAGE_Main: Page_Main_Task(); break;
         case PAGE_Control: Page_Control_Task(); break;
+        case PAGE_Music: Page_Music_Task(); break;
     }
 }
 

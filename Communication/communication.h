@@ -35,4 +35,8 @@ void Comm_SendTask(void);
 void Comm_SetLinkStatus(BOOL status);
 BOOL Comm_GetLinkStatus(void);
 
+void Comm_MusicStart(u8 num);
+void Comm_MusicPause(void);
+void Comm_MusicStop(void);
+
 #endif // !__COMMUNICATION_H

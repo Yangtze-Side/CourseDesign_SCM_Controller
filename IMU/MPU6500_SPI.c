@@ -3,8 +3,11 @@
 #include "user_lib.h"
 #include "imu_app.h"
 
-#define mpu6500_write(reg, dat)             imu_spi_write(reg, dat)
-#define mpu6500_read(reg, buf, len)         imu_spi_read(reg, buf, len)
+#define mpu6500_write_1(reg, dat)           imu_spi_write_1(reg, dat)
+#define mpu6500_read_1(reg, buf, len)       imu_spi_read_1(reg, buf, len)
+
+#define mpu6500_write_2(reg, dat)           imu_spi_write_2(reg, dat)
+#define mpu6500_read_2(reg, buf, len)       imu_spi_read_2(reg, buf, len)
 
 
 /*--------------------------------------- Library --------------------------------------*/
@@ -120,7 +123,7 @@ static Drift_t drift = { 0.0f, 0.0f, 0.0f };
 static u8 mpu_set_accel_fsr(MPU6500_AccelFsr fsr)
 {
     u8 regval = ((u8)fsr << 3);
-    if (mpu6500_write(ACCEL_CONFIG, regval) == FAILED) return FAILED;
+    if (mpu6500_write_1(ACCEL_CONFIG, regval) == FAILED) return FAILED;
 
     switch (fsr)
     {
@@ -137,7 +140,7 @@ static u8 mpu_set_accel_fsr(MPU6500_AccelFsr fsr)
 static u8 mpu_set_gyro_fsr(MPU6500_GyroFsr fsr)
 {
     u8 regval = ((u8)fsr << 3);
-    if (mpu6500_write(GYRO_CONFIG, regval) == FAILED) return FAILED;
+    if (mpu6500_write_1(GYRO_CONFIG, regval) == FAILED) return FAILED;
 
     switch (fsr)
     {
@@ -172,7 +175,7 @@ static u8 mpu_set_dlpf(u16 lpf)
     else
         dat = MPU_FILTER_5HZ;
 
-    return mpu6500_write(CONFIG, dat);
+    return mpu6500_write_1(CONFIG, dat);
 }
 
 
@@ -187,15 +190,15 @@ BOOL MPU6500_Init(void)
 {
     u8 res;
 
-    if (mpu6500_write(USER_CTRL, USER_CTRL_VAL) == FAILED) return FAILED;
+    if (mpu6500_write_1(USER_CTRL, USER_CTRL_VAL) == FAILED) return FAILED;
 
-    mpu6500_read(WHO_AM_I, &res, 1);
+    mpu6500_read_1(WHO_AM_I, &res, 1);
     if (res != WHO_AM_I_VAL) return FAILED;
     MPU6500_SET_BIT(MPU6500_State, MPU6500_CommunicationOK_BIT);
 
-    if (mpu6500_write(PWR_MGMT_1, PWR_MGMT_1_VAL) == FAILED) return FAILED;
-    if (mpu6500_write(PWR_MGMT_2, PWR_MGMT_2_VAL) == FAILED) return FAILED;
-    if (mpu6500_write(SMPLRT_DIV, SMPLRT_DIV_VAL) == FAILED) return FAILED;
+    if (mpu6500_write_1(PWR_MGMT_1, PWR_MGMT_1_VAL) == FAILED) return FAILED;
+    if (mpu6500_write_1(PWR_MGMT_2, PWR_MGMT_2_VAL) == FAILED) return FAILED;
+    if (mpu6500_write_1(SMPLRT_DIV, SMPLRT_DIV_VAL) == FAILED) return FAILED;
 
     if (mpu_set_accel_fsr(MPU6500_ACCEL_FSR) == FAILED) return FAILED;
     if (mpu_set_gyro_fsr(MPU6500_GYRO_FSR) == FAILED) return FAILED;
@@ -214,7 +217,7 @@ void MPU6500_ReadData(void)
 {
     u8 buf[14];
     s16 tmp;
-    mpu6500_read(ACCEL_XOUT_H, buf, sizeof(buf));
+    mpu6500_read_2(ACCEL_XOUT_H, buf, sizeof(buf));
 
     tmp = (s16)MAKEWORD(buf[1], buf[0]);
     MPU6500_Data.accx = ACCEL_Trans(tmp);
@@ -250,7 +253,7 @@ void MPU6500_SampleDrift(void)
     static u16 cnt = 0;
     u8 buf[6];
 
-    mpu6500_read(GYRO_XOUT_H, buf, sizeof(buf));
+    mpu6500_read_2(GYRO_XOUT_H, buf, sizeof(buf));
 
     drift.gx -= (float)(s16)MAKEWORD(buf[1], buf[0]);
     drift.gy -= (float)(s16)MAKEWORD(buf[3], buf[2]);

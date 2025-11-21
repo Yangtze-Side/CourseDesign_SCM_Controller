@@ -20,11 +20,11 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      7
+#define TASK_TOTAL      6
 
 Task_t Task[TASK_TOTAL] =
 {
-    { 5/5, 0, IMU_Update },
+    // { 5/5, 0, IMU_Update },
     { 50/5, 0, ADC_Task },
 
     { 20/5, 0, Key_UD_Task },
@@ -54,7 +54,7 @@ void TaskExe(void)
     // Pretend to call the task functions
     if (i > TASK_TOTAL)
     {
-        IMU_Update();
+        // IMU_Update();
         ADC_Task();
         sys_uart_recv_task_5ms();
         Comm_SendTask();
@@ -62,6 +62,6 @@ void TaskExe(void)
         Display_Task();
         Key_UD_Task();
         KeySL_Task();
-        Control_Update();
+        // Control_Update();
     }
 }

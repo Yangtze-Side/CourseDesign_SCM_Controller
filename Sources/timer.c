@@ -17,6 +17,7 @@
 // 在此添加用户头文件包含  
 #include "task.h"
 #include "system.h"
+#include "imu_app.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -89,6 +90,7 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
         t0_cnt = 0;
         // 5ms TODO
         SET_TaskExeFlag();
+        IMU_Update();
     }
     // 1ms TODO
     Sys_IncTick();
