@@ -13,6 +13,10 @@
 
 #define UART1_RX_SIZEOFPROC                 16
 
+#define IAP_CONTR_SWBS_MSK                  BIT6
+#define IAP_CONTR_SWRST_MSK                 BIT5
+#define Software_ResetToISP()               SET_REG_BIT(IAP_CONTR, IAP_CONTR_SWBS_MSK | IAP_CONTR_SWRST_MSK)
+
 
 /*-------------------------------- Exported Variables -------------------------------*/
 
