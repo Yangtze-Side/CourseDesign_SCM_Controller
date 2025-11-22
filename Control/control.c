@@ -4,6 +4,7 @@
 #include "Joystick.h"
 #include "imu_app.h"
 #include "user_lib.h"
+#include "Display.h"
 
 #define Speed_Limit             LimAbsAsgn
 
@@ -91,56 +92,63 @@ s32  Control_GetVw(void)
  */
 void Control_Update(void)
 {
-    switch (ctrl_car.mode)
+    switch (ShowState)
     {
-        case Ctrl_Mode_JoyStick:
-        {
-            // 速度直接来自摇杆
-            ctrl_car.joystick->vx = ((s16)ADC_ZERO - (s16)adc_data.adc_ch0) / (float)ADC_ZERO * SPEED_LIMIT;
-            ctrl_car.joystick->vy = ((s16)ADC_ZERO - (s16)adc_data.adc_ch1) / (float)ADC_ZERO * SPEED_LIMIT;
+        case PAGE_Control:
+            switch (ctrl_car.mode)
+            {
+                case Ctrl_Mode_JoyStick:
+                {
+                    // 速度直接来自摇杆
+                    ctrl_car.joystick->vx = ((s16)ADC_ZERO - (s16)adc_data.adc_ch0) / (float)ADC_ZERO * SPEED_LIMIT;
+                    ctrl_car.joystick->vy = ((s16)ADC_ZERO - (s16)adc_data.adc_ch1) / (float)ADC_ZERO * SPEED_LIMIT;
 
-            ABS(ctrl_car.joystick->vx) < SPEED_DEAD ? ctrl_car.joystick->vx = 0.0f : (void)0;
-            ABS(ctrl_car.joystick->vy) < SPEED_DEAD ? ctrl_car.joystick->vy = 0.0f : (void)0;
+                    ABS(ctrl_car.joystick->vx) < SPEED_DEAD ? ctrl_car.joystick->vx = 0.0f : (void)0;
+                    ABS(ctrl_car.joystick->vy) < SPEED_DEAD ? ctrl_car.joystick->vy = 0.0f : (void)0;
 
-            // vw 由按键按下而改变
-            // vw 目前只有前进和后退，而不是在原有的 vm 数值 基础上改动
-            if (KeyUD_Is_Pressed(Key_UD_Left)) {
-                ctrl_car.joystick->vw = (float)ctrl_car.vw_set;
-            }
-            else if (KeyUD_Is_Pressed(Key_UD_Right)) {
-                ctrl_car.joystick->vw = -(float)ctrl_car.vw_set;
-            }
-            else {
-                ctrl_car.joystick->vw = 0;
-            }
+                    // vw 由按键按下而改变
+                    // vw 目前只有前进和后退，而不是在原有的 vm 数值 基础上改动
+                    if (KeyUD_Is_Pressed(Key_UD_Left)) {
+                        ctrl_car.joystick->vw = (float)ctrl_car.vw_set;
+                    }
+                    else if (KeyUD_Is_Pressed(Key_UD_Right)) {
+                        ctrl_car.joystick->vw = -(float)ctrl_car.vw_set;
+                    }
+                    else {
+                        ctrl_car.joystick->vw = 0;
+                    }
 
-            // 这里限制最大速度
-            Speed_Limit(ctrl_car.joystick->vx, SPEED_LIMIT);
-            Speed_Limit(ctrl_car.joystick->vy, SPEED_LIMIT);
-            Speed_Limit(ctrl_car.joystick->vw, SPEED_LIMIT);
-        } break;
+                    // 这里限制最大速度
+                    Speed_Limit(ctrl_car.joystick->vx, SPEED_LIMIT);
+                    Speed_Limit(ctrl_car.joystick->vy, SPEED_LIMIT);
+                    Speed_Limit(ctrl_car.joystick->vw, SPEED_LIMIT);
+                } break;
 
-        // 本意是想让 Yaw 角度用cos和sin获得vx和vy, 这样更符合直觉, 但是没有对应的函数
-        // 使用 Pitch 来决定 vm 会更符合直觉
-        case Ctrl_Mode_Gravity:
-        {
-            // 加上偏移量
-            ctrl_car.euler->roll = EulerAngle.roll;
-            ctrl_car.euler->pitch = Lim_Ang_180(EulerAngle.pitch + ctrl_car.euler->pitch_bias);
-            ctrl_car.euler->yaw = Lim_Ang_180(EulerAngle.yaw + ctrl_car.euler->yaw_bias);
+                // 本意是想让 Yaw 角度用cos和sin获得vx和vy, 这样更符合直觉, 但是没有对应的函数
+                // 使用 Pitch 来决定 vm 会更符合直觉
+                case Ctrl_Mode_Gravity:
+                {
+                    // 加上偏移量
+                    ctrl_car.euler->roll = EulerAngle.roll;
+                    ctrl_car.euler->pitch = Lim_Ang_180(EulerAngle.pitch + ctrl_car.euler->pitch_bias);
+                    ctrl_car.euler->yaw = Lim_Ang_180(EulerAngle.yaw + ctrl_car.euler->yaw_bias);
 
-            // roll 决定 vx
-            ctrl_car.gravity->vx = MapAngleTo100(ctrl_car.euler->roll, ROLL_ANGLE_USE);
-            // pitch 决定 vy
-            ctrl_car.gravity->vy = MapAngleTo100(ctrl_car.euler->pitch, PITCH_ANGLE_USE);
-            // yaw 决定 vw
-            ctrl_car.gravity->target_yaw = ctrl_car.euler->yaw;
+                    // roll 决定 vx
+                    ctrl_car.gravity->vx = MapAngleTo100(ctrl_car.euler->roll, ROLL_ANGLE_USE);
+                    // pitch 决定 vy
+                    ctrl_car.gravity->vy = MapAngleTo100(ctrl_car.euler->pitch, PITCH_ANGLE_USE);
+                    // yaw 决定 vw
+                    ctrl_car.gravity->target_yaw = ctrl_car.euler->yaw;
 
-            // 这里限制最大速度
-            Speed_Limit(ctrl_car.gravity->vx, SPEED_LIMIT);
-            Speed_Limit(ctrl_car.gravity->vy, SPEED_LIMIT);
-        } break;
+                    // 这里限制最大速度
+                    Speed_Limit(ctrl_car.gravity->vx, SPEED_LIMIT);
+                    Speed_Limit(ctrl_car.gravity->vy, SPEED_LIMIT);
+                } break;
+                
+                default: break;
 
+            break;
+        }
         default: break;
     }
 }

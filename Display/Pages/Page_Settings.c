@@ -9,16 +9,21 @@
  * 
  */
 #include "Page_Settings.h"
+#include "imu_app.h"
 
 
 void Page_Settings_Subtrate(void)
 {
-    OLED_ShowString(1, 1, "Example");
+    OLED_ShowString(1, 1, "Pitch");
+    OLED_ShowString(2, 1, "Roll");
+    OLED_ShowString(3, 1, "Yaw");
 }
 
 void Page_Settings_Task(void)
 {
-    ;
+    OLED_ShowNum(1, 6, EulerAngle.pitch, 4, FILL_BY_0);
+    OLED_ShowNum(2, 6, EulerAngle.roll,  4, FILL_BY_0);
+    OLED_ShowNum(3, 6, EulerAngle.yaw, 4, FILL_BY_0);
 }
 
 
@@ -39,5 +44,5 @@ void Page_Settings_Key_Mode_ShortPress(void)
 
 void Page_Settings_Key_Mode_LongPress(void)
 {
-    ;
+    ReturnPageMain();
 }
