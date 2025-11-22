@@ -6,11 +6,8 @@
 #define SDA_High()              (SDA_Pin = 1)
 #define SDA_Low()               (SDA_Pin = 0)
 
-static void IIC_Delay(void)
-{
-    NOP(40);
-    NOP(30);
-}
+#define IIC_Delay()             NOP(1)
+
 
 static void IIC_Start(void)
 {

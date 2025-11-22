@@ -489,6 +489,16 @@
               <FileType>5</FileType>
               <FilePath>.\User_Lib\user_math.h</FilePath>
             </File>
+            <File>
+              <FileName>user_fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User_Lib\user_fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_fifo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User_Lib\user_fifo.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -530,14 +540,14 @@
               <FilePath>.\User_Driver\user_spi.h</FilePath>
             </File>
             <File>
-              <FileName>user_uart.c</FileName>
+              <FileName>user_uart_fifo.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\User_Driver\user_uart.c</FilePath>
+              <FilePath>.\User_Driver\user_uart_fifo.c</FilePath>
             </File>
             <File>
-              <FileName>user_uart.h</FileName>
+              <FileName>user_uart_fifo.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\User_Driver\user_uart.h</FilePath>
+              <FilePath>.\User_Driver\user_uart_fifo.h</FilePath>
             </File>
           </Files>
         </Group>
