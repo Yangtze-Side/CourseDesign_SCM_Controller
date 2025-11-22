@@ -94,6 +94,7 @@ void Page_Settings_Key_Mode_ShortPress(void)
                 Page_Settings_Reset_Yaw_Step = Page_Settings_State_Reset_Yaw_Step_One;
             }
         }
+        default: break;
     }
 }
 
