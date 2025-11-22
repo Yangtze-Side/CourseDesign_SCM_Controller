@@ -16,8 +16,9 @@
 void Page_Settings_Subtrate(void);
 void Page_Settings_Task(void);
 
-void Page_Settings_Key_ShortPress(void);
-void Page_Settings_Key_LongPress(void);
-void Page_Settings_Key_DoublePress(void);
+void Page_Settings_Key_Left(void);
+void Page_Settings_Key_Right(void);
+void Page_Settings_Key_Mode_ShortPress(void);
+void Page_Settings_Key_Mode_LongPress(void);
 
 #endif // !__PAGE_Settings_H

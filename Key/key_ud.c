@@ -12,6 +12,8 @@ static void Key_L_Pressed(void)
         case PAGE_Main: Page_Main_Key_Left(); break;
         case PAGE_Control: Page_Control_Key_Left(); break;
         case PAGE_Music: Page_Music_Key_Left(); break;
+        case PAGE_Settings: Page_Settings_Key_Left(); break;
+        case PAGE_About: Page_About_Key_Left(); break;
 
         default: break;
     }
@@ -24,6 +26,8 @@ static void Key_R_Pressed(void)
         case PAGE_Main: Page_Main_Key_Right(); break;
         case PAGE_Control: Page_Control_Key_Right(); break;
         case PAGE_Music: Page_Music_Key_Right(); break;
+        case PAGE_Settings: Page_Settings_Key_Right(); break;
+        case PAGE_About: Page_About_Key_Right(); break;
 
         default: break;
     }

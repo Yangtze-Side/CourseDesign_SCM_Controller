@@ -33,6 +33,8 @@ static void Key_ShortPress(void)
         case PAGE_Main: Page_Main_Key_Mode_ShortPress(); break;
         case PAGE_Control: Page_Control_Key_Mode_ShortPress(); break;
         case PAGE_Music: Page_Music_Key_Mode_ShortPress(); break;
+        case PAGE_Settings: Page_Settings_Key_Mode_ShortPress(); break;
+        case PAGE_About: Page_About_Key_Mode_ShortPress(); break;
 
         default: break;
     }
@@ -46,6 +48,8 @@ static void Key_LongPress(void)
         case PAGE_Main: Page_Main_Key_Mode_LongPress(); break;
         case PAGE_Control: Page_Control_Key_Mode_LongPress(); break;
         case PAGE_Music: Page_Music_Key_Mode_LongPress(); break;
+        case PAGE_Settings: Page_Settings_Key_Mode_LongPress(); break;
+        case PAGE_About: Page_About_Key_Mode_LongPress(); break;
 
         default: break;
     }

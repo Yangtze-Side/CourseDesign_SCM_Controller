@@ -10,29 +10,53 @@
  */
 #include "Page_About.h"
 
+static u8 page_about_index = 0;
+static u8 page_about_iconIndex = 0;
+static char code page_about_icon[4] = { '|', '/', '-', '\\' };
+
 
 void Page_About_Subtrate(void)
 {
-    OLED_ShowString(1, 1, "Example");
+    OLED_ShowString(1, 1, "Author:");
+    OLED_ShowCnString32(3, 5, "岳子康");
 }
 
 void Page_About_Task(void)
 {
-    ;
+    OLED_ShowChar(1, 16, page_about_icon[++page_about_iconIndex > 3 ? page_about_iconIndex = 0 : page_about_iconIndex]);
+
 }
 
 
-void Page_About_Key_ShortPress(void)
+void Page_About_Key_Left(void)
 {
     ;
 }
 
-void Page_About_Key_LongPress(void)
+void Page_About_Key_Right(void)
 {
     ;
 }
 
-void Page_About_Key_DoublePress(void)
+void Page_About_Key_Mode_ShortPress(void)
 {
-    ;
+    page_about_index ^= 1;
+    switch (page_about_index)
+    {
+        case 0:
+        {
+            OLED_ShowCnString32(3, 5, "岳子康");
+        } break;
+
+        case 1:
+        {
+            OLED_ShowCnString32(3, 5, "周玄凌");
+        } break;
+    }
+}
+
+void Page_About_Key_Mode_LongPress(void)
+{
+	page_about_index = 0;
+    ReturnPageMain();
 }
