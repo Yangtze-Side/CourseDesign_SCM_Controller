@@ -11,7 +11,7 @@
 #define UART1_SendBuf_SIZE		            128
 #define UART1_RecvBuf_SIZE		            128
 
-#define UART1_RX_SIZEOFPROC                 16
+#define UART1_RX_SIZEOFPROC                 25
 
 #define IAP_CONTR_SWBS_MSK                  BIT6
 #define IAP_CONTR_SWRST_MSK                 BIT5

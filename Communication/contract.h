@@ -21,8 +21,11 @@
 #define COMM_CMD_MusicResume        ((u8)8)     // 帧头 + CMD
 
 // Commands send to controller
-#define COMM_CMD_DHT11Data          ((u8)51)    // 帧头 + CMD + 温度数据(float，摄氏度) + 湿度数据(float，%) + 前置超声波测得的距离 F (float, cm) + B + L + R + 帧尾
-#define COMM_CMD_DHT11Data_LEN      ((u8)25)    // COMM_CMD_DHT11Data 命令 一帧的数据总长度
+// 帧头 + CMD + 温度数据(float，摄氏度) + 湿度数据(float，%) +
+// 前置超声波测得的距离 F (float, cm) + B + L + R +
+// GPI + AFPID + 帧尾
+#define COMM_CMD_CarData            ((u8)51)
+#define COMM_CMD_DHT11Data_LEN      ((u8)( (3 + 2) + 4 + 4*4 + 4*5 ))    // COMM_CMD_CarData 命令 一帧的数据总长度
 
 // Helper macros
 #define COMM_IsFrameHeadCorrect(p)  ((p)[0] == COMM_HEAD_BYTE0 && (p)[1] == COMM_HEAD_BYTE1)

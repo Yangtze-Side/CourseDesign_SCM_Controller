@@ -22,7 +22,17 @@ typedef struct US_Data_t
     float R;                // Right, cm
 } US_Data_t;
 
+typedef struct Comm_PID_Data_t
+{
+    float gpi_kp;
+    float gpi_ki;
+    float afpid_kp;
+    float afpid_ki;
+    float afpid_kd;
+} Comm_PID_Data_t;
 
+
+extern Comm_PID_Data_t Comm_PID_Data;
 extern DHT11_Data_t DHT11_Data;
 extern US_Data_t US_Data;
 

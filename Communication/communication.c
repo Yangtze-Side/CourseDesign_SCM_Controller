@@ -12,10 +12,10 @@
 
 US_Data_t US_Data = { 0 };
 DHT11_Data_t DHT11_Data = { 0 };
+Comm_PID_Data_t Comm_PID_Data = { 0 };
 static BOOL Comm_Linked = FALSE;
 static u8 Comm_SendRequest = COMM_SendReq_NONE;
 static u8 comm_music_num = 1;
-
 
 void Comm_Init(void)
 {
@@ -34,7 +34,7 @@ void Comm_Parse(u8 *dat)
     {
         switch (dat[2])
         {
-            case COMM_CMD_DHT11Data:
+            case COMM_CMD_CarData:
             {
                 DHT11_Data.temp_int = dat[3];
                 DHT11_Data.temp_deci = dat[4];
@@ -44,6 +44,11 @@ void Comm_Parse(u8 *dat)
                 US_Data.B = *(float*)(dat + 11);
                 US_Data.L = *(float*)(dat + 15);
                 US_Data.R = *(float*)(dat + 19);
+                Comm_PID_Data.gpi_kp = *(float*)(dat + 23);
+                Comm_PID_Data.gpi_ki = *(float*)(dat + 27);
+                Comm_PID_Data.afpid_kp = *(float*)(dat + 31);
+                Comm_PID_Data.afpid_ki = *(float*)(dat + 35);
+                Comm_PID_Data.afpid_kd = *(float*)(dat + 39);
             } break;
             
             default:
