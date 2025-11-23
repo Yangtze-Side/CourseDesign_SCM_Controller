@@ -13,6 +13,12 @@
 
 #include "Display.h"
 
+#define Page_Control_State_PLAY             0
+#define Page_Control_State_SETMODE          1
+#define Page_Control_State_SETVW            2
+
+extern u8 Page_Control_State;
+
 void Page_Control_Subtrate(void);
 void Page_Control_Task(void);
 
