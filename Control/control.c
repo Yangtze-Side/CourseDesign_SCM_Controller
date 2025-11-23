@@ -127,11 +127,6 @@ void Control_Update(void)
             // 使用 Pitch 来决定 vm 会更符合直觉
             case Ctrl_Mode_Gravity:
             {
-                // 加上偏移量
-                ctrl_car.euler->roll = EulerAngle.roll;
-                ctrl_car.euler->pitch = Lim_Ang_180(EulerAngle.pitch + ctrl_car.euler->pitch_bias);
-                ctrl_car.euler->yaw = Lim_Ang_180(EulerAngle.yaw + ctrl_car.euler->yaw_bias);
-
                 // roll 决定 vx
                 ctrl_car.gravity->vx = MapAngleTo100(ctrl_car.euler->roll, ROLL_ANGLE_USE);
                 // pitch 决定 vy
@@ -156,6 +151,19 @@ void Control_Update(void)
         ctrl_car.gravity->vy = 0;
         ctrl_car.gravity->target_yaw = 0;
     }
+}
+
+
+/**
+ * @brief 计算控制欧拉角，即使现在没在遥控状态。
+ * @note  放在欧拉角读取完之后执行即可。
+ * 
+ */
+void Control_UpdateEuler(void)
+{
+    ctrl_car.euler->roll = EulerAngle.roll;
+    ctrl_car.euler->pitch = Lim_Ang_180(EulerAngle.pitch + ctrl_car.euler->pitch_bias);
+    ctrl_car.euler->yaw = Lim_Ang_180(EulerAngle.yaw + ctrl_car.euler->yaw_bias);
 }
 
 /**

@@ -14,7 +14,6 @@ void EulerAngle_AddBias(EulerAngle_t *e)
     e->pitch = Lim_Ang_180(e->pitch - e->pitch_bias);
 }
 
-
 /**
  * @brief The Yaw is corrected to 0 degrees according to current yaw.
  * 

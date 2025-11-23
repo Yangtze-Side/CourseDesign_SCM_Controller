@@ -10,7 +10,7 @@
  */
 #include "Page_Settings.h"
 #include "imu_app.h"
-#include "control.h"
+#include "Control/control.h"
 
 
 #define Page_Settings_State_Reset_Pitch    0
@@ -26,34 +26,34 @@ float Last_Yaw_Angle = 0.0f;
 
 void Page_Settings_Subtrate(void)
 {
-    OLED_ShowString(2, 2, "Reset Pitch");
-    OLED_ShowString(3, 2, "Reset Yaw");
+    OLED_ShowString(3, 2, "Reset Pitch");
+    OLED_ShowString(4, 2, "Reset Yaw");
 }
 
 void Page_Settings_Task(void)
 {
-    OLED_ShowNum(1, 1, EulerAngle.pitch, 3, FILL_BY_0);
-    OLED_ShowNum(1, 5, EulerAngle.roll,  3, FILL_BY_0);
-    OLED_ShowNum(1, 9, EulerAngle.yaw, 3, FILL_BY_0);
+    OLED_ShowNum(1, 1,  ctrl_car.euler->pitch, 4, FILL_BY_0);
+    OLED_ShowNum(1, 6,  ctrl_car.euler->roll,  4, FILL_BY_0);
+    OLED_ShowNum(1, 11, ctrl_car.euler->yaw,   4, FILL_BY_0);
 
 
     switch (Page_Settings_State)
     {
         case Page_Settings_State_Reset_Pitch:
-            OLED_ShowString(2, 1, ">");
-            OLED_ShowString(3, 1, " ");
-            OLED_ShowString(3, 12, " ");
+            OLED_ShowString(3, 1, ">");
+            OLED_ShowString(4, 1, " ");
+            OLED_ShowString(4, 12, " ");
             break;
 
         case Page_Settings_State_Reset_Yaw:
             if (Page_Settings_Reset_Yaw_Step == Page_Settings_State_Reset_Yaw_Step_One) {
-                OLED_ShowString(3, 1, ">");
-                OLED_ShowString(2, 1, " ");
-                OLED_ShowString(3, 12, "1");
+                OLED_ShowString(4, 1, ">");
+                OLED_ShowString(3, 1, " ");
+                OLED_ShowString(4, 12, "1");
             } else if (Page_Settings_Reset_Yaw_Step == Page_Settings_State_Reset_Yaw_Step_Two) {
-                OLED_ShowString(3, 1, ">");
-                OLED_ShowString(2, 1, " ");
-                OLED_ShowString(3, 12, "2");
+                OLED_ShowString(4, 1, ">");
+                OLED_ShowString(3, 1, " ");
+                OLED_ShowString(4, 12, "2");
             }
             break;
 

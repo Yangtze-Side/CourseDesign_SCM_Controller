@@ -71,6 +71,7 @@ typedef struct {
 extern ControlCar_t ctrl_car;
 
 void Control_Update(void);
+void Control_UpdateEuler(void);
 
 void Control_ModeInc(void);
 void Control_ModeDec(void);

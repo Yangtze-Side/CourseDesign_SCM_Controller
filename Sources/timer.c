@@ -18,6 +18,7 @@
 #include "task.h"
 #include "system.h"
 #include "imu_app.h"
+#include "control.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -91,6 +92,7 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
         // 5ms TODO
         SET_TaskExeFlag();
         IMU_Update();
+        Control_UpdateEuler();
     }
     // 1ms TODO
     Sys_IncTick();
