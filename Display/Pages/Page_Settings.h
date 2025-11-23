@@ -12,6 +12,9 @@
 #define __PAGE_Settings_H
 
 #include "Display.h"
+#include "PAGE_Settings_GPI.h"
+#include "Page_Settings_AFPID.h"
+#include "PAGE_Settings_AR.h"
 
 void Page_Settings_Subtrate(void);
 void Page_Settings_Task(void);

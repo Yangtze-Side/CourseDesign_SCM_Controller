@@ -709,6 +709,36 @@
               <FileType>5</FileType>
               <FilePath>.\Display\Pages\Page_Settings.h</FilePath>
             </File>
+            <File>
+              <FileName>Page_Settings_AFPID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AFPID.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings_AFPID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AFPID.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings_AR.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AR.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings_AR.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AR.h</FilePath>
+            </File>
+            <File>
+              <FileName>PAGE_Settings_GPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\PAGE_Settings_GPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>PAGE_Settings_GPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\PAGE_Settings_GPI.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

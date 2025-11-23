@@ -107,10 +107,10 @@ void Control_Update(void)
 
                 // vw 由按键按下而改变
                 // vw 目前只有前进和后退，而不是在原有的 vm 数值 基础上改动
-                if (KeyUD_Is_Pressed(Key_UD_Left)) {
+                if (KeyUD_Is_Pressed(Key_L_Now)) {
                     ctrl_car.joystick->vw = (float)ctrl_car.vw_set;
                 }
-                else if (KeyUD_Is_Pressed(Key_UD_Right)) {
+                else if (KeyUD_Is_Pressed(Key_R_Now)) {
                     ctrl_car.joystick->vw = -(float)ctrl_car.vw_set;
                 }
                 else {
