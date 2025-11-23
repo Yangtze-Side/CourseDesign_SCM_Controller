@@ -9,6 +9,9 @@
  * 
  */
 #include "Page_Settings.h"
+#include "PAGE_Settings_GPID.h"
+#include "Page_Settings_AFPID.h"
+#include "PAGE_Settings_AR.h"
 
 #define Page_Settings_State_MAIN            0
 #define Page_Settings_State_AR              1
@@ -26,11 +29,11 @@ void Page_Settings_Subtrate(void)
         {
             OLED_ShowString(1, 1, "Settings");
             OLED_ShowString(2, 1, "1.Angle Reset");
-            OLED_ShowString(3, 1, "2.Grav PI");
+            OLED_ShowString(3, 1, "2.Grav PID");
             OLED_ShowString(4, 1, "3.AF PID");
         } break;
         case Page_Settings_State_AR: Page_Settings_AR_Subtrate(); break;
-        case Page_Settings_State_GPI: Page_Settings_GPI_Subtrate(); break;
+        case Page_Settings_State_GPI: Page_Settings_GPID_Subtrate(); break;
         case Page_Settings_State_AFPID: Page_Settings_AFPID_Subtrate(); break;
     }
 }
@@ -44,7 +47,7 @@ void Page_Settings_Task(void)
             OLED_ShowNum(1, 16, Page_Settings_Ptr, 1, FILL_BY_SPACE);
         } break;
         case Page_Settings_State_AR: Page_Settings_AR_Task(); break;
-        case Page_Settings_State_GPI: Page_Settings_GPI_Task(); break;
+        case Page_Settings_State_GPI: Page_Settings_GPID_Task(); break;
         case Page_Settings_State_AFPID: Page_Settings_AFPID_Task(); break;
     }
 }
@@ -59,7 +62,7 @@ void Page_Settings_Key_Left(void)
             Page_Settings_Ptr-- == 1 ? Page_Settings_Ptr = Page_Settings_State_AFPID : (void)0;
         } break;
         case Page_Settings_State_AR: Page_Settings_AR_Key_Left(); break;
-        case Page_Settings_State_GPI: Page_Settings_GPI_Key_Left(); break;
+        case Page_Settings_State_GPI: Page_Settings_GPID_Key_Left(); break;
         case Page_Settings_State_AFPID: Page_Settings_AFPID_Key_Left(); break;
     }
 }
@@ -73,7 +76,7 @@ void Page_Settings_Key_Right(void)
             ++Page_Settings_Ptr > Page_Settings_State_AFPID ? Page_Settings_Ptr = Page_Settings_State_AR : (void)0;
         } break;
         case Page_Settings_State_AR: Page_Settings_AR_Key_Right(); break;
-        case Page_Settings_State_GPI: Page_Settings_GPI_Key_Right(); break;
+        case Page_Settings_State_GPI: Page_Settings_GPID_Key_Right(); break;
         case Page_Settings_State_AFPID: Page_Settings_AFPID_Key_Right(); break;
     }
 }
@@ -89,7 +92,7 @@ void Page_Settings_Key_Mode_ShortPress(void)
             Page_Settings_Subtrate();
         } break;
         case Page_Settings_State_AR: Page_Settings_AR_Key_Mode_ShortPress(); break;
-        case Page_Settings_State_GPI: Page_Settings_GPI_Key_Mode_ShortPress(); break;
+        case Page_Settings_State_GPI: Page_Settings_GPID_Key_Mode_ShortPress(); break;
         case Page_Settings_State_AFPID: Page_Settings_AFPID_Key_Mode_ShortPress(); break;
     }
 }
@@ -104,9 +107,14 @@ void Page_Settings_Key_Mode_LongPress(void)
             ReturnPageMain();
         } break;
         case Page_Settings_State_AR: Page_Settings_AR_Key_Mode_LongPress(); break;
-        case Page_Settings_State_GPI: Page_Settings_GPI_Key_Mode_LongPress(); break;
+        case Page_Settings_State_GPI: Page_Settings_GPID_Key_Mode_LongPress(); break;
         case Page_Settings_State_AFPID: Page_Settings_AFPID_Key_Mode_LongPress(); break;
     }
 }
 
-
+void Page_Settings_ReturnToMain(void)
+{
+    Page_Settings_State = Page_Settings_State_MAIN;
+    OLED_Clear();
+    Page_Settings_Subtrate();
+}

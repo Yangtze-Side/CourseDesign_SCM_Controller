@@ -13,12 +13,12 @@
 
 #include "Display.h"
 
-void Page_Settings_GPI_Subtrate(void);
-void Page_Settings_GPI_Task(void);
+void Page_Settings_GPID_Subtrate(void);
+void Page_Settings_GPID_Task(void);
 
-void Page_Settings_GPI_Key_Left(void);
-void Page_Settings_GPI_Key_Right(void);
-void Page_Settings_GPI_Key_Mode_ShortPress(void);
-void Page_Settings_GPI_Key_Mode_LongPress(void);
+void Page_Settings_GPID_Key_Left(void);
+void Page_Settings_GPID_Key_Right(void);
+void Page_Settings_GPID_Key_Mode_ShortPress(void);
+void Page_Settings_GPID_Key_Mode_LongPress(void);
 
 #endif // !__PAGE_Settings_GPI_H

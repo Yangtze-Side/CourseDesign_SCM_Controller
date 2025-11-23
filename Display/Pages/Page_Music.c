@@ -103,9 +103,9 @@ void Page_Music_Key_Mode_ShortPress(void)
             music_num_setting ^= 1;
         } break;
 
-        case 1: Comm_MusicPause(); break;
-        case 2: Comm_MusicResume(); break;
-        case 3: Comm_MusicStop(); break;
+        case 1: Comm_SendRequest(COMM_SendReq_MUSICPAUSE); break;
+        case 2: Comm_SendRequest(COMM_SendReq_MUSICRESUME); break;
+        case 3: Comm_SendRequest(COMM_SendReq_MUSICSTOP); break;
     }
 }
 

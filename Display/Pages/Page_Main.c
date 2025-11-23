@@ -44,7 +44,7 @@ void Page_Main_Subtrate(void)
         case 2:
         {
             OLED_ShowCnString32(2, 4, "鼓");
-            OLED_ShowCnString16(3, 8, "瑟吹萧");
+            OLED_ShowCnString16(3, 8, "瑟吹笙");
             OLED_ShowString(2, 12, "02");
         } break;
 

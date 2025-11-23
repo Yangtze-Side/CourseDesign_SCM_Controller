@@ -42,6 +42,6 @@
 
 float Weight_Ang(float ang1, float ang2, float wgh1);
 float Get_Dist(float x1, float y1, float x2, float y2);
-
+s32   GetFloatDeci(float x, int n);
 
 #endif // !__USER_MATH_H

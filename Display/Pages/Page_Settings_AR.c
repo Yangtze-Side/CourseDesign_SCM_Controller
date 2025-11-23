@@ -101,5 +101,5 @@ void Page_Settings_AR_Key_Mode_ShortPress(void)
 void Page_Settings_AR_Key_Mode_LongPress(void)
 {
     PAGE_Settings_AR_State = PAGE_Settings_AR_State_Reset_Pitch;
-    ReturnPageMain();
+    Page_Settings_ReturnToMain();
 }

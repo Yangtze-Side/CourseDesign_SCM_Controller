@@ -40,3 +40,20 @@ float Get_Dist(float x1, float y1, float x2, float y2)
 	float dy = y2 - y1;
 	return (sqrt(dx * dx + dy * dy));
 }
+
+
+/**
+ * @brief   获取浮点数第 1 至第 n 位的小数部分。
+ * 
+ * @param x     浮点数
+ * @param n     小数位数
+ * @return s32  小数部分整数表示
+ */
+s32 GetFloatDeci(float x, int n)
+{
+    if (n <= 0) return 0;
+    x = fabs(x);
+    x -= floor(x);
+    x *= pow(10, n);
+    return (s32)(x);
+}

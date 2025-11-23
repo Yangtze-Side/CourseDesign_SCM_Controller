@@ -4,17 +4,11 @@
 #include "system.h"
 #include "Control/control.h"
 
-#define COMM_SendReq_NONE           0
-#define COMM_SendReq_MUSICSTART     1
-#define COMM_SendReq_MUSICPAUSE     2
-#define COMM_SendReq_MUSICSTOP      3
-#define COMM_SendReq_MUSICRESUME    4
-
 US_Data_t US_Data = { 0 };
 DHT11_Data_t DHT11_Data = { 0 };
 Comm_PID_Data_t Comm_PID_Data = { 0 };
 static BOOL Comm_Linked = FALSE;
-static u8 Comm_SendRequest = COMM_SendReq_NONE;
+static u8 Comm_SendReq = COMM_SendReq_NONE;
 static u8 comm_music_num = 1;
 
 void Comm_Init(void)
@@ -22,6 +16,7 @@ void Comm_Init(void)
     Comm_Linked = Comm_GetLinkStatusPinLevel();
 }
 
+/*-------------------------------------- Library ------------------------------------*/
 
 /**
  * @brief Data parse program.
@@ -44,11 +39,12 @@ void Comm_Parse(u8 *dat)
                 US_Data.B = *(float*)(dat + 11);
                 US_Data.L = *(float*)(dat + 15);
                 US_Data.R = *(float*)(dat + 19);
-                Comm_PID_Data.gpi_kp = *(float*)(dat + 23);
-                Comm_PID_Data.gpi_ki = *(float*)(dat + 27);
-                Comm_PID_Data.afpid_kp = *(float*)(dat + 31);
-                Comm_PID_Data.afpid_ki = *(float*)(dat + 35);
-                Comm_PID_Data.afpid_kd = *(float*)(dat + 39);
+                Comm_PID_Data.gpid_kp = *(float*)(dat + 23);
+                Comm_PID_Data.gpid_ki = *(float*)(dat + 27);
+                Comm_PID_Data.gpid_kd = *(float*)(dat + 31);
+                Comm_PID_Data.afpid_kp = *(float*)(dat + 35);
+                Comm_PID_Data.afpid_ki = *(float*)(dat + 39);
+                Comm_PID_Data.afpid_kd = *(float*)(dat + 43);
             } break;
             
             default:
@@ -69,7 +65,7 @@ void Comm_SendTask(void)
 
     Control_Update();
 
-    switch (Comm_SendRequest)
+    switch (Comm_SendReq)
     {
         case COMM_SendReq_NONE:
         {
@@ -131,33 +127,120 @@ void Comm_SendTask(void)
             }
         } break;
 
+
         case COMM_SendReq_MUSICSTART:
         {
             u8 dat[4] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicStart };
             dat[3] = comm_music_num;
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
-            Comm_SendRequest = COMM_SendReq_NONE;
+            Comm_SendReq = COMM_SendReq_NONE;
         } break;
 
         case COMM_SendReq_MUSICPAUSE:
         {
             u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicPause };
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
-            Comm_SendRequest = COMM_SendReq_NONE;
+            Comm_SendReq = COMM_SendReq_NONE;
         } break;
 
         case COMM_SendReq_MUSICSTOP:
         {
             u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicStop };
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
-            Comm_SendRequest = COMM_SendReq_NONE;
+            Comm_SendReq = COMM_SendReq_NONE;
         } break;
         
         case COMM_SendReq_MUSICRESUME:
         {
             u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicResume };
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
-            Comm_SendRequest = COMM_SendReq_NONE;
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+
+        case COMM_SendReq_GPIDkpAdd:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_GPIDkpAdd };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+        
+        case COMM_SendReq_GPIDkpDec:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_GPIDkpDec };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_GPIDkiAdd:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_GPIDkiAdd };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_GPIDkiDec:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_GPIDkiDec };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_GPIDkdAdd:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_GPIDkdAdd };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_GPIDkdDec:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_GPIDkdDec };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+
+        case COMM_SendReq_AFPIDkpAdd:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_AFPIDkpAdd };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_AFPIDkpDec:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_AFPIDkpDec };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_AFPIDkiAdd:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_AFPIDkiAdd };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_AFPIDkiDec:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_AFPIDkiDec };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_AFPIDkdAdd:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_AFPIDkdAdd };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
+        } break;
+
+        case COMM_SendReq_AFPIDkdDec:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_AFPIDkdDec };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendReq = COMM_SendReq_NONE;
         } break;
     }
 }
@@ -185,6 +268,19 @@ BOOL Comm_GetLinkStatus(void)
 }
 
 
+/*-------------------------------------- User Determine ------------------------------------*/
+
+/**
+ * @brief 请求发送特定信号。需要参数的信号会有单独的函数。
+ * 
+ * @param req 信号
+ */
+void Comm_SendRequest(u8 req)
+{
+    if (req >= COMM_SendReq_TOTAL) return;
+    Comm_SendReq = req;
+}
+
 /**
  * @brief 发送信息让小车播放音乐。
  * 
@@ -192,21 +288,6 @@ BOOL Comm_GetLinkStatus(void)
  */
 void Comm_MusicStart(u8 num)
 {
-    Comm_SendRequest = COMM_SendReq_MUSICSTART;
+    Comm_SendReq = COMM_SendReq_MUSICSTART;
     comm_music_num = num;
-}
-
-void Comm_MusicPause(void)
-{
-    Comm_SendRequest = COMM_SendReq_MUSICPAUSE;
-}
-
-void Comm_MusicStop(void)
-{
-    Comm_SendRequest = COMM_SendReq_MUSICSTOP;
-}
-
-void Comm_MusicResume(void)
-{
-    Comm_SendRequest = COMM_SendReq_MUSICRESUME;
 }

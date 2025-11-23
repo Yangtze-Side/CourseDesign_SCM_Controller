@@ -730,14 +730,14 @@
               <FilePath>.\Display\Pages\Page_Settings_AR.h</FilePath>
             </File>
             <File>
-              <FileName>PAGE_Settings_GPI.c</FileName>
+              <FileName>PAGE_Settings_GPID.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Display\Pages\PAGE_Settings_GPI.c</FilePath>
+              <FilePath>.\Display\Pages\PAGE_Settings_GPID.c</FilePath>
             </File>
             <File>
-              <FileName>PAGE_Settings_GPI.h</FileName>
+              <FileName>PAGE_Settings_GPID.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Display\Pages\PAGE_Settings_GPI.h</FilePath>
+              <FilePath>.\Display\Pages\PAGE_Settings_GPID.h</FilePath>
             </File>
           </Files>
         </Group>

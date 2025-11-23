@@ -15,11 +15,11 @@
 
 
 // 速度限制
-#define SPEED_LIMIT           100.0f
-#define SPEED_DEAD            5.0f
+#define SPEED_LIMIT            100.0f
+#define SPEED_DEAD             5.0f
 // 使用的角度范围
-#define ROLL_ANGLE_USE         45.0f
-#define PITCH_ANGLE_USE        45.0f
+#define ROLL_ANGLE_USE         15.0f
+#define PITCH_ANGLE_USE        15.0f
 // 默认旋转速度
 #define DEFAULT_VW             30
 
