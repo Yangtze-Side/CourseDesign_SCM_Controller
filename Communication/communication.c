@@ -135,14 +135,14 @@ void Comm_SendTask(void)
 
         case COMM_SendReq_MUSICPAUSE:
         {
-            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicStart };
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicPause };
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
             Comm_SendRequest = COMM_SendReq_NONE;
         } break;
 
         case COMM_SendReq_MUSICSTOP:
         {
-            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicStart };
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicStop };
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
             Comm_SendRequest = COMM_SendReq_NONE;
         } break;
