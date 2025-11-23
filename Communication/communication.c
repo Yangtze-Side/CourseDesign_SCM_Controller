@@ -8,6 +8,7 @@
 #define COMM_SendReq_MUSICSTART     1
 #define COMM_SendReq_MUSICPAUSE     2
 #define COMM_SendReq_MUSICSTOP      3
+#define COMM_SendReq_MUSICRESUME    4
 
 US_Data_t US_Data = { 0 };
 DHT11_Data_t DHT11_Data = { 0 };
@@ -146,6 +147,13 @@ void Comm_SendTask(void)
             UART_Send_Start(&uart1_tx, dat, sizeof(dat));
             Comm_SendRequest = COMM_SendReq_NONE;
         } break;
+        
+        case COMM_SendReq_MUSICRESUME:
+        {
+            u8 dat[3] = { COMM_HEAD_BYTE0, COMM_HEAD_BYTE1, COMM_CMD_MusicResume };
+            UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+            Comm_SendRequest = COMM_SendReq_NONE;
+        } break;
     }
 }
 
@@ -191,4 +199,9 @@ void Comm_MusicPause(void)
 void Comm_MusicStop(void)
 {
     Comm_SendRequest = COMM_SendReq_MUSICSTOP;
+}
+
+void Comm_MusicResume(void)
+{
+    Comm_SendRequest = COMM_SendReq_MUSICRESUME;
 }

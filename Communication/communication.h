@@ -38,5 +38,6 @@ BOOL Comm_GetLinkStatus(void);
 void Comm_MusicStart(u8 num);
 void Comm_MusicPause(void);
 void Comm_MusicStop(void);
+void Comm_MusicResume(void);
 
 #endif // !__COMMUNICATION_H

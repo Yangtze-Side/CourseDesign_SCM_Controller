@@ -23,6 +23,7 @@ void Page_Music_Subtrate(void)
     OLED_ShowString(1, 1, "Music");
     OLED_ShowString(2, 1, ">Play: ");
     OLED_ShowString(3, 1, " Pause");
+    OLED_ShowString(3, 10, "Resume");
     OLED_ShowString(4, 1, " Stop");
 }
 
@@ -36,6 +37,7 @@ void Page_Music_Task(void)
         {
             OLED_ShowChar(2, 1, '>');
             OLED_ShowChar(3, 1, ' ');
+            OLED_ShowChar(3, 9, ' ');
             OLED_ShowChar(4, 1, ' ');
         } break;
         
@@ -43,13 +45,23 @@ void Page_Music_Task(void)
         {
             OLED_ShowChar(3, 1, '>');
             OLED_ShowChar(2, 1, ' ');
+            OLED_ShowChar(3, 9, ' ');
             OLED_ShowChar(4, 1, ' ');
         } break;
         
         case 2:
         {
+            OLED_ShowChar(4, 1, ' ');
+            OLED_ShowChar(3, 1, ' ');
+            OLED_ShowChar(3, 9, '>');
+            OLED_ShowChar(2, 1, ' ');
+        } break;
+        
+        case 3:
+        {
             OLED_ShowChar(4, 1, '>');
             OLED_ShowChar(3, 1, ' ');
+            OLED_ShowChar(3, 9, ' ');
             OLED_ShowChar(2, 1, ' ');
         } break;
     }
@@ -70,14 +82,14 @@ void Page_Music_Task(void)
 void Page_Music_Key_Left(void)
 {
     if (music_num_setting) music_index-- == 0 ? music_index = MUSIC_MAX : (void)0;
-    else music_ptr == 0 ? music_ptr = 2 : music_ptr--;
+    else music_ptr == 0 ? music_ptr = 3 : music_ptr--;
 }
 
 
 void Page_Music_Key_Right(void)
 {
     if (music_num_setting) ++music_index > MUSIC_MAX ? music_index = MUSIC_MIN: (void)0;
-    else ++music_ptr > 2 ? music_ptr = 0 : (void)0;
+    else ++music_ptr > 3 ? music_ptr = 0 : (void)0;
 }
 
 
@@ -92,7 +104,8 @@ void Page_Music_Key_Mode_ShortPress(void)
         } break;
 
         case 1: Comm_MusicPause(); break;
-        case 2: Comm_MusicStop(); break;
+        case 2: Comm_MusicResume(); break;
+        case 3: Comm_MusicStop(); break;
     }
 }
 
