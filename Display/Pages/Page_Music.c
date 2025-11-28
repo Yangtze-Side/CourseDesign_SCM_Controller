@@ -12,7 +12,7 @@
 #include "communication.h"
 
 #define MUSIC_MIN               1
-#define MUSIC_MAX               4
+#define MUSIC_MAX               5
 
 static u8 music_index = 1;
 static BOOL music_num_setting = 0;
@@ -81,7 +81,7 @@ void Page_Music_Task(void)
 
 void Page_Music_Key_Left(void)
 {
-    if (music_num_setting) music_index-- == 0 ? music_index = MUSIC_MAX : (void)0;
+    if (music_num_setting) music_index-- == MUSIC_MIN ? music_index = MUSIC_MAX : (void)0;
     else music_ptr == 0 ? music_ptr = 3 : music_ptr--;
 }
 
