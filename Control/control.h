@@ -80,7 +80,7 @@ void Control_VWInc(void);
 void Control_VWDec(void);
 s32  Control_GetVw(void);
 
-void Control_CalcYawBias(float yaw_origin, float yaw_correct);
-void Control_CalcPitchBias(float pitch_current);
+void Control_CalcYawBias(void);
+void Control_CalcPitchBias(void);
 
 #endif // !__CONTROL_H

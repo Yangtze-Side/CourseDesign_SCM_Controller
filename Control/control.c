@@ -169,12 +169,11 @@ void Control_UpdateEuler(void)
 /**
  * @brief 把偏航角的偏差补上。
  * 
- * @param yaw_origin    车和遥控器静止时对应的角度。
- * @param yaw_correct   遥控器转到和车一致时的角度。
+ * @param yaw_current   当前的偏航角。
  */
-void Control_CalcYawBias(float yaw_origin, float yaw_correct)
+void Control_CalcYawBias(void)
 {
-    ctrl_car.euler->yaw_bias = Lim_Ang_180(ctrl_car.euler->yaw_bias + yaw_origin - yaw_correct);
+    ctrl_car.euler->yaw_bias = -EulerAngle.yaw;
 }
 
 /**
@@ -182,7 +181,7 @@ void Control_CalcYawBias(float yaw_origin, float yaw_correct)
  * 
  * @param pitch_current 此时的俯仰角。
  */
-void Control_CalcPitchBias(float pitch_current)
+void Control_CalcPitchBias(void)
 {
-    ctrl_car.euler->pitch_bias = Lim_Ang_180(ctrl_car.euler->pitch_bias - pitch_current);
+    ctrl_car.euler->pitch_bias = -EulerAngle.pitch;
 }
