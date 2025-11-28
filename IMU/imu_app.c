@@ -3,6 +3,7 @@
 #include "user_def.h"
 #include "user_spi.h"
 #include "system.h"
+#include "Control/control.h"
 
 // extern IWDG_HandleTypeDef hiwdg;
 EulerAngle_t EulerAngle = { 0.0f, 0.0f, 0.0f };
@@ -125,6 +126,7 @@ void IMU_Update(void)
             MPU6500_ReadData();                                     // Load data to 'MPU6500_Data'
             EulerAngleUpdate_Quat(&EulerAngle, &MPU6500_Data);      // Work out euler angle.
             // EulerAngle_AddBias(&EulerAngle);                        // Add bias value.
+            Control_UpdateEuler();
         }
         else
         {

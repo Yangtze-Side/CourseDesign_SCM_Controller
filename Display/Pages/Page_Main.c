@@ -84,6 +84,7 @@ void Page_Main_Task(void)
             OLED_ShowCnString16(4, 1, "蓝牙未连接");
             OLED_ShowString(4, 11, "   ");
         }
+        OLED_ShowNum(1, 12, Get_SecCnt(), 2, FILL_BY_SPACE);
     }
 }
 

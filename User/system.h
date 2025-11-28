@@ -25,7 +25,6 @@ extern u8 xdata UART_RecvBuf[UART1_SendBuf_SIZE];
 extern UART_Send_t uart1_tx;
 extern UART_Recv_t uart1_rx;
 
-
 /*-------------------------------- Exported Functions -------------------------------*/
 
 void proj_init(void);
@@ -36,5 +35,8 @@ void uart_recv_dataproc(UART_Recv_t *recv);
 void Sys_Delay(u32 ms);
 void Sys_IncTick(void);
 u32  Sys_GetTick(void);
+
+u8   Get_SecCnt(void);
+void SecCnt_Task(void);
 
 #endif // !__SYSTEM_H

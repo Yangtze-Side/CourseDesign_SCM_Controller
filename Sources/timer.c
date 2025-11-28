@@ -91,8 +91,9 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
         t0_cnt = 0;
         // 5ms TODO
         SET_TaskExeFlag();
-        IMU_Update();
-        Control_UpdateEuler();
+        // IMU_Update();
+        // Control_UpdateEuler();
+        SecCnt_Task();
     }
     // 1ms TODO
     Sys_IncTick();

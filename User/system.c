@@ -18,6 +18,8 @@ static u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
 static User_FIFO_TypeDef UART1_FIFO;
 UART_Recv_t uart1_rx;
 
+static u8 sec_cnt = 0;
+
 /*---------------------------------------- User Determine --------------------------------------*/
 
 /**
@@ -148,4 +150,22 @@ void Sys_IncTick(void)
 u32 Sys_GetTick(void)
 {
     return sys_tick;
+}
+
+
+/*---------------------- SecCnt ---------------------*/
+
+u8 Get_SecCnt(void)
+{
+	return sec_cnt;
+}
+
+void SecCnt_Task(void)
+{
+	static u8 task_cnt = 0;
+	if (++task_cnt >= 200)
+	{
+		task_cnt = 0;
+		++sec_cnt >= 60 ? sec_cnt = 0 : (void)0;
+	}
 }

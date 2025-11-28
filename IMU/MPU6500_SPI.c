@@ -77,7 +77,7 @@
 
 #define TEMP_TRANS_FACTOR           (340.0f)
 
-#define DriftSample_AMOUNT          (500)       // Amount of data sample during offset sampling
+#define DriftSample_AMOUNT          (200)       // Amount of data sample during offset sampling
 
 /*---------------------------------- Macros -----------------------------------*/
 
@@ -202,7 +202,7 @@ BOOL MPU6500_Init(void)
 
     if (mpu_set_accel_fsr(MPU6500_ACCEL_FSR) == FAILED) return FAILED;
     if (mpu_set_gyro_fsr(MPU6500_GYRO_FSR) == FAILED) return FAILED;
-    if (mpu_set_dlpf(SampleRate_Hz >> 1) == FAILED) return FAILED;
+    if (mpu_set_dlpf(20) == FAILED) return FAILED;
 
     MPU6500_SET_BIT(MPU6500_State, MPU6500_Initialized_BIT);
     return SUCCESS;

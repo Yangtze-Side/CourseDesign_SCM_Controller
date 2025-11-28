@@ -5,7 +5,7 @@
 #include "imu_def.h"
 
 
-#define halfT_s                 0.005f          // 采样周期
+#define halfT_s                 0.010f          // 采样周期
 
 void EulerAngleUpdate_Quat(EulerAngle_t *euler, IMU_Data_t *dat);
 
