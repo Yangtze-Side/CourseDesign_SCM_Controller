@@ -15,6 +15,7 @@
 #define COMM_CMD_GravMode           ((u8)2)     // 帧头 + CMD + vx(float) + vy(float) + target_yaw(float)
 #define COMM_CMD_ACMode             ((u8)3)     // 帧头 + CMD
 #define COMM_CMD_AFMode             ((u8)4)     // 帧头 + CMD
+#define COMM_CMD_EncoderMode        ((u8)21)    // 帧头 + CMD + vx(float) + vy(float) + target_yaw(float)
 
 #define COMM_CMD_MusicStart         ((u8)5)     // 帧头 + CMD + 音乐序号(byte)
 #define COMM_CMD_MusicPause         ((u8)6)     // 帧头 + CMD

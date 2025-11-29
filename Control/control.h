@@ -29,6 +29,7 @@
 //控制模式
 typedef enum {
     Ctrl_Mode_JoyStick = 0,     // 摇杆模式
+    Ctrl_Mode_Encoder,          // 编码器模式
     Ctrl_Mode_Gravity,          // 重力遥控模式
     Ctrl_Mode_AutoCruise,       // 自动巡航模式
     Ctrl_Mode_AutoFollow,       // 自动跟随模式
@@ -42,6 +43,12 @@ typedef struct {
     float vy;           // 摇杆 y → 速度 y
     float vw;           // 旋转速度（由按键控制）
 } ControlJoystick_t;
+
+typedef struct {
+    float vx;           // 横滚角 → 速度 vx
+    float vy;           // 俯仰角 → 速度 vy
+    float target_yaw;   // 偏航角 → 目标偏航角 target_yaw
+} ControlEncoder_t;
 
 //重力遥控数据
 typedef struct {
@@ -65,6 +72,7 @@ typedef struct {
     u8 vw_set;                          // 摇杆模式下的旋转速度大小 (0 ~ 100)
     ControlEulerOut_t *euler;           // 欧拉角需要加上偏移量
     ControlJoystick_t *joystick;        // 摇杆模式数据
+    ControlEncoder_t  *encoder;         // 编码器模式数据
     ControlGravity_t  *gravity;         // 重力遥控数据
 } ControlCar_t;
 
