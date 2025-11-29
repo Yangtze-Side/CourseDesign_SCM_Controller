@@ -69,7 +69,7 @@
 		<PortLevel_0>1</PortLevel_0>
 		<PortMD_1>2</PortMD_1>
 		<PortLevel_1>1</PortLevel_1>
-		<PortMD_2>2</PortMD_2>
+		<PortMD_2>0</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
 		<PortMD_3>0</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
@@ -111,7 +111,7 @@
 		<PortLevel_1>1</PortLevel_1>
 		<PortMD_2>2</PortMD_2>
 		<PortLevel_2>1</PortLevel_2>
-		<PortMD_3>0</PortMD_3>
+		<PortMD_3>1</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
 		<PortMD_4>0</PortMD_4>
 		<PortLevel_4>1</PortLevel_4>
@@ -399,7 +399,7 @@
 	<SPI>
 		<PeriEnable>1</PeriEnable>
 		<EnableInt>0</EnableInt>
-		<SPIPort>1</SPIPort>
+		<SPIPort>0</SPIPort>
 		<SPIMode>0</SPIMode>
 		<BitOrder>0</BitOrder>
 		<SPIClockMode>3</SPIClockMode>
@@ -485,20 +485,22 @@
 		<PinCount>256</PinCount>
 		<Pin09Map>1</Pin09Map>
 		<Pin10Map>1</Pin10Map>
+		<Pin12Map>2</Pin12Map>
+		<Pin13Map>2</Pin13Map>
+		<Pin14Map>2</Pin14Map>
+		<Pin15Map>2</Pin15Map>
 		<Pin16Map>2</Pin16Map>
 		<Pin17Map>2</Pin17Map>
 		<Pin19Map>-1</Pin19Map>
 		<Pin21Map>-1</Pin21Map>
 		<Pin29Map>1</Pin29Map>
-		<Pin46Map>1</Pin46Map>
-		<Pin47Map>1</Pin47Map>
-		<Pin48Map>1</Pin48Map>
-		<Pin49Map>2</Pin49Map>
 	</PINMAP>
 	<PINALIAS>
 		<Pin03Alias>KEY_MODE</Pin03Alias>
 		<Pin18Alias>OLED_SCL</Pin18Alias>
 		<Pin20Alias>OLED_SDA</Pin20Alias>
+		<Pin30Alias>ENC_SCL</Pin30Alias>
+		<Pin31Alias>ENC_SDA</Pin31Alias>
 		<Pin49Alias>NSS_PIN</Pin49Alias>
 		<Pin59Alias>KEY_LEFT</Pin59Alias>
 		<Pin62Alias>KEY_RIGHY</Pin62Alias>

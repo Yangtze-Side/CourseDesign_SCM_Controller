@@ -35,7 +35,7 @@
 ////////////////////////////////////////
 void TIMER0_Init(void)
 {
-#define T0_RELOAD               (65536 - (float)SYSCLK / 12 * 1 / 1000) //定时周期1毫秒
+#define T0_RELOAD               (65536 - (float)SYSCLK / 12 * 1 / 1000)
 
     TIMER0_TimerMode();                 //设置定时器0为定时模式
     TIMER0_12TMode();                   //设置定时器0为12T模式
