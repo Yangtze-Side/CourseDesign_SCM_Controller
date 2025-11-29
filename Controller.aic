@@ -399,7 +399,7 @@
 	<SPI>
 		<PeriEnable>1</PeriEnable>
 		<EnableInt>0</EnableInt>
-		<SPIPort>0</SPIPort>
+		<SPIPort>1</SPIPort>
 		<SPIMode>0</SPIMode>
 		<BitOrder>0</BitOrder>
 		<SPIClockMode>3</SPIClockMode>
@@ -485,15 +485,15 @@
 		<PinCount>256</PinCount>
 		<Pin09Map>1</Pin09Map>
 		<Pin10Map>1</Pin10Map>
-		<Pin12Map>2</Pin12Map>
-		<Pin13Map>2</Pin13Map>
-		<Pin14Map>2</Pin14Map>
-		<Pin15Map>2</Pin15Map>
 		<Pin16Map>2</Pin16Map>
 		<Pin17Map>2</Pin17Map>
 		<Pin19Map>-1</Pin19Map>
 		<Pin21Map>-1</Pin21Map>
 		<Pin29Map>1</Pin29Map>
+		<Pin46Map>1</Pin46Map>
+		<Pin47Map>1</Pin47Map>
+		<Pin48Map>1</Pin48Map>
+		<Pin49Map>2</Pin49Map>
 	</PINMAP>
 	<PINALIAS>
 		<Pin03Alias>KEY_MODE</Pin03Alias>

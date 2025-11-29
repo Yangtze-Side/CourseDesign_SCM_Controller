@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick;.\Control</IncludePath>
+              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick;.\Control;.\Encoder</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -709,6 +709,36 @@
               <FileType>5</FileType>
               <FilePath>.\Display\Pages\Page_Settings.h</FilePath>
             </File>
+            <File>
+              <FileName>Page_Settings_AFPID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AFPID.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings_AFPID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AFPID.h</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings_AR.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AR.c</FilePath>
+            </File>
+            <File>
+              <FileName>Page_Settings_AR.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\Page_Settings_AR.h</FilePath>
+            </File>
+            <File>
+              <FileName>PAGE_Settings_GPID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Display\Pages\PAGE_Settings_GPID.c</FilePath>
+            </File>
+            <File>
+              <FileName>PAGE_Settings_GPID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Display\Pages\PAGE_Settings_GPID.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -723,6 +753,31 @@
               <FileName>control.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Control\control.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Encoder</GroupName>
+          <Files>
+            <File>
+              <FileName>AS5600.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Encoder\AS5600.c</FilePath>
+            </File>
+            <File>
+              <FileName>Encoder_iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Encoder\Encoder_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>Encoder_iic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Encoder\Encoder_iic.h</FilePath>
+            </File>
+            <File>
+              <FileName>AS5600.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Encoder\AS5600.h</FilePath>
             </File>
           </Files>
         </Group>
