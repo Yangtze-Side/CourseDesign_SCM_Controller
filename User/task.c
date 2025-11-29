@@ -7,7 +7,6 @@
 #include "Display.h"
 #include "key_ud.h"
 #include "key_SL.h"
-#include "AS5600.h"
 #include "Control/control.h"
 
 void led_task(void);
@@ -21,12 +20,11 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      7
+#define TASK_TOTAL      6
 
 Task_t Task[TASK_TOTAL] =
 {
     { 10/5, 0, IMU_Update },
-    { 50/5, 0, AS5600_Update },
     { 50/5, 0, ADC_Task },
     { 20/5, 0, Key_UD_Task },
     { 20/5, 0, KeySL_Task },

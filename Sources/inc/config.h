@@ -43,8 +43,6 @@
 #define KEY_MODE                P06
 #define OLED_SCL                P54
 #define OLED_SDA                P55
-#define ENC_SCL                 P33
-#define ENC_SDA                 P34
 #define NSS_PIN                 P24
 #define KEY_LEFT                P00
 #define KEY_RIGHY               P03
