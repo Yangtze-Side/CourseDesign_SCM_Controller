@@ -6,7 +6,7 @@
 #define ENC_SDA_High()              (ENC_SDA_Pin = 1)
 #define ENC_SDA_Low()               (ENC_SDA_Pin = 0)
 
-#define ENC_IIC_Delay()             NOP(15)
+#define ENC_IIC_Delay()             NOP(20)
 
 
 static void ENC_IIC_Start(void)
