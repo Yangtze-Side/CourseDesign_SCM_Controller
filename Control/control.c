@@ -5,6 +5,7 @@
 #include "imu_app.h"
 #include "user_lib.h"
 #include "Display.h"
+#include "AS5600.h"
 
 #define Speed_Limit             LimAbsAsgn
 
@@ -12,6 +13,7 @@
 static ControlEulerOut_t ControlEuler = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 static ControlJoystick_t ControlJoystick = { 0.0f, 0.0f, 0.0f };
 static ControlGravity_t  ControlGravity  = { 0.0f, 0.0f, 0.0f };
+static ControlEncoder_t  ControlEncoder   = { 0.0f, 0.0f, 0.0f };
 
 ControlCar_t ctrl_car =
 {
@@ -19,6 +21,7 @@ ControlCar_t ctrl_car =
     DEFAULT_VW,
     &ControlEuler,
     &ControlJoystick,
+    &ControlEncoder,
     &ControlGravity
 };
 
@@ -115,12 +118,29 @@ void Control_Update(void)
                 }
                 else {
                     ctrl_car.joystick->vw = 0;
-                }
+                } 
 
                 // 这里限制最大速度
                 Speed_Limit(ctrl_car.joystick->vx, SPEED_LIMIT);
                 Speed_Limit(ctrl_car.joystick->vy, SPEED_LIMIT);
                 Speed_Limit(ctrl_car.joystick->vw, SPEED_LIMIT);
+            } break;
+
+            case Ctrl_Mode_Encoder:
+            {
+                // 速度直接来自摇杆
+                ctrl_car.encoder->vx = ((s16)ADC_ZERO - (s16)adc_data.adc_ch0) / (float)ADC_ZERO * SPEED_LIMIT;
+                ctrl_car.encoder->vy = ((s16)ADC_ZERO - (s16)adc_data.adc_ch1) / (float)ADC_ZERO * SPEED_LIMIT;
+
+                ABS(ctrl_car.encoder->vx) < SPEED_DEAD ? ctrl_car.encoder->vx = 0.0f : (void)0;
+                ABS(ctrl_car.encoder->vy) < SPEED_DEAD ? ctrl_car.encoder->vy = 0.0f : (void)0;
+
+                // target_yaw 由 AS5600 读取的角度决定
+                ctrl_car.encoder->target_yaw = - ((float)encoder_degree - 180.0f);
+
+                // 这里限制最大速度
+                Speed_Limit(ctrl_car.encoder->vx, SPEED_LIMIT);
+                Speed_Limit(ctrl_car.encoder->vy, SPEED_LIMIT);
             } break;
 
             // 本意是想让 Yaw 角度用cos和sin获得vx和vy, 这样更符合直觉, 但是没有对应的函数
@@ -147,6 +167,11 @@ void Control_Update(void)
         ctrl_car.joystick->vx = 0;
         ctrl_car.joystick->vy = 0;
         ctrl_car.joystick->vw = 0;
+        
+        // ctrl_car.encoder->vx = 0;
+        // ctrl_car.encoder->vy = 0;
+        // ctrl_car.encoder->target_yaw = 0;
+
         ctrl_car.gravity->vx = 0;
         ctrl_car.gravity->vy = 0;
         ctrl_car.gravity->target_yaw = 0;

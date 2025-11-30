@@ -62,6 +62,7 @@ void TaskExe(void)
         Display_Task();
         Key_UD_Task();
         KeySL_Task();
+        AS5600_Update();
         // Control_Update();
     }
 }

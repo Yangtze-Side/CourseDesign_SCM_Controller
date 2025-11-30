@@ -85,7 +85,22 @@ void Comm_SendTask(void)
 
                     UART_Send_Start(&uart1_tx, dat, sizeof(dat));
                 } break;
-                
+
+                case Ctrl_Mode_Encoder:
+                {
+                    u8 dat[15];
+                    // 前三个字节是帧头和命令
+                    dat[0] = COMM_HEAD_BYTE0;
+                    dat[1] = COMM_HEAD_BYTE1;
+                    dat[2] = COMM_CMD_EncoderMode;
+
+                    *(float*)(dat + 3) = ctrl_car.encoder->vx;       // dat[3 ~ 6] 存放 vx
+                    *(float*)(dat + 7) = ctrl_car.encoder->vy;       // dat[7 ~ 10] 存放 vy
+                    *(float*)(dat + 11) = ctrl_car.encoder->target_yaw;      // dat[11 ~ 14] 存放 target_angle
+
+                    UART_Send_Start(&uart1_tx, dat, sizeof(dat));
+                } break;
+
                 case Ctrl_Mode_Gravity:
                 {
                     u8 dat[15];

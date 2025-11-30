@@ -39,13 +39,14 @@ void Page_Control_Task(void)
     {
         case Ctrl_Mode_Gravity:     OLED_ShowString(1, 7, "GR"); break;
         case Ctrl_Mode_JoyStick:    OLED_ShowString(1, 7, "JS"); break;
+        case Ctrl_Mode_Encoder:     OLED_ShowString(1, 7, "EN"); break;
         case Ctrl_Mode_AutoCruise:  OLED_ShowString(1, 7, "AC"); break;
         case Ctrl_Mode_AutoFollow:  OLED_ShowString(1, 7, "AF"); break;
     }
 
     OLED_ShowNum(1, 13, Control_GetVw(), 3, FILL_BY_SPACE);
 
-    OLED_ShowNum(2, 1, (int)encoder_degree, 3, FILL_BY_SPACE);
+    OLED_ShowNum(2, 1, (int)encoder_degree - 180, 4, FILL_BY_SPACE);
 
     OLED_ShowNum(3, 3,  DHT11_Data.temp_int, 2, FILL_BY_SPACE);
     OLED_ShowNum(3, 6,  DHT11_Data.temp_deci, 1, FILL_BY_SPACE);
