@@ -136,7 +136,7 @@ void Control_Update(void)
                 ABS(ctrl_car.encoder->vy) < SPEED_DEAD ? ctrl_car.encoder->vy = 0.0f : (void)0;
 
                 // target_yaw 由 AS5600 读取的角度决定
-                ctrl_car.encoder->target_yaw = ((float)encoder_degree - 180.0f);
+                ctrl_car.encoder->target_yaw = - ((float)encoder_degree - 180.0f);
 
                 // 这里限制最大速度
                 Speed_Limit(ctrl_car.encoder->vx, SPEED_LIMIT);
