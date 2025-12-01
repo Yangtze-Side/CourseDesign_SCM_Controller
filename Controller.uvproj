@@ -767,6 +767,16 @@
               <FileType>5</FileType>
               <FilePath>.\Encoder\AS5600.h</FilePath>
             </File>
+            <File>
+              <FileName>EncoderKey.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Encoder\EncoderKey.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncoderKey.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Encoder\EncoderKey.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
