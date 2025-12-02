@@ -8,6 +8,7 @@
 #include "key_ud.h"
 #include "key_SL.h"
 #include "AS5600.h"
+#include "EncoderKey.h"
 #include "Control/control.h"
 
 void led_task(void);
@@ -21,7 +22,7 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      7
+#define TASK_TOTAL      8
 
 Task_t Task[TASK_TOTAL] =
 {
@@ -30,6 +31,7 @@ Task_t Task[TASK_TOTAL] =
     { 50/5, 0, ADC_Task },
     { 20/5, 0, Key_UD_Task },
     { 20/5, 0, KeySL_Task },
+    { 20/5, 0, EncoderKey_Update },
     
     { 60/5, 0, Comm_SendTask },
 
@@ -62,6 +64,7 @@ void TaskExe(void)
         Display_Task();
         Key_UD_Task();
         KeySL_Task();
+        EncoderKey_Update();
         AS5600_Update();
         // Control_Update();
     }
