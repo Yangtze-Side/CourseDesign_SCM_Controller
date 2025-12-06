@@ -118,7 +118,7 @@ void Page_Main_Key_Mode_ShortPress(void)
     }
     else
     {
-        // Zero_Electric_Init();
+        Zero_Electric_Init();
     }
 }
 

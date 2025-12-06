@@ -14,6 +14,6 @@ typedef struct {
 
 
 void Ratchet_Simulation_Init(void);
-void Ratchet_Simulation_Update(s8 direction, u8 notch_number);
+void Ratchet_Simulation_Update(u8 notch_number);
 
 #endif

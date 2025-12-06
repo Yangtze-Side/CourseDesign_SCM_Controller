@@ -5,9 +5,8 @@
 #include "AS5600.h"
 
 
-RatchetRegionInfo_t getRatchetRegion(float angle, int n_sections)
+void getRatchetRegion(float angle, int n_sections, RatchetRegionInfo_t *info)
 {
-    RatchetRegionInfo_t info;
     float step;
     float lower;
     float upper;
@@ -17,7 +16,7 @@ RatchetRegionInfo_t getRatchetRegion(float angle, int n_sections)
     int region;
 
     // 1. 归一化角度 0~360
-    while (angle < 0) angle += 360.0f;
+    while (angle < 0.0f) angle += 360.0f;
     while (angle >= 360.0f) angle -= 360.0f;
 
     // 2. 每个区域宽度
@@ -40,12 +39,10 @@ RatchetRegionInfo_t getRatchetRegion(float angle, int n_sections)
         nearest = upper;
 
     // 写回结构体
-    info.region_id    = region;
-    info.lower_bound  = lower;
-    info.upper_bound  = upper;
-    info.nearest_bound = nearest;
-
-    return info;
+    info->region_id    = region;
+    info->upper_bound  = upper;
+    info->lower_bound  = lower;
+    info->nearest_bound = nearest;
 }
 
 void Ratchet_Simulation_Init(void)
@@ -53,34 +50,18 @@ void Ratchet_Simulation_Init(void)
     LowPassFilter_Init(&angleControl_loop_filter, 1.0f);
     PosPID_Init(
         &angleControl_loop_pid, 
-        0.1f,
-        0.0f / 5000.0f,
+        0.15f,
+        1.0f / 50.0f,
         0.0f,
-        5000.0f, 15.0f,
-        0.0f,
-        VOLTAGE_POWER_SUPPLY / 3
+        50.0f, 5.0f,
+        2.0f,
+        VOLTAGE_POWER_SUPPLY/2
     );
 }
 
-void Ratchet_Simulation_Update(s8 direction, u8 notch_number)
+void Ratchet_Simulation_Update(u8 notch_number)
 {
     RatchetRegionInfo_t r;
-    r = getRatchetRegion(encoder_degree, notch_number);
-    switch (direction)
-    {
-        case 0:
-            angleControl_loop(r.nearest_bound);     //  顺时针和逆时针均可转动并形成挡位
-            break;
-
-        case 1:
-            
-            break;
-
-        case -1:
-
-            break;
-        
-        default:
-            break;
-    }
+    getRatchetRegion(encoder_degree, notch_number, &r);
+    angleControl_loop(r.nearest_bound);     //  顺时针和逆时针均可转动并形成挡位
 }
