@@ -11,7 +11,7 @@
 // #define PWMF_Pin                            LED2     // LED
 
 #define PWM_CLK_DIVIDER                     0      // PWM clock divider (0 ~ 15)
-#define PWM_PERIOD                          1000    // PWM period (0 ~ 32767)
+#define PWM_PERIOD                          100    // PWM period (0 ~ 32767)
 #define PWM_PulseWidth_MAX                  PWM_PERIOD
 
 void User_PWM_Init(void);

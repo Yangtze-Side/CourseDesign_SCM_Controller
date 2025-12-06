@@ -20,6 +20,8 @@
 #include "imu_app.h"
 #include "control.h"
 #include "FOC_App.h"
+#include "AS5600.h"
+
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -97,8 +99,9 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
         // Control_UpdateEuler();
         SecCnt_Task();
     }
-    if (++foc_cnt >= 2)
+    if (++foc_cnt >= 3)
     {
+        AS5600_Update();
         FOC_Task();
         foc_cnt = 0;
     }

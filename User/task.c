@@ -24,12 +24,12 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      8
+#define TASK_TOTAL      7
 
 Task_t Task[TASK_TOTAL] =
 {
     { 10/5, 0, IMU_Update },
-    { 10/5, 0, AS5600_Update },
+    // { 10/5, 0, AS5600_Update },
     // { 10/5, 0, FOC_Task},
     { 50/5, 0, ADC_Task },
     { 20/5, 0, Key_UD_Task },
@@ -68,7 +68,7 @@ void TaskExe(void)
         Key_UD_Task();
         KeySL_Task();
         EncoderKey_Update();
-        AS5600_Update();
+        // AS5600_Update();
         // FOC_Task();
         // Control_Update();
     }
