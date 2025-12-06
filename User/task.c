@@ -14,6 +14,16 @@
 void led_task(void);
 
 volatile BOOL TaskExeFlag = 0;
+volatile u32 time_now = 0;
+
+void time_task(void)        //  5ms
+{
+    time_now++;
+    if(time_now >= UINT32_MAX - 1)
+    {
+        time_now = 0;
+    }
+}
 
 typedef struct
 {
@@ -22,12 +32,13 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      8
+#define TASK_TOTAL      9
 
 Task_t Task[TASK_TOTAL] =
 {
+    { 5/5, 0, time_task},
     { 10/5, 0, IMU_Update },
-    { 50/5, 0, AS5600_Update },
+    { 10/5, 0, AS5600_Update },
     { 50/5, 0, ADC_Task },
     { 20/5, 0, Key_UD_Task },
     { 20/5, 0, KeySL_Task },
@@ -57,6 +68,7 @@ void TaskExe(void)
     // Pretend to call the task functions
     if (i > TASK_TOTAL)
     {
+        time_task();
         IMU_Update();
         ADC_Task();
         Comm_SendTask();

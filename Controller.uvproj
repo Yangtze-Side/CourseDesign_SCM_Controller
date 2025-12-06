@@ -312,7 +312,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick;.\Control;.\Encoder</IncludePath>
+              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick;.\Control;.\Encoder;.\FOC;.\FOC\Math</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -816,6 +816,56 @@
               <FileName>spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Sources\spi.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FOC</GroupName>
+          <Files>
+            <File>
+              <FileName>FOC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\FOC.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\FOC.h</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\FOC_Util.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Util.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\FOC_Util.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FOC/Math</GroupName>
+          <Files>
+            <File>
+              <FileName>FOC_Math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\Math\FOC_Math.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\Math\FOC_Math.h</FilePath>
+            </File>
+            <File>
+              <FileName>PosPID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\Math\PosPID.c</FilePath>
+            </File>
+            <File>
+              <FileName>PosPID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\Math\PosPID.h</FilePath>
             </File>
           </Files>
         </Group>

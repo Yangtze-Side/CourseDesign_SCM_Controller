@@ -35,6 +35,7 @@ void proj_init(void)
 	EncoderKey_Init();
 	Display_Init();
 	Comm_Init();
+	User_PWM_Init();
 }
 
 /**
