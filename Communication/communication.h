@@ -62,6 +62,7 @@ typedef struct Comm_PID_Data_t
 extern Comm_PID_Data_t Comm_PID_Data;
 extern DHT11_Data_t DHT11_Data;
 extern US_Data_t US_Data;
+extern float Comm_Car_Yaw;
 
 void Comm_Init(void);
 

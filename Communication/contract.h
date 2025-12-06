@@ -38,9 +38,9 @@
 // Commands send to controller
 // 帧头 + CMD + 温度数据(float，摄氏度) + 湿度数据(float，%) +
 // 前置超声波测得的距离 F (float, cm) + B + L + R +
-// GPI + AFPID + 帧尾
+// GPI + AFPID + EulerAngle.Yaw + 帧尾
 #define COMM_CMD_CarData            ((u8)51)
-#define COMM_CMD_DHT11Data_LEN      ((u8)( (3 + 2) + 4 + 4*4 + 4*6 ))    // COMM_CMD_CarData 命令 一帧的数据总长度
+#define COMM_CMD_DHT11Data_LEN      ((u8)( (3 + 2) + 4 + 4*4 + 4*6 + 4 ))    // COMM_CMD_CarData 命令 一帧的数据总长度
 
 // Helper macros
 #define COMM_IsFrameHeadCorrect(p)  ((p)[0] == COMM_HEAD_BYTE0 && (p)[1] == COMM_HEAD_BYTE1)

@@ -7,6 +7,7 @@
 US_Data_t US_Data = { 0 };
 DHT11_Data_t DHT11_Data = { 0 };
 Comm_PID_Data_t Comm_PID_Data = { 0 };
+float Comm_Car_Yaw = 0.0f;
 static BOOL Comm_Linked = FALSE;
 static u8 Comm_SendReq = COMM_SendReq_NONE;
 static u8 comm_music_num = 1;
@@ -45,6 +46,7 @@ void Comm_Parse(u8 *dat)
                 Comm_PID_Data.afpid_kp = *(float*)(dat + 35);
                 Comm_PID_Data.afpid_ki = *(float*)(dat + 39);
                 Comm_PID_Data.afpid_kd = *(float*)(dat + 43);
+                Comm_Car_Yaw = *(float*)(dat + 47);
             } break;
             
             default:
