@@ -4,8 +4,8 @@
 #include "config.h"
 
 #define PWMA_Pin                            P27     // Motor
-#define PWMB_Pin                            P21     // Motor
-#define PWMC_Pin                            P22     // Motor
+#define PWMB_Pin                            P45     // Motor
+#define PWMC_Pin                            P44     // Motor
 // #define PWMD_Pin                            P23     // Motor
 // #define PWME_Pin                            LED1     // LED
 // #define PWMF_Pin                            LED2     // LED

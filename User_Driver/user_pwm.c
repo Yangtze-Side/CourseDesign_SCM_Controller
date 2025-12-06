@@ -19,13 +19,13 @@ void User_PWM_Init(void)
     PWM_SetC2T2Point(1);                //使能PWM2翻转点2的计数值
     PWM_DisableC2Output();              //不使能PWM2通道输出
 
-    PWM_C3_SwitchP21();                 //设置PWM3端口: PWM3 (P2.1)
+    PWM_C3_SwitchP45();                 //设置PWM3端口: PWM3 (P2.1)
     PWM_InitialC3Low();                 //设置PWM3通道初始电平为低电平
     PWM_SetC3T1Point(0);                //使能PWM3翻转点1的计数值
     PWM_SetC3T2Point(1);                //使能PWM3翻转点2的计数值
     PWM_DisableC3Output();              //不使能PWM3通道输出
 
-    PWM_C4_SwitchP22();                 //设置PWM4端口: PWM4 (P2.2)
+    PWM_C4_SwitchP44();                 //设置PWM4端口: PWM4 (P2.2)
     PWM_InitialC4Low();                 //设置PWM4通道初始电平为低电平
     PWM_SetC4T1Point(0);                //使能PWM4翻转点1的计数值
     PWM_SetC4T2Point(1);                //使能PWM4翻转点2的计数值

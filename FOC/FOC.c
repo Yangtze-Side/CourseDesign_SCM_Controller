@@ -16,7 +16,7 @@ float shaft_angle=0.0f;
 // 速度开环控制函数
 void velocityOpenloop(float target_velocity)
 {
-	u32 now = time_now;
+	u32 now = Sys_GetTick();
 	float dt = (float)(now - velocityOpenloop_time_stamp) / TIME_FACTOR;		// 秒
 	if (dt <= 0.0f)	dt = 1.0f;
 	shaft_angle = _normalizeAngle(shaft_angle + DEG_TO_RAD(target_velocity)*dt);
@@ -56,14 +56,4 @@ void Zero_Electric_Init(void)
 	AS5600_Update();
 	zero_electric_angle = _electricalAngle(DIR * _normalizeAngle(DEG_TO_RAD(encoder_degree)), 7);
 	setTorque(0, _3PI_2);
-}
-
-void FOC_Init(void)
-{
-
-}
-
-void FOC_Task(void)
-{
-
 }

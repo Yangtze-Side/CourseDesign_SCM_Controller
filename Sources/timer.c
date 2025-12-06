@@ -19,6 +19,7 @@
 #include "system.h"
 #include "imu_app.h"
 #include "control.h"
+#include "FOC_App.h"
 //<<AICUBE_USER_INCLUDE_END>>
 
 
@@ -35,7 +36,7 @@
 ////////////////////////////////////////
 void TIMER0_Init(void)
 {
-#define T0_RELOAD               (65536 - (float)SYSCLK / 12 * 1 / 1000) //定时周期1毫秒
+#define T0_RELOAD               (65536 - (float)SYSCLK / 12 * 1 / 1000)
 
     TIMER0_TimerMode();                 //设置定时器0为定时模式
     TIMER0_12TMode();                   //设置定时器0为12T模式
@@ -86,6 +87,7 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
     // 在此添加中断函数用户代码  
     
     static u8 t0_cnt = 0;
+    static u8 foc_cnt = 0;
     if (++t0_cnt >= 5)
     {
         t0_cnt = 0;
@@ -95,9 +97,14 @@ void TIMER0_ISR(void) interrupt TMR0_VECTOR
         // Control_UpdateEuler();
         SecCnt_Task();
     }
+    if (++foc_cnt >= 2)
+    {
+        FOC_Task();
+        foc_cnt = 0;
+    }
+    
     // 1ms TODO
     Sys_IncTick();
-
     //<<AICUBE_USER_TIMER0_ISR_CODE1_END>>
 }
 

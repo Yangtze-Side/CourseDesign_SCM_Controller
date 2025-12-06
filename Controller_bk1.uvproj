@@ -139,7 +139,7 @@
           <Target>
             <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
+            <RunToMain>0</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
@@ -149,7 +149,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>12</TargetSelection>
+          <TargetSelection>10</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -218,14 +218,12 @@
             <Mx51P>0</Mx51P>
             <hadXRAM2>0</hadXRAM2>
             <uocXram2>0</uocXram2>
-            <hadXRAM3>0</hadXRAM3>
             <ModC2>0</ModC2>
             <ModH2>0</ModH2>
             <Mdu_R515>0</Mdu_R515>
             <Mdu_F120>0</Mdu_F120>
             <Psoc>0</Psoc>
             <hadIROM2>0</hadIROM2>
-            <hadIROM3>0</hadIROM3>
             <ModSmx2>0</ModSmx2>
             <cBanks>0</cBanks>
             <xBanks>0</xBanks>
@@ -295,16 +293,6 @@
                 <StartAddress>0x0</StartAddress>
                 <Size>0x0</Size>
               </IROM512>
-              <XRA513>
-                <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
-              </XRA513>
-              <IROM513>
-                <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
-              </IROM513>
             </OnChipMemories>
           </Target51Misc>
           <C51>
@@ -324,7 +312,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick;.\Control;.\Encoder</IncludePath>
+              <IncludePath>.\Sources\inc;.\Communication;.\User;.\User_Lib;.\User_Driver;.\IMU;.\Key;.\Display;.\Display\OLED;.\Display\Pages;.\Joystick;.\Control;.\Encoder;.\FOC;.\FOC\Math</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -779,6 +767,16 @@
               <FileType>5</FileType>
               <FilePath>.\Encoder\AS5600.h</FilePath>
             </File>
+            <File>
+              <FileName>EncoderKey.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Encoder\EncoderKey.c</FilePath>
+            </File>
+            <File>
+              <FileName>EncoderKey.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Encoder\EncoderKey.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -818,6 +816,76 @@
               <FileName>spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Sources\spi.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FOC</GroupName>
+          <Files>
+            <File>
+              <FileName>FOC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\FOC.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\FOC.h</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\FOC_Util.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Util.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\FOC_Util.h</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Simulation.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\FOC_Simulation.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Simulation.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\FOC_Simulation.h</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_App.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\FOC_App.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_App.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\FOC_App.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FOC/Math</GroupName>
+          <Files>
+            <File>
+              <FileName>FOC_Math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\Math\FOC_Math.c</FilePath>
+            </File>
+            <File>
+              <FileName>FOC_Math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\Math\FOC_Math.h</FilePath>
+            </File>
+            <File>
+              <FileName>PosPID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\FOC\Math\PosPID.c</FilePath>
+            </File>
+            <File>
+              <FileName>PosPID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\FOC\Math\PosPID.h</FilePath>
             </File>
           </Files>
         </Group>
