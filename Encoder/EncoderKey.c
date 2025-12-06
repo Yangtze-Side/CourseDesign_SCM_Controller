@@ -65,12 +65,12 @@ void EncoderKey_Update(void)
     accum += (int)(diff * accel);
 
     while (accum >= STEP_THRESHOLD) {
-        Key_L_Pressed();
+        // Key_L_Pressed();
         accum -= STEP_THRESHOLD;
     }
 
     while (accum <= -STEP_THRESHOLD) {
-        Key_R_Pressed();
+        // Key_R_Pressed();
         accum += STEP_THRESHOLD;
     }
 }

@@ -9,11 +9,13 @@
 #include "key_SL.h"
 #include "AS5600.h"
 #include "EncoderKey.h"
+#include "FOC_App.h"
 #include "Control/control.h"
 
 void led_task(void);
 
 volatile BOOL TaskExeFlag = 0;
+
 
 typedef struct
 {
@@ -22,12 +24,13 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      8
+#define TASK_TOTAL      7
 
 Task_t Task[TASK_TOTAL] =
 {
     { 10/5, 0, IMU_Update },
-    { 50/5, 0, AS5600_Update },
+    // { 10/5, 0, AS5600_Update },
+    // { 10/5, 0, FOC_Task},
     { 50/5, 0, ADC_Task },
     { 20/5, 0, Key_UD_Task },
     { 20/5, 0, KeySL_Task },
@@ -65,7 +68,8 @@ void TaskExe(void)
         Key_UD_Task();
         KeySL_Task();
         EncoderKey_Update();
-        AS5600_Update();
+        // AS5600_Update();
+        // FOC_Task();
         // Control_Update();
     }
 }

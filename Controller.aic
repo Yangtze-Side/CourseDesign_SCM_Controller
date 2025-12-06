@@ -99,8 +99,8 @@
 		<PortLevel_5>1</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
-		<PortMD_7>0</PortMD_7>
-		<PortLevel_7>1</PortLevel_7>
+		<PortMD_7>1</PortMD_7>
+		<PortLevel_7>0</PortLevel_7>
 	</PORT2>
 	<PORT3>
 		<PeriEnable>1</PeriEnable>
@@ -133,10 +133,10 @@
 		<PortLevel_2>1</PortLevel_2>
 		<PortMD_3>0</PortMD_3>
 		<PortLevel_3>1</PortLevel_3>
-		<PortMD_4>0</PortMD_4>
-		<PortLevel_4>1</PortLevel_4>
-		<PortMD_5>0</PortMD_5>
-		<PortLevel_5>1</PortLevel_5>
+		<PortMD_4>1</PortMD_4>
+		<PortLevel_4>0</PortLevel_4>
+		<PortMD_5>1</PortMD_5>
+		<PortLevel_5>0</PortLevel_5>
 		<PortMD_6>0</PortMD_6>
 		<PortLevel_6>1</PortLevel_6>
 		<PortMD_7>0</PortMD_7>
@@ -501,7 +501,10 @@
 		<Pin20Alias>OLED_SDA</Pin20Alias>
 		<Pin30Alias>ENC_SCL</Pin30Alias>
 		<Pin31Alias>ENC_SDA</Pin31Alias>
+		<Pin44Alias>PWMC</Pin44Alias>
 		<Pin49Alias>NSS_PIN</Pin49Alias>
+		<Pin52Alias>PWMA</Pin52Alias>
+		<Pin57Alias>PWMB</Pin57Alias>
 		<Pin59Alias>KEY_LEFT</Pin59Alias>
 		<Pin62Alias>KEY_RIGHY</Pin62Alias>
 	</PINALIAS>

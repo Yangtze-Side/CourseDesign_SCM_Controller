@@ -6,6 +6,7 @@
 #include "contract.h"
 #include "Display.h"
 #include "EncoderKey.h"
+#include "FOC_App.h"
 
 /*---------------------------------------- System Variables --------------------------------------*/
 
@@ -35,6 +36,8 @@ void proj_init(void)
 	EncoderKey_Init();
 	Display_Init();
 	Comm_Init();
+	User_PWM_Init();
+	FOC_Init();
 }
 
 /**

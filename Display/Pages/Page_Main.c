@@ -10,6 +10,7 @@
  */
 #include "Page_Main.h"
 #include "communication.h"
+#include "FOC.h"
 
 
 // 主页面中的功能选择指针。0 - 当前显示封面。
@@ -114,6 +115,10 @@ void Page_Main_Key_Mode_ShortPress(void)
     {
         ShowState = (Page_enum)Page_Main_Ptr;
         Display_Subtrate();
+    }
+    else
+    {
+        Zero_Electric_Init();
     }
 }
 
