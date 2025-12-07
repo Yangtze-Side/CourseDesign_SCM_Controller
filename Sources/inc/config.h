@@ -45,7 +45,10 @@
 #define OLED_SDA                P55
 #define ENC_SCL                 P33
 #define ENC_SDA                 P34
+#define PWMC                    P44
 #define NSS_PIN                 P24
+#define PWMA                    P27
+#define PWMB                    P45
 #define KEY_LEFT                P00
 #define KEY_RIGHY               P03
 

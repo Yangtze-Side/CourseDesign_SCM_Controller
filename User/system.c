@@ -5,6 +5,8 @@
 #include "communication.h"
 #include "contract.h"
 #include "Display.h"
+#include "EncoderKey.h"
+#include "FOC_App.h"
 
 /*---------------------------------------- System Variables --------------------------------------*/
 
@@ -31,8 +33,11 @@ void proj_init(void)
 	UART_Send_Init(UART1, &uart1_tx, UART1_SendBuf, UART1_SendBuf_SIZE);
 	UART_Recv_Init(UART1, &uart1_rx, &UART1_FIFO, UART1_RecvBuf, UART1_RecvBuf_SIZE, UART1_RX_SIZEOFPROC);
 	IMU_Init();
+	EncoderKey_Init();
 	Display_Init();
 	Comm_Init();
+	User_PWM_Init();
+	FOC_Init();
 }
 
 /**
