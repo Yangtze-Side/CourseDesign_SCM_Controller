@@ -2,7 +2,7 @@
 #include "FOC_App.h"
 #include "FOC.h"
 #include "FOC_Simulation.h"
-
+#include "Page_Main.h"
 
 
 
@@ -37,7 +37,14 @@ void FOC_Task(void)
 	// angleControl_loop(45.0f);  // 位置闭环测试，目标位置45度
 	// setTorque(VOLTAGE_POWER_SUPPLY / 2, _3PI_2);
 	// velocityControl_loop(1000.0f);
-
-    Ratchet_Simulation_Update(6);    // 低通不能给太狠了，微分项要起到消除震荡作用
+    if (Do_Init)
+    {
+        Zero_Electric_Init();
+        Do_Init = 0;
+    }
+    else
+    {
+        Ratchet_Simulation_Update(NOTCH_NUM);    // 低通不能给太狠了，微分项要起到消除震荡作用
+    }
     // Damp_Simulation_Update(-1);
 }

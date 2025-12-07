@@ -50,11 +50,11 @@ void Ratchet_Simulation_Init(void)
     LowPassFilter_Init(&angleControl_loop_filter, 1.0f);
     PosPID_Init(
         &angleControl_loop_pid, 
-        0.15f,
-        1.0f / 50.0f,
-        0.0f,
+        0.1f,
+        0.5f / 50.0f,
+        0.1f,
         50.0f, 5.0f,
-        2.0f,
+        6.0f,
         VOLTAGE_POWER_SUPPLY/2
     );
 }

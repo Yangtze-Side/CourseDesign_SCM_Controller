@@ -16,6 +16,7 @@
 // 主页面中的功能选择指针。0 - 当前显示封面。
 // >0 : 表示指向 ShowState 中的具体功能。每一个功能都对应一个页面。
 u8 Page_Main_Ptr = 0;
+BOOL Do_Init = 0;
 
 
 /*---------------------------------------------- User Determine -------------------------------------------*/
@@ -118,7 +119,8 @@ void Page_Main_Key_Mode_ShortPress(void)
     }
     else
     {
-        Zero_Electric_Init();
+        // Zero_Electric_Init();
+        Do_Init = 1;
     }
 }
 

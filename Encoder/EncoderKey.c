@@ -2,8 +2,10 @@
 #include "AS5600.h"
 #include "user_math.h"
 #include "Display.h"
+#include "FOC_Simulation.h"
+#include "FOC_App.h"
 
-u16 last_angle;
+s8 last_region;
 static float accum = 0;
 
 
@@ -35,42 +37,59 @@ static void Key_R_Pressed(void)
     }
 }
 
+s8 getEncoderRegion(float angle, u8 n_sections)
+{
+    float step = 360.0f / n_sections;
+    float shifted;
+    s8 region;
+
+    // 将角度归一化到 (-180, 180]
+    angle = Lim_Ang_180(angle);
+
+    // 区间中心在：0, step, 2*step, ...
+    // 所以将 angle 右移 step/2 使得 [-step/2, +step/2] 属于区间 0
+    shifted = angle + step / 2.0f;
+
+    // 再次规范化 (-180~180]
+    shifted = Lim_Ang_180(shifted);
+
+    // 计算区间 idx
+    region = (s8)(shifted / step);
+
+    // 修复 C 语言负数除法向零取整导致的问题
+    if (shifted < 0.0f)
+        region -= 1;
+
+    // 限制范围
+    if (region < 0)
+        region += n_sections;
+    if (region >= n_sections)
+        region -= n_sections;
+
+    return region;
+}
+
 void EncoderKey_Init(void)
 {
-    last_angle = (u16)encoder_degree - 180;
+    last_region = getEncoderRegion(encoder_degree, NOTCH_NUM);
 }
 
 void EncoderKey_Update(void)
 {
-    float speed;
-    float accel = 1.0;
-    
-    // 读取当前角度
-    u16 current_angle = (u16)encoder_degree - 180;
-    int16_t diff = Lim_Ang_180((int16_t)(current_angle - last_angle));
-    last_angle = current_angle;
-
-    // 拒绝抖动
-    if (ABS(diff) < 5) return;
-
-    // 计算转速
-    speed = (float)(ABS(diff)) / TASK_CYCLE_MS;
-
-    // 多段加速度
-    if (speed > SPEED_STEP_ONE)      accel = ACC_ONE;
-    if (speed > SPEED_STEP_TWO)      accel = ACC_TWO;
-    if (speed > SPEED_STEP_THREE)    accel = ACC_THREE;
-
-    // 累积
-    accum += (int)(diff * accel);
-
-    while (accum >= STEP_THRESHOLD) {
-        // Key_L_Pressed();
-        accum -= STEP_THRESHOLD;
-    }
-
-    while (accum <= -STEP_THRESHOLD) {
-        // Key_R_Pressed();
-        accum += STEP_THRESHOLD;
+    s8 now_region = getEncoderRegion(encoder_degree, NOTCH_NUM);
+    if (ShowState != PAGE_Control)
+    {
+        // 顺时针跨越上边界
+        if (((last_region < now_region)&&((last_region - now_region) == -1)) || (last_region - now_region) == 5)
+        {
+            Key_L_Pressed();
+            last_region = now_region;
+        }
+        // 逆时针跨越下边界
+        else if (((last_region > now_region)&&((last_region - now_region) == 1)) || (last_region - now_region) == -5)
+        {
+            Key_R_Pressed();
+            last_region = now_region;
+        }
     }
 }

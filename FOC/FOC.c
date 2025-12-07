@@ -52,7 +52,7 @@ void angleControl_loop(float target_angle)
 void Zero_Electric_Init(void)
 {
 	setTorque(VOLTAGE_POWER_SUPPLY/2, _3PI_2);
-	Sys_Delay(1000);
+	delay_ms(1000);
 	AS5600_Update();
 	zero_electric_angle = _electricalAngle(DIR * _normalizeAngle(DEG_TO_RAD(encoder_degree)), 7);
 	setTorque(0, _3PI_2);
