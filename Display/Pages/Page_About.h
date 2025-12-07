@@ -13,6 +13,8 @@
 
 #include "Display.h"
 
+extern BOOL Do_FOC;
+
 void Page_About_Subtrate(void);
 void Page_About_Task(void);
 

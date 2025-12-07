@@ -77,7 +77,7 @@ void EncoderKey_Init(void)
 void EncoderKey_Update(void)
 {
     s8 now_region = getEncoderRegion(encoder_degree, NOTCH_NUM);
-    if (ShowState != PAGE_Control)
+    if ((ShowState != PAGE_Control)&&(ShowState != PAGE_About))
     {
         // 顺时针跨越上边界
         if (((last_region < now_region)&&((last_region - now_region) == -1)) || (last_region - now_region) == 5)

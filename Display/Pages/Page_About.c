@@ -10,6 +10,8 @@
  */
 #include "Page_About.h"
 
+BOOL Do_FOC = 0;
+
 static u8 page_about_index = 0;
 static u8 page_about_iconIndex = 0;
 static char code page_about_icon[4] = { '|', '/', '-', '\\' };
@@ -30,7 +32,14 @@ void Page_About_Task(void)
 
 void Page_About_Key_Left(void)
 {
-    ;
+    if (Do_FOC)
+    {
+        Do_FOC = 0;
+    }
+    else
+    {
+        Do_FOC = 1;
+    }
 }
 
 void Page_About_Key_Right(void)

@@ -46,7 +46,7 @@ void Comm_Parse(u8 *dat)
                 Comm_PID_Data.afpid_kp = *(float*)(dat + 35);
                 Comm_PID_Data.afpid_ki = *(float*)(dat + 39);
                 Comm_PID_Data.afpid_kd = *(float*)(dat + 43);
-                Comm_Car_Yaw = *(float*)(dat + 47);
+                Comm_Car_Yaw = - *(float*)(dat + 47) + 180.0f;
             } break;
             
             default:

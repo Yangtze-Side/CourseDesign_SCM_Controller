@@ -3,7 +3,12 @@
 #include "FOC.h"
 #include "FOC_Simulation.h"
 #include "Page_Main.h"
+#include "Page_About.h"
+#include "Display.h"
+#include "communication.h"
 
+
+static u8 last_ShowState = 0;
 
 
 /****************************************FOC任务执行***************************************************/
@@ -37,14 +42,55 @@ void FOC_Task(void)
 	// angleControl_loop(45.0f);  // 位置闭环测试，目标位置45度
 	// setTorque(VOLTAGE_POWER_SUPPLY / 2, _3PI_2);
 	// velocityControl_loop(1000.0f);
-    if (Do_Init)
+
+    //  切换时重置状态
+    if (ShowState != last_ShowState)
     {
-        Zero_Electric_Init();
-        Do_Init = 0;
+        setTorque(0.0f, _3PI_2);
+        last_ShowState = ShowState;
     }
-    else
+
+    switch (ShowState)
     {
-        Ratchet_Simulation_Update(NOTCH_NUM);    // 低通不能给太狠了，微分项要起到消除震荡作用
+        case PAGE_About:
+        {
+            if (Do_FOC)
+            {
+                velocityOpenloop(600);
+            }
+            else
+            {
+                setTorque(0.0f, _3PI_2);
+            }
+        } break;
+        
+        case PAGE_Control:
+        {
+            angleControl_loop(Comm_Car_Yaw);
+        } break;
+
+        
+        case PAGE_Settings:
+
+        case PAGE_Music:
+
+        case PAGE_Main:
+        {
+            if (Do_Init)
+            {
+                Zero_Electric_Init();
+                Do_Init = 0;
+            }
+            else
+            {
+                Ratchet_Simulation_Update(NOTCH_NUM);    // 低通不能给太狠了，微分项要起到消除震荡作用
+            }
+        } break;
+
+        default:
+            break;
     }
+
+    
     // Damp_Simulation_Update(-1);
 }
