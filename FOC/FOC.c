@@ -46,6 +46,18 @@ void angleControl_loop(float target_angle)
 	setPhaseVoltage(angleControl_loop_filter.y_prev, _normalizeAngle(_electricalAngle(DIR * _normalizeAngle(DEG_TO_RAD(encoder_degree)), 7)), zero_electric_angle);
 }
 
+/**
+ * @brief 改变角度闭环 PID 参数，以达到不同模式下的转动表现。
+ * 
+ * @param Kp 	新的 Kp 参数
+ * @param Ki  	新的 Ki 参数
+ * @param Kd 	新的 Kd 参数
+ */
+void FOC_SetAnglePID_Param(float Kp, float Ki, float Kd, float intMax, float intDis, float DeMax, float uMax)
+{
+	PosPID_Init_copy1(&angleControl_loop_pid, Kp, Ki, Kd, intMax, intDis, DeMax, uMax);
+}
+
 
 /****************************************电角度矫正***************************************************/
 

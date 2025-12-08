@@ -104,7 +104,7 @@ void Key_UD_Task(void)
 			else
 			{
 				// 如果俩键还在被按着
-				if (++Key_LR_cnt >= 50)
+				if (++Key_LR_cnt >= 40)
 				{
 					// 如果到了 1 s
 					Key_LR_state = 0;
