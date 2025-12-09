@@ -16,12 +16,15 @@
 
 
 void TIMER0_Init(void);
+void TIMER1_Init(void);
 void TIMER2_Init(void);
+void TIMER3_Init(void);
 
 
 
 //<<AICUBE_USER_EXTERNAL_DECLARE_BEGIN>>
 // 在此添加用户外部函数和外部变量声明  
+// extern u8 imuUpdateTime_ms;
 //<<AICUBE_USER_EXTERNAL_DECLARE_END>>
 
 
