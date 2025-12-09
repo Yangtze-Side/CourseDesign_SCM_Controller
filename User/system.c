@@ -17,8 +17,10 @@ u8 xdata UART1_SendBuf[UART1_SendBuf_SIZE];
 UART_Send_t uart1_tx;
 
 static u8 xdata UART1_RecvBuf[UART1_RecvBuf_SIZE];
-static User_FIFO_TypeDef UART1_FIFO;
 UART_Recv_t uart1_rx;
+#if UART_RECV_USE_FIFO
+static User_FIFO_TypeDef UART1_FIFO;
+#endif
 
 static u8 sec_cnt = 0;
 
@@ -31,7 +33,11 @@ static u8 sec_cnt = 0;
 void proj_init(void)
 {
 	UART_Send_Init(UART1, &uart1_tx, UART1_SendBuf, UART1_SendBuf_SIZE);
+#if UART_RECV_USE_FIFO
 	UART_Recv_Init(UART1, &uart1_rx, &UART1_FIFO, UART1_RecvBuf, UART1_RecvBuf_SIZE, UART1_RX_SIZEOFPROC);
+#else
+	UART_Recv_Init(UART1, &uart1_rx, UART1_RecvBuf, UART1_RecvBuf_SIZE);
+#endif
 	IMU_Init();
 	EncoderKey_Init();
 	Display_Init();
@@ -40,6 +46,7 @@ void proj_init(void)
 	FOC_Init();
 }
 
+#if UART_RECV_USE_FIFO
 /**
  * @brief UART receive handler, when an amount of data has been received.
  * @note  此函数在中断中调用，当某串口的 FIFO 每接收到一定数量的数据字节后会在中断中调用此函数。
@@ -67,7 +74,7 @@ void uart_recv_dataproc(UART_Recv_t *recv)
 		else
 		{
 			// 找到了，删除 BYTE0 以前的数据
-			u8 byte1 = 0;
+			u8 byte1 = ~COMM_HEAD_BYTE1;
 			User_FIFO_Clear(recv->FIFO, index);
 			// 查看下一个字节是不是包头的 BYTE1
 			if (User_FIFO_GetByte(recv->FIFO, 1, &byte1))
@@ -97,6 +104,29 @@ void uart_recv_dataproc(UART_Recv_t *recv)
 		}
 	}
 }
+#else
+void uart_recv_dataproc(UART_Recv_t *recv)
+{
+	if (recv->Index == UART1)
+	{
+		if (recv->RecvLen >= COMM_CMD_DHT11Data_LEN)
+		{
+			Comm_Parse(recv->Buf);
+		}
+	}
+}
+
+/**
+ * @brief 如果使用 非 FIFO 模式接收数据，则需要定时调用此函数处理接收到的数据。
+ * 
+ */
+void uart_recv_task(void)
+{
+#if !UART_RECV_USE_FIFO
+	UART_Recv_Task_5ms(&uart1_rx);
+#endif
+}
+#endif
 
 
 /*---------------------------------------- System Functions --------------------------------------*/
