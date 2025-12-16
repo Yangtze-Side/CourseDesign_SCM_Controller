@@ -154,21 +154,25 @@ u16 User_FIFO_FindByte(User_FIFO_TypeDef *fifo, u8 byte)
 
 /**
  * @brief 根据索引获得 FIFO 数组元素的值
- * @note  FIFO 随时可以看作是一个长度为 MaxSize - 1 的数组，其 0 号元素就是最早进入队列的元素。
+ * @note  FIFO 随时可以看作是一个长度为 MaxSize - 1 的数组，其 0 号元素就是最早进入队列的元素，
+ *        -1 号元素就是刚刚进入队列的元素。
  * 
  * @param fifo  FIFO 实例
- * @param index FIFO 数组索引（0 ~ MaxSize - 2）
+ * @param index FIFO 数组索引（-UsedLength ~ UsedLength - 1，可为负数，-1 是最后一个元素，-2 是倒数第二个元素，以此类推）
  * @param byte  数组元素（地址）
  * @return BOOL 操作是否成功
  */
-BOOL User_FIFO_GetByte(User_FIFO_TypeDef *fifo, u16 index, u8 *byte)
+BOOL User_FIFO_GetByte(User_FIFO_TypeDef *fifo, s16 index, u8 *byte)
 {
+    u16 pos_index;
     if (fifo == NULL || byte == NULL) return FALSE;
-    if (index >= User_FIFO_GetUsedLength(fifo)) return FALSE;
+    pos_index = (u16)(index < 0 ? User_FIFO_GetUsedLength(fifo) + index : index);
+    if (pos_index >= User_FIFO_GetUsedLength(fifo)) return FALSE;
+
     fifo->Lock = USER_FIFO_LOCK;
 
-    if (index >= fifo->MaxSize - fifo->Head) *byte = fifo->Buff[index - (fifo->MaxSize - fifo->Head)];
-    else *byte = fifo->Buff[fifo->Head + index];
+    if (pos_index >= fifo->MaxSize - fifo->Head) *byte = fifo->Buff[pos_index - (fifo->MaxSize - fifo->Head)];
+    else *byte = fifo->Buff[fifo->Head + pos_index];
 
     fifo->Lock = USER_FIFO_UNLOCK;
     return TRUE;

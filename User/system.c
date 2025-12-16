@@ -58,48 +58,54 @@ void uart_recv_dataproc(UART_Recv_t *recv)
 {
 	if (recv->Index == UART1)
 	{
-		/**
-		 * 从所有 FIFO 数据中找到包头，如果没找到，就删除所有数据；
-		 * 如果找到了（包头的第一个字节），删除包头（第一个字节）之前（索引小于它）的数据，
-		 * 如果剩余数据长度大于一帧长度，那就处理，否则不处理。
-		 * 
-		 */
-		// 找包头的 BYTE0
-		u16 index = User_FIFO_FindByte(recv->FIFO, COMM_HEAD_BYTE0);
-		if (index == User_FIFO_BYTENOTFOUND)
+		u8 packtail_byte[2];
+		if (User_FIFO_GetUsedLength(recv->FIFO) >= 2 &&
+			User_FIFO_GetByte(recv->FIFO, -2, packtail_byte + 0) == COMM_TAIL_BYTE0 &&
+			User_FIFO_GetByte(recv->FIFO, -1, packtail_byte + 1) == COMM_TAIL_BYTE1)
 		{
-			// 没找到，删除所有数据
-			User_FIFO_Clear(recv->FIFO, recv->FIFO->MaxSize);
-		}
-		else
-		{
-			// 找到了，删除 BYTE0 以前的数据
-			u8 byte1 = ~COMM_HEAD_BYTE1;
-			User_FIFO_Clear(recv->FIFO, index);
-			// 查看下一个字节是不是包头的 BYTE1
-			if (User_FIFO_GetByte(recv->FIFO, 1, &byte1))
+			/**
+			 * 从所有 FIFO 数据中找到包头，如果没找到，就删除所有数据；
+			 * 如果找到了（包头的第一个字节），删除包头（第一个字节）之前（索引小于它）的数据，
+			 * 如果剩余数据长度大于一帧长度，那就处理，否则不处理。
+			 * 
+			 */
+			// 找包头的 BYTE0
+			u16 index = User_FIFO_FindByte(recv->FIFO, COMM_HEAD_BYTE0);
+			if (index == User_FIFO_BYTENOTFOUND)
 			{
-				if (byte1 == COMM_HEAD_BYTE1)
+				// 没找到，删除所有数据
+				User_FIFO_Clear(recv->FIFO, recv->FIFO->MaxSize);
+			}
+			else
+			{
+				// 找到了，删除 BYTE0 以前的数据
+				u8 byte1 = ~COMM_HEAD_BYTE1;
+				User_FIFO_Clear(recv->FIFO, index);
+				// 查看下一个字节是不是包头的 BYTE1
+				if (User_FIFO_GetByte(recv->FIFO, 1, &byte1))
 				{
-					// 如果是 BYTE1
-					if (User_FIFO_GetUsedLength(recv->FIFO) >= COMM_CMD_DHT11Data_LEN)
+					if (byte1 == COMM_HEAD_BYTE1)
 					{
-						// 如果剩余数据长度大于一帧长度，那么读取并解析数据，否则无操作
-						u8 dht11_dat[COMM_CMD_DHT11Data_LEN];
-						User_FIFO_Read(recv->FIFO, dht11_dat, COMM_CMD_DHT11Data_LEN, USER_FIFO_READ_AND_CLEAN);
-						// Process the data
-						Comm_Parse(dht11_dat);
+						// 如果是 BYTE1
+						if (User_FIFO_GetUsedLength(recv->FIFO) >= COMM_CMD_DHT11Data_LEN)
+						{
+							// 如果剩余数据长度大于一帧长度，那么读取并解析数据，否则无操作
+							u8 dht11_dat[COMM_CMD_DHT11Data_LEN];
+							User_FIFO_Read(recv->FIFO, dht11_dat, COMM_CMD_DHT11Data_LEN, USER_FIFO_READ_AND_CLEAN);
+							// Process the data
+							Comm_Parse(dht11_dat);
+						}
+					}
+					else
+					{
+						// 把前面那个假 BYTE0 删了
+						User_FIFO_Clear(recv->FIFO, 1);
 					}
 				}
 				else
 				{
-					// 把前面那个假 BYTE0 删了
-					User_FIFO_Clear(recv->FIFO, 1);
+					// 如果不能查，那么一定是 FIFO 长度小于 2，那就不管了
 				}
-			}
-			else
-			{
-				// 如果不能查，那么一定是 FIFO 长度小于 2，那就不管了
 			}
 		}
 	}

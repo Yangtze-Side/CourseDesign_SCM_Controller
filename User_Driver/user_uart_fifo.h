@@ -25,8 +25,8 @@ typedef struct UART_Send_t
 typedef struct UART_Recv_t
 {
 	u8                  Index;			// Index of 4 uart peripherals
-    u16                 Cnt;            // Count recently received data length
-    u16                 SizeOfProc;     // When data bytes length is more than this value, process program starts
+	// u8					*PackTail;		// The pack tail. Data is processed when the pack tail is detected
+    // u8                  SizeOfPackTail; // The length of the pack tail (0 ~ 255)
     // void (*DataProcFunc)(UART_Recv_t*);  // Data process function
     User_FIFO_TypeDef  *FIFO;           // FIFO queue used to process the data received
 } UART_Recv_t;
@@ -53,8 +53,7 @@ void UART_Recv_Init (
     UART_Recv_t *recv,
     User_FIFO_TypeDef *fifo,
     u8 *buf,
-    u16 maxSize,
-	u16 sizeOfProc
+    u16 maxSize
 );
 void UART_Recv_ITHandler(UART_Recv_t *recv);
 #else

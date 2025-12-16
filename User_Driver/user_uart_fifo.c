@@ -3,7 +3,7 @@
 #include "system.h"
 
 
-#define RecvDataProc(recv)				uart_recv_dataproc(recv)
+#define RecvDataProc(recv, dat)					uart_recv_dataproc(recv, dat)
 
 
 /**
@@ -105,14 +105,11 @@ void UART_Recv_Init (
 	UART_Recv_t *recv,
 	User_FIFO_TypeDef *fifo,
 	u8 *buf,
-	u16 maxSize,
-	u16 sizeOfProc
+	u16 maxSize
 )
 {
 	recv->Index = UARTx;
-	recv->Cnt = 0;
 	recv->FIFO = fifo;
-	recv->SizeOfProc = sizeOfProc;
 	User_FIFO_Init(fifo, buf, maxSize);
 }
 
@@ -134,11 +131,9 @@ void UART_Recv_ITHandler(UART_Recv_t *recv)
 		default: break;
 	}
 	User_FIFO_WriteByte(recv->FIFO, datatmp);
-	if (++recv->Cnt >= recv->SizeOfProc)
-	{
-		recv->Cnt = 0;
-		RecvDataProc(recv);
-	}
+
+	// User Determines
+	RecvDataProc(recv, datatmp);
 }
 #else
 

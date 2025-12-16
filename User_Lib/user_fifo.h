@@ -29,6 +29,6 @@ void User_FIFO_Read(User_FIFO_TypeDef *fifo, u8 *pData, u16 len, User_FIFO_ReadO
 u16  User_FIFO_GetUsedLength(const User_FIFO_TypeDef *fifo);
 void User_FIFO_Clear(User_FIFO_TypeDef *fifo, u16 range);
 u16  User_FIFO_FindByte(User_FIFO_TypeDef *fifo, u8 byte);
-BOOL User_FIFO_GetByte(User_FIFO_TypeDef *fifo, u16 index, u8 *byte);
+BOOL User_FIFO_GetByte(User_FIFO_TypeDef *fifo, s16 index, u8 *byte);
 
 #endif // !__USER_FIFO_H
