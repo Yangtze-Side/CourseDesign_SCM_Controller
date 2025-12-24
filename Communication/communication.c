@@ -11,6 +11,9 @@ float Comm_Car_Yaw = 0.0f;
 static BOOL Comm_Linked = FALSE;
 static u8 Comm_SendReq = COMM_SendReq_NONE;
 static u8 comm_music_num = 1;
+static u8 Comm_PackTotal = 0, Comm_PackError = 0, Comm_PackErrPercent = 0;
+
+static void Comm_UpdatePackErrorStat(BOOL isError);
 
 void Comm_Init(void)
 {
@@ -28,6 +31,7 @@ void Comm_Parse(u8 *dat)
 {
     if (COMM_IsFrameHeadCorrect(dat) && COMM_IsFrameTailCorrect(dat + COMM_CMD_DHT11Data_LEN - 2))
     {
+        Comm_UpdatePackErrorStat(FALSE);
         switch (dat[2])
         {
             case COMM_CMD_CarData:
@@ -52,6 +56,10 @@ void Comm_Parse(u8 *dat)
             default:
                 break;
         }
+    }
+    else
+    {
+        Comm_UpdatePackErrorStat(TRUE);
     }
 }
 
@@ -284,6 +292,28 @@ BOOL Comm_GetLinkStatus(void)
     return Comm_Linked;
 }
 
+
+static void Comm_UpdatePackErrorStat(BOOL isError)
+{
+    if (isError) Comm_PackError++;
+
+    if (++Comm_PackTotal >= 100)
+    {
+        Comm_PackErrPercent = Comm_PackError;
+        Comm_PackTotal = 0;
+        Comm_PackError = 0;
+    }
+}
+
+/**
+ * @brief 获得每 100 个数据包中错误包的数量，即丢包率。
+ * 
+ * @return u8 丢包率（百分数）。
+ */
+u8 Comm_GetPackErrPercent(void)
+{
+    return Comm_PackErrPercent;
+}
 
 /*-------------------------------------- User Determine ------------------------------------*/
 

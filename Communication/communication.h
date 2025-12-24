@@ -67,7 +67,6 @@ extern float Comm_Car_Yaw;
 void Comm_Init(void);
 
 void Comm_Parse(u8 *dat);
-
 void Comm_SendTask(void);
 
 void Comm_SetLinkStatus(BOOL status);
@@ -75,5 +74,7 @@ BOOL Comm_GetLinkStatus(void);
 
 void Comm_SendRequest(u8 req);
 void Comm_MusicStart(u8 num);
+
+u8 Comm_GetPackErrPercent(void);
 
 #endif // !__COMMUNICATION_H

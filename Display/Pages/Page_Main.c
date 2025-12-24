@@ -87,6 +87,7 @@ void Page_Main_Task(void)
             OLED_ShowString(4, 11, "   ");
         }
         OLED_ShowNum(1, 12, Get_SecCnt(), 2, FILL_BY_SPACE);
+        // OLED_ShowNum(3, 1, imuUpdateTime_ms, 3, FILL_BY_SPACE);
     }
 }
 

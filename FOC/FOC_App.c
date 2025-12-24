@@ -2,8 +2,6 @@
 #include "FOC_App.h"
 #include "FOC.h"
 #include "FOC_Simulation.h"
-#include "Page_Main.h"
-#include "Page_About.h"
 #include "Display.h"
 #include "communication.h"
 
@@ -20,7 +18,7 @@ void FOC_Init(void)
     //     &angleControl_loop_pid, 
     //     0.2f,
     //     2.0f / 5000.0f,
-    //     0.01,
+    //     0.01F,
     //     5000.0f, 15.0f,
     //     2.0f,
     //     VOLTAGE_POWER_SUPPLY/2
@@ -48,6 +46,39 @@ void FOC_Task(void)
     {
         setTorque(0.0f, _3PI_2);
         last_ShowState = ShowState;
+
+        switch (ShowState)
+        {
+            case PAGE_Main:
+            {
+                // 给 PID 提供第二组参数
+                FOC_SetAnglePID_Param(
+                    FOCPID_EFFECT1_Kp,
+                    FOCPID_EFFECT1_Ki,
+                    FOCPID_EFFECT1_Kd,
+                    FOCPID_EFFECT1_IntMax,
+                    FOCPID_EFFECT1_IntDis,
+                    FOCPID_EFFECT1_DeMax,
+                    FOCPID_EFFECT1_UMax
+                );
+            } break;
+
+            case PAGE_Control:
+            {
+                // 给 PID 提供第一组参数
+                FOC_SetAnglePID_Param(
+                    FOCPID_EFFECT2_Kp,
+                    FOCPID_EFFECT2_Ki,
+                    FOCPID_EFFECT2_Kd,
+                    FOCPID_EFFECT2_IntMax,
+                    FOCPID_EFFECT2_IntDis,
+                    FOCPID_EFFECT2_DeMax,
+                    FOCPID_EFFECT2_UMax
+                );
+            } break;
+
+            default: break;
+        }
     }
 
     switch (ShowState)
@@ -91,6 +122,5 @@ void FOC_Task(void)
             break;
     }
 
-    
     // Damp_Simulation_Update(-1);
 }

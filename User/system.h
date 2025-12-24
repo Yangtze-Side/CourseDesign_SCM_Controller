@@ -3,15 +3,16 @@
 
 #include "config.h"
 #include "user_driver.h"
+#include "contract.h"
 
 /*---------------------------------- System Defines ---------------------------------*/
 
 #define Sys_MAX_DELAY                       ( 0xffffffff )
 
 #define UART1_SendBuf_SIZE		            128
-#define UART1_RecvBuf_SIZE		            128
+#define UART1_RecvBuf_SIZE		            (COMM_CMD_DHT11Data_LEN * 4)
 
-#define UART1_RX_SIZEOFPROC                 25
+#define UART1_RX_SIZEOFPROC                 (COMM_CMD_DHT11Data_LEN)
 
 #define IAP_CONTR_SWBS_MSK                  BIT6
 #define IAP_CONTR_SWRST_MSK                 BIT5
@@ -31,6 +32,7 @@ void proj_init(void);
 void user_printf(const char *f, ...);
 
 void uart_recv_dataproc(UART_Recv_t *recv);
+void uart_recv_task(void);
 
 void Sys_Delay(u32 ms);
 void Sys_IncTick(void);

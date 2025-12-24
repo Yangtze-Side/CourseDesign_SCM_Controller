@@ -22,6 +22,8 @@ u8 Page_Control_State = Page_Control_State_PLAY;
 
 void Page_Control_Subtrate(void)
 {
+    OLED_ShowString(2, 16, "%");
+
     OLED_ShowString(3, 1, "T:");
     OLED_ShowChar(3, 5, '.');
     OLED_ShowString(3, 7, "`C");
@@ -48,6 +50,7 @@ void Page_Control_Task(void)
 
     OLED_ShowNum(2, 1, (int)encoder_degree, 4, FILL_BY_SPACE);
     OLED_ShowNum(2, 6, (int)Comm_Car_Yaw, 4, FILL_BY_SPACE);
+    OLED_ShowNum(2, 13, Comm_GetPackErrPercent(), 3, FILL_BY_SPACE);
 
     OLED_ShowNum(3, 3,  DHT11_Data.temp_int, 2, FILL_BY_SPACE);
     OLED_ShowNum(3, 6,  DHT11_Data.temp_deci, 1, FILL_BY_SPACE);

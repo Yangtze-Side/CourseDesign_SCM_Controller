@@ -36,6 +36,7 @@ typedef struct PosPID_t {
 } PosPID_t;
 
 void PosPID_Init(PosPID_t *pid, float kp, float ki, float kd, float intMax, float intDis, float DeMax, float uMax);
+void PosPID_Init_copy1(PosPID_t *pid, float kp, float ki, float kd, float intMax, float intDis, float DeMax, float uMax);
 void PosPID_Update(PosPID_t *pid, float ek);
 void PosPID_Clear(PosPID_t *pid);
 

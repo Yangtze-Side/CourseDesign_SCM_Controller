@@ -5,7 +5,7 @@
 #include "config.h"
 
 
-#define DIR 1  // 方向控制，1为正向，-1为反向z
+#define DIR 1  // 方向控制，1为正向，-1为反向
 
 
 // 速度开环控制函数
@@ -18,8 +18,7 @@ void velocityOpenloop(float target_velocity);
 extern PosPID_t angleControl_loop_pid;
 extern LowPassFilter_t angleControl_loop_filter;
 void angleControl_loop(float target_angle);
-
-
+void FOC_SetAnglePID_Param(float kp, float ki, float kd, float intMax, float intDis, float DeMax, float uMax);
 
 
 // 电角度初始化

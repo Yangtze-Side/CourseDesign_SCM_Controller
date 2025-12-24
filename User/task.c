@@ -28,7 +28,10 @@ typedef struct
 
 Task_t Task[TASK_TOTAL] =
 {
-    { 10/5, 0, IMU_Update },
+    // { 10/5, 0, IMU_Update },
+    // { 10/5, 0, AS5600_Update },
+    // { 10/5, 0, FOC_Task},
+    { 5/5,  0, uart_recv_task },
     { 50/5, 0, ADC_Task },
     { 20/5, 0, Key_UD_Task },
     { 20/5, 0, KeySL_Task },
@@ -57,7 +60,8 @@ void TaskExe(void)
     // Pretend to call the task functions
     if (i > TASK_TOTAL)
     {
-        IMU_Update();
+        // IMU_Update();
+        uart_recv_task();
         ADC_Task();
         Comm_SendTask();
         led_task();

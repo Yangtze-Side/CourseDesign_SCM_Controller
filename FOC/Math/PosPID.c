@@ -43,6 +43,23 @@ void PosPID_Init(PosPID_t *pid, float kp, float ki, float kd, float intMax, floa
 }
 
 
+void PosPID_Init_copy1(PosPID_t *pid, float kp, float ki, float kd, float intMax, float intDis, float DeMax, float uMax)
+{
+    pid->e = 0.0f;
+    pid->e_last = 0.0f;
+    pid->e_int = 0.0f;
+    pid->u = 0.0f;
+
+    pid->Kp = kp;
+    pid->Ki = ki;
+    pid->Kd = kd;
+
+    pid->e_int_max = ABS(intMax);
+    pid->e_int_dis = ABS(intDis);
+    pid->delta_e_max = ABS(DeMax);
+    pid->u_max = ABS(uMax);
+}
+
 /**
  * @brief 位置式 PID 更新。
  * 

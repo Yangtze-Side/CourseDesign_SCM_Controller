@@ -47,15 +47,16 @@ void getRatchetRegion(float angle, int n_sections, RatchetRegionInfo_t *info)
 
 void Ratchet_Simulation_Init(void)
 {
-    LowPassFilter_Init(&angleControl_loop_filter, 1.0f);
+    LowPassFilter_Init(&angleControl_loop_filter, 0.4f);
     PosPID_Init(
-        &angleControl_loop_pid, 
-        0.1f,
-        0.5f / 50.0f,
-        0.1f,
-        50.0f, 5.0f,
-        6.0f,
-        VOLTAGE_POWER_SUPPLY/2
+        &angleControl_loop_pid,
+        FOCPID_EFFECT1_Kp,
+        FOCPID_EFFECT1_Ki,
+        FOCPID_EFFECT1_Kd,
+        FOCPID_EFFECT1_IntMax,
+        FOCPID_EFFECT1_IntDis,
+        FOCPID_EFFECT1_DeMax,
+        FOCPID_EFFECT1_UMax
     );
 }
 

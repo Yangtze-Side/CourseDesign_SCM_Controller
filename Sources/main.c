@@ -92,7 +92,9 @@ void SYS_Init(void)
     PORT4_Init();                       //P4口初始化
     PORT5_Init();                       //P5口初始化
     TIMER0_Init();                      //定时器0初始化
+    TIMER1_Init();                      //定时器1初始化
     TIMER2_Init();                      //定时器2初始化
+    TIMER3_Init();                      //定时器3初始化
     UART1_Init();                       //串口1初始化
     EXTI0_Init();                       //INT0初始化
     ADC_Init();                         //ADC初始化

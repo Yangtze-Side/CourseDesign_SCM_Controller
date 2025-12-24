@@ -219,10 +219,10 @@
 		<UartBaudrate>9600</UartBaudrate>
 		<CLKOPort>-1</CLKOPort>
 		<EnableInt>1</EnableInt>
-		<IntPriority>0</IntPriority>
+		<IntPriority>1</IntPriority>
 	</TIMER0>
 	<TIMER1>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<EnableCLKO>0</EnableCLKO>
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
@@ -232,12 +232,12 @@
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
-		<TimerInterval>100</TimerInterval>
-		<TimerUnit>0</TimerUnit>
-		<TimerReload>200</TimerReload>
+		<TimerInterval>5</TimerInterval>
+		<TimerUnit>1</TimerUnit>
+		<TimerReload>10000</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
 		<CLKOPort>-1</CLKOPort>
-		<EnableInt>0</EnableInt>
+		<EnableInt>1</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER1>
 	<TIMER2>
@@ -260,7 +260,7 @@
 		<IntPriority>0</IntPriority>
 	</TIMER2>
 	<TIMER3>
-		<PeriEnable>0</PeriEnable>
+		<PeriEnable>1</PeriEnable>
 		<EnableCLKO>0</EnableCLKO>
 		<EnableGATE>0</EnableGATE>
 		<BaudrateX2>0</BaudrateX2>
@@ -270,12 +270,12 @@
 		<TimerCT>0</TimerCT>
 		<TimerMode>0</TimerMode>
 		<TimerAction>0</TimerAction>
-		<TimerInterval>100</TimerInterval>
-		<TimerUnit>0</TimerUnit>
-		<TimerReload>200</TimerReload>
+		<TimerInterval>10</TimerInterval>
+		<TimerUnit>1</TimerUnit>
+		<TimerReload>20000</TimerReload>
 		<UartBaudrate>9600</UartBaudrate>
 		<CLKOPort>-1</CLKOPort>
-		<EnableInt>0</EnableInt>
+		<EnableInt>1</EnableInt>
 		<IntPriority>0</IntPriority>
 	</TIMER3>
 	<TIMER4>
