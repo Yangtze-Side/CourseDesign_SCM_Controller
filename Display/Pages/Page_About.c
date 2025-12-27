@@ -11,6 +11,7 @@
 #include "Page_About.h"
 
 BOOL Do_FOC = 0;
+BOOL Do_Swing = 0;
 
 static u8 page_about_index = 0;
 static u8 page_about_iconIndex = 0;
@@ -32,19 +33,12 @@ void Page_About_Task(void)
 
 void Page_About_Key_Left(void)
 {
-    if (Do_FOC)
-    {
-        Do_FOC = 0;
-    }
-    else
-    {
-        Do_FOC = 1;
-    }
+    Do_FOC ^= 1;
 }
 
 void Page_About_Key_Right(void)
 {
-    ;
+    Do_Swing ^= 1;
 }
 
 void Page_About_Key_Mode_ShortPress(void)

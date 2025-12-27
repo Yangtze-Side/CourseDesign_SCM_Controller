@@ -4,6 +4,8 @@
 #include "FOC_Simulation.h"
 #include "Display.h"
 #include "communication.h"
+#include "imu_app.h"
+#include "AS5600.h"
 
 
 static u8 last_ShowState = 0;
@@ -31,7 +33,7 @@ void FOC_Task(void)
         {
             case PAGE_Main:
             {
-                // 给 PID 提供第二组参数
+                // 给 PID 提供第一组参数
                 FOC_SetAnglePID_Param(
                     FOCPID_EFFECT1_Kp,
                     FOCPID_EFFECT1_Ki,
@@ -45,7 +47,7 @@ void FOC_Task(void)
 
             case PAGE_Control:
             {
-                // 给 PID 提供第一组参数
+                // 给 PID 提供第二组参数
                 FOC_SetAnglePID_Param(
                     FOCPID_EFFECT2_Kp,
                     FOCPID_EFFECT2_Ki,
@@ -57,6 +59,19 @@ void FOC_Task(void)
                 );
             } break;
 
+            case PAGE_About:
+            {
+                FOC_SetAnglePID_Param(
+                    FOCPID_EFFECT2_Kp,
+                    FOCPID_EFFECT2_Ki,
+                    FOCPID_EFFECT2_Kd,
+                    FOCPID_EFFECT2_IntMax,
+                    FOCPID_EFFECT2_IntDis,
+                    FOCPID_EFFECT2_DeMax,
+                    FOCPID_EFFECT2_UMax
+                );
+            }
+
             default: break;
         }
     }
@@ -67,7 +82,13 @@ void FOC_Task(void)
         {
             if (Do_FOC)
             {
+                Do_Swing = 0;
                 velocityOpenloop(600);
+            }
+            else if (Do_Swing)
+            {
+                Do_FOC = 0;
+                // angleControl_loop(EulerAngle.roll);
             }
             else
             {

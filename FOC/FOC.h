@@ -11,6 +11,7 @@
 // 速度开环控制函数
 extern u32 velocityOpenloop_time_stamp;
 extern float shaft_angle;
+extern float zero_electric_angle;
 void velocityOpenloop(float target_velocity);
 
 

@@ -7,7 +7,7 @@
 #include "system.h"
 #include "Display.h"
 
-volatile float zero_electric_angle = 0.0f;
+float zero_electric_angle = 0.0f;
 
 /****************************************速度开环( 力矩 )***************************************************/
 
@@ -22,7 +22,7 @@ void velocityOpenloop(float target_velocity)
 	shaft_angle = _normalizeAngle(shaft_angle + DEG_TO_RAD(target_velocity)*dt);
 
   	// 最大只能设置为Uq = voltage_power_supply/2，否则ua,ub,uc会超出供电电压限幅
-	setPhaseVoltage(VOLTAGE_POWER_SUPPLY/2, _electricalAngle(shaft_angle, 7), zero_electric_angle);
+	setPhaseVoltage(VOLTAGE_POWER_SUPPLY/3, _electricalAngle(shaft_angle, 7), zero_electric_angle);
 
 	velocityOpenloop_time_stamp = now;
 }
