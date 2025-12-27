@@ -45,6 +45,7 @@ void main(void)
 
     //<<AICUBE_USER_MAIN_CODE_BEGIN>>
     // 在此添加主函数中运行一次的用户代码  
+    // TestLED_ON();
     proj_init();
     //<<AICUBE_USER_MAIN_CODE_END>>
 
@@ -147,6 +148,13 @@ void led_task(void)
     // user_printf("Vx: %f, Vy: %f, Vw: %f\r\n", ctrl_car.joystick->vx, ctrl_car.joystick->vy, ctrl_car.joystick->vw);
     // user_printf("x: %d, y: %d\r\n", adc_data.adc_ch0, adc_data.adc_ch1);
     // user_printf("F: %f, B: %f, L: %f, R: %f\r\n", US_Data.F, US_Data.B, US_Data.L, US_Data.R);
+}
+
+void simulation_led_task(void)
+{
+#if CODE_SIMULATION
+    P13 ^= 1;
+#endif
 }
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
 

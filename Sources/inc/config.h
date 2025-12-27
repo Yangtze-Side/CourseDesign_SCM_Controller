@@ -12,7 +12,12 @@
 
 //<<AICUBE_USER_DEFINE_BEGIN>>
 // 在此添加用户宏定义  
-#define CODE_SIMULATION         1
+
+#define CODE_SIMULATION         0   /* 下载到仿真的时候置 1，以适应必养的 Proteus */
+
+#if CODE_SIMULATION
+    #define TestLED_ON()        (P13 = 0)
+#endif
 //<<AICUBE_USER_DEFINE_END>>
 
 

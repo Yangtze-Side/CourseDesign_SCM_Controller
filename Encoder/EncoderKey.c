@@ -76,6 +76,7 @@ void EncoderKey_Init(void)
 
 void EncoderKey_Update(void)
 {
+#if !CODE_SIMULATION
     s8 now_region = getEncoderRegion(encoder_degree, NOTCH_NUM);
     if ((ShowState != PAGE_Control)&&(ShowState != PAGE_About))
     {
@@ -92,4 +93,5 @@ void EncoderKey_Update(void)
             last_region = now_region;
         }
     }
+#endif
 }

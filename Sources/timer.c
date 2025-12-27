@@ -160,8 +160,10 @@ void TIMER1_ISR(void) interrupt TMR1_VECTOR
     //<<AICUBE_USER_TIMER1_ISR_CODE1_BEGIN>>
     // 在此添加中断函数用户代码  
     // 5ms TODO
+#if !CODE_SIMULATION
     AS5600_Update();
     FOC_Task();
+#endif
     //<<AICUBE_USER_TIMER1_ISR_CODE1_END>>
 }
 
@@ -179,7 +181,9 @@ void TIMER3_ISR(void) interrupt TMR3_VECTOR
     // 但是在中断里每 5 或 6 ms 执行一次会导致程序卡顿
     // 原因不明
     // 然后就改成每 10 ms 执行一次就好了
+#if !CODE_SIMULATION
     IMU_Update();
+#endif
     // imuUpdateTime_ms = (u8)(Sys_GetTick() - tickStart);
     //<<AICUBE_USER_TIMER3_ISR_CODE1_END>>
 }

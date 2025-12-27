@@ -132,9 +132,13 @@ void PORT5_Init(void)
 #else
 void PORT0_Init(void) {}
 void PORT1_Init(void) {}
-void PORT2_Init(void) {}
+void PORT2_Init(void) {
+    SetP2nInitLevelLow(PIN_7);          //设置P2.7初始化电平
+}
 void PORT3_Init(void) {}
-void PORT4_Init(void) {}
+void PORT4_Init(void) {
+    SetP4nInitLevelLow(PIN_5 | PIN_4);  //设置P4.5,P4.4初始化电平
+}
 void PORT5_Init(void) {}
 #endif
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>

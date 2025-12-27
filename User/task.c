@@ -13,6 +13,7 @@
 #include "Control/control.h"
 
 void led_task(void);
+void simulation_led_task(void);
 
 volatile BOOL TaskExeFlag = 0;
 
@@ -24,7 +25,7 @@ typedef struct
     void (*taskHook)(void);
 } Task_t;
 
-#define TASK_TOTAL      7
+#define TASK_TOTAL      8
 
 Task_t Task[TASK_TOTAL] =
 {
@@ -37,6 +38,7 @@ Task_t Task[TASK_TOTAL] =
     { 60/5, 0, Comm_SendTask },
 
     { 100/5, 0, Display_Task },
+    { 200/5, 0, simulation_led_task },
 };
 
 void TaskExe(void)
@@ -65,5 +67,6 @@ void TaskExe(void)
         Key_UD_Task();
         KeySL_Task();
         EncoderKey_Update();
+        simulation_led_task();
     }
 }

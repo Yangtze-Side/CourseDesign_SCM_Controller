@@ -39,11 +39,15 @@ void proj_init(void)
 	UART_Recv_Init(UART1, &uart1_rx, UART1_RecvBuf, UART1_RecvBuf_SIZE);
 #endif
 	IMU_Init();
+#if !CODE_SIMULATION
 	EncoderKey_Init();
+#endif
 	Display_Init();
 	Comm_Init();
+#if !CODE_SIMULATION
 	User_PWM_Init();
 	FOC_Init();
+#endif
 }
 
 #if UART_RECV_USE_FIFO
