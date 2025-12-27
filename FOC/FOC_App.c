@@ -62,13 +62,13 @@ void FOC_Task(void)
             case PAGE_About:
             {
                 FOC_SetAnglePID_Param(
-                    FOCPID_EFFECT2_Kp,
-                    FOCPID_EFFECT2_Ki,
-                    FOCPID_EFFECT2_Kd,
-                    FOCPID_EFFECT2_IntMax,
-                    FOCPID_EFFECT2_IntDis,
-                    FOCPID_EFFECT2_DeMax,
-                    FOCPID_EFFECT2_UMax
+                    FOCPID_EFFECT3_Kp,
+                    FOCPID_EFFECT3_Ki,
+                    FOCPID_EFFECT3_Kd,
+                    FOCPID_EFFECT3_IntMax,
+                    FOCPID_EFFECT3_IntDis,
+                    FOCPID_EFFECT3_DeMax,
+                    FOCPID_EFFECT3_UMax
                 );
             }
 
@@ -88,7 +88,7 @@ void FOC_Task(void)
             else if (Do_Swing)
             {
                 Do_FOC = 0;
-                // angleControl_loop(EulerAngle.roll);
+                angleControl_loop(2.0f);
             }
             else
             {
