@@ -14,6 +14,7 @@
 #include "Display.h"
 
 extern BOOL Do_FOC;
+extern BOOL Do_Swing;
 
 void Page_About_Subtrate(void);
 void Page_About_Task(void);

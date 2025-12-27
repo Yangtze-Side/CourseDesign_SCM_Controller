@@ -20,6 +20,14 @@
 #define FOCPID_EFFECT2_DeMax    1.6f
 #define FOCPID_EFFECT2_UMax     VOLTAGE_POWER_SUPPLY/3
 
+#define FOCPID_EFFECT3_Kp       0.3f
+#define FOCPID_EFFECT3_Ki       0.0f / FOCPID_EFFECT3_IntMax
+#define FOCPID_EFFECT3_Kd       - 0.5f / FOCPID_EFFECT3_DeMax
+#define FOCPID_EFFECT3_IntMax   48.0f
+#define FOCPID_EFFECT3_IntDis   15.0f
+#define FOCPID_EFFECT3_DeMax    3.0f
+#define FOCPID_EFFECT3_UMax     VOLTAGE_POWER_SUPPLY/3
+
 
 typedef struct {
     int region_id;        // 落在哪个区域

@@ -57,5 +57,6 @@ void setTorque(float Uq,float angle_elctric) {
 	Ua = Ualpha + VOLTAGE_POWER_SUPPLY/2;
 	Ub = (_sqrtApprox(3)*Ubeta-Ualpha)/2 + VOLTAGE_POWER_SUPPLY/2;
 	Uc = (-Ualpha-_sqrtApprox(3)*Ubeta)/2 + VOLTAGE_POWER_SUPPLY/2;
+	
 	setPWM(Ua,Ub,Uc);
 }
