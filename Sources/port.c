@@ -20,6 +20,7 @@
 
 //<<AICUBE_USER_GLOBAL_DEFINE_BEGIN>>
 // 在此添加用户全局变量定义、用户宏定义以及函数声明  
+#if !CODE_SIMULATION
 //<<AICUBE_USER_GLOBAL_DEFINE_END>>
 
 
@@ -128,6 +129,14 @@ void PORT5_Init(void)
 
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_BEGIN>>
 // 在此添加用户函数实现代码  
+#else
+void PORT0_Init(void) {}
+void PORT1_Init(void) {}
+void PORT2_Init(void) {}
+void PORT3_Init(void) {}
+void PORT4_Init(void) {}
+void PORT5_Init(void) {}
+#endif
 //<<AICUBE_USER_FUNCTION_IMPLEMENT_END>>
 
 

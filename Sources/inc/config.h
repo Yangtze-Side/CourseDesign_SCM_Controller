@@ -12,7 +12,7 @@
 
 //<<AICUBE_USER_DEFINE_BEGIN>>
 // 在此添加用户宏定义  
-#define USE_MPU6500             1
+#define CODE_SIMULATION         1
 //<<AICUBE_USER_DEFINE_END>>
 
 
