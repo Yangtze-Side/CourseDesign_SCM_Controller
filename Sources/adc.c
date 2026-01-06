@@ -55,7 +55,9 @@ uint16_t ADC_Convert(uint8_t ch)
 
     ADC_ActiveChannel(ch);              //选择ADC通道
     ADC_Start();                        //开始ADC转换
+#if !CODE_SIMULATION
     while (!ADC_CheckFlag());           //等待ADC转换完成
+#endif
     ADC_ClearFlag();                    //清除ADC转换完成中断标志
     res = ADC_ReadResult();             //读取ADC转换结果
 

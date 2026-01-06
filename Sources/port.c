@@ -131,7 +131,9 @@ void PORT5_Init(void)
 // 在此添加用户函数实现代码  
 #else
 void PORT0_Init(void) {}
-void PORT1_Init(void) {}
+void PORT1_Init(void) {
+    // SetP1nHighZInputMode(PIN_1 | PIN_0); //设置P1.1,P1.0为高阻输入模式
+}
 void PORT2_Init(void) {
     SetP2nInitLevelLow(PIN_7);          //设置P2.7初始化电平
 }
